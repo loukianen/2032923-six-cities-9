@@ -84,7 +84,7 @@ function MainPage(props: MainPageProps): JSX.Element {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{advertsAmount} places to stay in Amsterdam</b>
-                <form className="places__sorting" action="#" method="get">
+                <form className="places__sorting" action="#-some-valid-path" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex={0}>
                     Popular

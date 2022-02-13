@@ -179,7 +179,7 @@ function RoomPage(): JSX.Element {
                       </div>
                     </li>
                   </ul>
-                  <form className="reviews__form form" action="#" method="post">
+                  <form className="reviews__form form" action="#-some-valid-path" method="post">
                     <label className="reviews__label form__label" htmlFor="review">Your review</label>
                     <div className="reviews__rating-form form__rating">
                       <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" />
