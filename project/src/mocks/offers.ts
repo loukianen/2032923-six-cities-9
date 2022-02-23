@@ -98,7 +98,7 @@ const offers: Offer[] = [
     images: [ `${IMG_URL}img/room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
       `${IMG_URL}apartment-03.jpg`, `${IMG_URL}studio-01.jpg`, `${IMG_URL}apartment-01.jpg`],
     isFavorite: false,
-    isPremium: true,
+    isPremium: false,
     location: {
       latitude: 12,
       longitude: 12,
@@ -130,11 +130,11 @@ const offers: Offer[] = [
       isPro: true,
       name: 'Angelina',
     },
-    id: 2,
+    id: 4,
     images: [ `${IMG_URL}img/room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
       `${IMG_URL}apartment-03.jpg`, `${IMG_URL}studio-01.jpg`, `${IMG_URL}apartment-01.jpg`],
     isFavorite: false,
-    isPremium: false,
+    isPremium: true,
     location: {
       latitude: 12,
       longitude: 12,

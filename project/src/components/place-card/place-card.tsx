@@ -1,7 +1,15 @@
 import { Offer } from '../../types/offers';
+// import firstImage from '../../../public/img/room.jpg';
+
+// const getImage = (imageName: string) => {
+//   const mapping = {
+//     first: firstImage,
+//   };
+//   return mapping[imageName] ? mapping[imageName] : mapping.first;
+// };
 
 function PlaceCard(props: Offer): JSX.Element {
-  const { isPremium, previewImage, price, rating, title, type } = props;
+  const { isPremium, price, rating, title, type } = props;
   return (
     <article className="cities__place-card place-card">
       <div className="place-card__mark" hidden={!isPremium}>
@@ -9,7 +17,7 @@ function PlaceCard(props: Offer): JSX.Element {
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#place-card">
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place" />
+          <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place" />
         </a>
       </div>
       <div className="place-card__info">
@@ -27,7 +35,7 @@ function PlaceCard(props: Offer): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rating * 10}%` }}></span>
+            <span style={{ width: `${rating * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
