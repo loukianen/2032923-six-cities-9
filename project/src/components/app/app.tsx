@@ -6,13 +6,14 @@ import RoomPage from '../../pages/room-page/room-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
+import { Offer } from '../../types/offers';
 
-type AppProps = {
-  advertsAmount: number,
-};
+type AppPrors = {
+  offers: Offer[]
+}
 
-function App(props: AppProps): JSX.Element {
-  const { advertsAmount } = props;
+function App(props: AppPrors): JSX.Element {
+  const advertsAmount = props.offers.length;
   return (
     <BrowserRouter>
       <Routes>
