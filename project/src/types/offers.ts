@@ -1,3 +1,5 @@
+export type AccommodationType = 'apartment' | 'room' | 'house' | 'hotel';
+
 export type Location = {
   latitude: number,
   longitude: number,
@@ -32,9 +34,14 @@ export type Offer = {
   price: number,
   rating: number,
   title: string,
-  type: string,
+  type: AccommodationType,
 }
 
-export type Offers = {
-  offers: Offer[]
+export type Offers = Offer[];
+
+export type OffersProps = { offers: Offers };
+
+export type LocationsDataType = {
+  cityName: string,
+  offers: Offers,
 }

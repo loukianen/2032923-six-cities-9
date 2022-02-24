@@ -1,7 +1,7 @@
 import OffersList from '../../components/offers-list/offers-list';
-import { Offers } from '../../types/offers';
+import { OffersProps } from '../../types/offers';
 
-function MainPage(props: Offers): JSX.Element {
+function MainPage(props: OffersProps): JSX.Element {
   const advertsAmount = props.offers.length;
   return (
     <div className="page page--gray page--main">

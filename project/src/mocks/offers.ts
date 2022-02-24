@@ -11,7 +11,7 @@ const offers: Offer[] = [
         longitude: 12,
         zoom: 10,
       },
-      name: 'Amsterdam',
+      name: 'Cologne',
     },
     description: '',
     goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
@@ -37,7 +37,7 @@ const offers: Offer[] = [
     price: 120,
     rating: 4,
     title: 'Beautiful &amp; luxurious apartment at great location',
-    type: 'Apartment',
+    type: 'apartment',
   },
   {
     bedrooms: 4,
@@ -47,7 +47,7 @@ const offers: Offer[] = [
         longitude: 12,
         zoom: 10,
       },
-      name: 'Amsterdam',
+      name: 'Cologne',
     },
     description: '',
     goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
@@ -73,7 +73,7 @@ const offers: Offer[] = [
     price: 80,
     rating: 4,
     title: 'Wood and stone place',
-    type: 'Private room',
+    type: 'room',
   },
   {
     bedrooms: 4,
@@ -109,7 +109,7 @@ const offers: Offer[] = [
     price: 132,
     rating: 4,
     title: 'Canal View Prinsengracht',
-    type: 'Apartment',
+    type: 'apartment',
   },
   {
     bedrooms: 4,
@@ -145,7 +145,7 @@ const offers: Offer[] = [
     price: 180,
     rating: 5,
     title: 'Canal View Prinsengracht',
-    type: 'Apartment',
+    type: 'apartment',
   },
 ];
 

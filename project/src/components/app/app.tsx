@@ -6,9 +6,9 @@ import RoomPage from '../../pages/room-page/room-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { Offers } from '../../types/offers';
+import { OffersProps } from '../../types/offers';
 
-function App(props: Offers): JSX.Element {
+function App(props: OffersProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -17,7 +17,7 @@ function App(props: Offers): JSX.Element {
           <Route path='login' element={<AuthPage />} />
           <Route path='favorites' element={
             <PrivateRoute>
-              <FavoritesPage />
+              <FavoritesPage offers={props.offers} />
             </PrivateRoute>
           }
           />

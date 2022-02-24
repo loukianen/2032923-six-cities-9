@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import PlaceCard from '../place-card/place-card';
-import { Offers } from '../../types/offers';
+import { OffersProps } from '../../types/offers';
 
-function OffersList(props: Offers) {
+function OffersList(props: OffersProps) {
   const [activeOffer, setActiveOffer] = useState(null as number | null);
   const handleMouseOver = (id: number) => () => {
     setActiveOffer(id);
