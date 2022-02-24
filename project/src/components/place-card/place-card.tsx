@@ -1,17 +1,16 @@
 import { Offer } from '../../types/offers';
-// import firstImage from '../../../public/img/room.jpg';
 
-// const getImage = (imageName: string) => {
-//   const mapping = {
-//     first: firstImage,
-//   };
-//   return mapping[imageName] ? mapping[imageName] : mapping.first;
-// };
+type PlaceCardProps = {
+  offer: Offer,
+  mouseOverHandler: () => void,
+  mouseOutHandler: () => void,
+}
 
-function PlaceCard(props: Offer): JSX.Element {
-  const { isPremium, price, rating, title, type } = props;
+function PlaceCard(props: PlaceCardProps): JSX.Element {
+  const { isPremium, price, rating, title, type } = props.offer;
+  const { mouseOverHandler, mouseOutHandler } = props;
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" onMouseOver={mouseOverHandler} onMouseOut={mouseOutHandler}>
       <div className="place-card__mark" hidden={!isPremium}>
         <span>Premium</span>
       </div>
