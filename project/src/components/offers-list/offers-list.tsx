@@ -3,12 +3,12 @@ import PlaceCard from '../place-card/place-card';
 import { Offers } from '../../types/offers';
 
 function OffersList(props: Offers) {
-  const [activeOffer, setActiveOffer] = useState(0);
+  const [activeOffer, setActiveOffer] = useState(null as number | null);
   const handleMouseOver = (id: number) => () => {
     setActiveOffer(id);
   };
   const handleMouseOut = () => {
-    setActiveOffer(0);
+    setActiveOffer(null);
   };
   const { offers } = props;
   return (
