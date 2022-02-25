@@ -1,19 +1,20 @@
+import { Link } from 'react-router-dom';
 import PlaceCardMark from '../place-card-mark/place-card-mark';
 import { Offer } from '../../types/offers';
 import { getAccommodationTitle, getRatingStyleData } from '../../utils';
 
 type PlaceCardProps = {
-  offer: Pick<Offer, 'isPremium' | 'price' | 'rating' | 'title' | 'type' | 'previewImage'>,
+  offer: Pick<Offer, 'isPremium' | 'price' | 'rating' | 'title' | 'type' | 'previewImage' | 'id'>,
   mouseOverHandler: () => void,
   mouseOutHandler: () => void,
 }
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
-  const { isPremium, price, rating, title, type } = props.offer;
+  const { isPremium, price, rating, title, type, id } = props.offer;
   const { mouseOverHandler, mouseOutHandler } = props;
   return (
     <article className="cities__place-card place-card" onMouseOver={mouseOverHandler} onMouseOut={mouseOutHandler}>
-      {isPremium && <PlaceCardMark />}
+      {isPremium && <PlaceCardMark class="place-card__mark" />}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#place-card">
           <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place" />
@@ -39,7 +40,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#place-card">{title}</a>
+          <Link to={`offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{getAccommodationTitle(type)}</p>
       </div>

@@ -1,6 +1,6 @@
-function PlaceCardMark() {
+function PlaceCardMark(props: { class: string }) {
   return (
-    <div className="place-card__mark">
+    <div className={props.class}>
       <span>Premium</span>
     </div>
   );

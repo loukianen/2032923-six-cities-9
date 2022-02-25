@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import RoomGallery from '../../components/room-gallery/room-gallery';
 import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
 import RoomFeaturesList from '../../components/room-features-list/room-features-list';
@@ -32,7 +33,7 @@ function RoomPage(props: OffersProps): JSX.Element | null {
   }
 
   const {
-    images, description, rating, isPremium, type, bedrooms, maxAdults, price, goods,
+    images, title, rating, isPremium, type, bedrooms, maxAdults, price, goods,
   } = offer;
 
   return (
@@ -41,9 +42,11 @@ function RoomPage(props: OffersProps): JSX.Element | null {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
+              <Link to="/">
+                <a className="header__logo-link" href="#main">
+                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -70,10 +73,10 @@ function RoomPage(props: OffersProps): JSX.Element | null {
           <RoomGallery images={images} />
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium && <PlaceCardMark />}
+              {isPremium && <PlaceCardMark class="property__mark" />}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {description}
+                  {title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">

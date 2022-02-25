@@ -35,7 +35,7 @@ const offers: Offer[] = [
     maxAdults: 4,
     previewImage: `${IMG_URL}apartment-01.jpg`,
     price: 120,
-    rating: 4,
+    rating: 4.0,
     title: 'Beautiful &amp; luxurious apartment at great location',
     type: 'apartment',
   },
@@ -71,7 +71,7 @@ const offers: Offer[] = [
     maxAdults: 4,
     previewImage: `${IMG_URL}room.jpg`,
     price: 80,
-    rating: 4,
+    rating: 4.8,
     title: 'Wood and stone place',
     type: 'room',
   },
@@ -112,7 +112,7 @@ const offers: Offer[] = [
     type: 'apartment',
   },
   {
-    bedrooms: 4,
+    bedrooms: 4.4,
     city: {
       location: {
         latitude: 12,
