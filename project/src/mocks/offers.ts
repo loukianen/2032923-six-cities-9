@@ -107,12 +107,12 @@ const offers: Offer[] = [
     maxAdults: 4,
     previewImage: `${IMG_URL}apartment-02.jpg`,
     price: 132,
-    rating: 4,
+    rating: 4.4,
     title: 'Canal View Prinsengracht',
     type: 'apartment',
   },
   {
-    bedrooms: 4.4,
+    bedrooms: 4,
     city: {
       location: {
         latitude: 12,
