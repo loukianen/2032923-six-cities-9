@@ -15,7 +15,7 @@ const offers: Offer[] = [
     },
     description: '',
     goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
-      'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'],
+      'Kitchen', 'Dishwasher', 'Cabel TV', 'Tools1'],
     host:{
       avatarUrl: `${IMG_URL}avatar-angelina.jpg`,
       id: 1,
@@ -51,7 +51,7 @@ const offers: Offer[] = [
     },
     description: '',
     goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
-      'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'],
+      'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge', 'Tools2'],
     host:{
       avatarUrl: `${IMG_URL}avatar-angelina.jpg`,
       id: 1,
@@ -87,7 +87,7 @@ const offers: Offer[] = [
     },
     description: '',
     goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
-      'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'],
+      'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge', 'Tools3'],
     host:{
       avatarUrl: `${IMG_URL}avatar-angelina.jpg`,
       id: 1,
@@ -123,7 +123,7 @@ const offers: Offer[] = [
     },
     description: '',
     goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
-      'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'],
+      'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge', 'Tools4'],
     host:{
       avatarUrl: `${IMG_URL}avatar-angelina.jpg`,
       id: 1,

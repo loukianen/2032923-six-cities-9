@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RoomGallery from '../../components/room-gallery/room-gallery';
+import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
+import RoomFeaturesList from '../../components/room-features-list/room-features-list';
 import { OffersProps, Offers, Offer } from '../../types/offers';
+import { getAccommodationTitle, getRatingStyleData } from '../../utils';
 
 function getProcessedOffersData(offers: Offers) {
   return offers.reduce((acc: { [offerId: string]: Offer}, offer: Offer) => {
@@ -16,15 +19,23 @@ function RoomPage(props: OffersProps): JSX.Element | null {
 
   const currentPath = document.location.pathname;
   const [, , offerId] = currentPath.split('/');
-  const isIdValid = offersStore[offerId];
+  const offer = offersStore[offerId];
 
   useEffect(() => {
-    if (!isIdValid) {
+    if (!offer) {
       navigate('/notfound', { replace: true });
     }
   });
 
-  return !offersStore[offerId] ? null : (
+  if (!offer) {
+    return null;
+  }
+
+  const {
+    images, description, rating, isPremium, type, bedrooms, maxAdults, price, goods,
+  } = offer;
+
+  return (
     <div className="page">
       <header className="header">
         <div className="container">
@@ -56,15 +67,13 @@ function RoomPage(props: OffersProps): JSX.Element | null {
 
       <main className="page__main page__main--property">
         <section className="property">
-          <RoomGallery images={offersStore[offerId].images} />
+          <RoomGallery images={images} />
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
+              {isPremium && <PlaceCardMark />}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {description}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
@@ -75,60 +84,29 @@ function RoomPage(props: OffersProps): JSX.Element | null {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: '80%' }}></span>
+                  <span style={{ width: `${getRatingStyleData(rating)}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  Apartment
+                  {getAccommodationTitle(type)}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {`${bedrooms} Bedrooms`}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  {`Max ${maxAdults} adults`}
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;120</b>
+                <b className="property__price-value">&euro;{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
-                <ul className="property__inside-list">
-                  <li className="property__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="property__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="property__inside-item">
-                    Towels
-                  </li>
-                  <li className="property__inside-item">
-                    Heating
-                  </li>
-                  <li className="property__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="property__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="property__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="property__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="property__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="property__inside-item">
-                    Fridge
-                  </li>
-                </ul>
+                <RoomFeaturesList goods={goods} />
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
