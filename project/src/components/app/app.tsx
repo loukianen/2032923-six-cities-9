@@ -21,7 +21,7 @@ function App(props: OffersProps): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path='offer/:id' element={<RoomPage />} />
+          <Route path='offer/:id' element={<RoomPage offers={props.offers} />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

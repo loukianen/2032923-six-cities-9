@@ -1,10 +1,10 @@
 import { Offer } from '../types/offers';
 
-const IMG_URL = '../../public/img/';
+const IMG_URL = 'img/';
 
 const offers: Offer[] = [
   {
-    bedrooms: 4,
+    bedrooms: 3,
     city: {
       location: {
         latitude: 12,
@@ -23,7 +23,7 @@ const offers: Offer[] = [
       name: 'Angelina',
     },
     id: 1,
-    images: [ `${IMG_URL}img/room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
+    images: [ `${IMG_URL}room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
       `${IMG_URL}apartment-03.jpg`, `${IMG_URL}studio-01.jpg`, `${IMG_URL}apartment-01.jpg`],
     isFavorite: false,
     isPremium: true,
@@ -40,7 +40,7 @@ const offers: Offer[] = [
     type: 'apartment',
   },
   {
-    bedrooms: 4,
+    bedrooms: 2,
     city: {
       location: {
         latitude: 12,
@@ -59,7 +59,7 @@ const offers: Offer[] = [
       name: 'Angelina',
     },
     id: 2,
-    images: [ `${IMG_URL}img/room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
+    images: [ `${IMG_URL}room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
       `${IMG_URL}apartment-03.jpg`, `${IMG_URL}studio-01.jpg`, `${IMG_URL}apartment-01.jpg`],
     isFavorite: false,
     isPremium: false,
@@ -83,7 +83,7 @@ const offers: Offer[] = [
         longitude: 12,
         zoom: 10,
       },
-      name: 'Amsterdam',
+      name: 'Brussels',
     },
     description: '',
     goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
@@ -95,7 +95,7 @@ const offers: Offer[] = [
       name: 'Angelina',
     },
     id: 3,
-    images: [ `${IMG_URL}img/room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
+    images: [ `${IMG_URL}room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
       `${IMG_URL}apartment-03.jpg`, `${IMG_URL}studio-01.jpg`, `${IMG_URL}apartment-01.jpg`],
     isFavorite: false,
     isPremium: false,
@@ -131,7 +131,7 @@ const offers: Offer[] = [
       name: 'Angelina',
     },
     id: 4,
-    images: [ `${IMG_URL}img/room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
+    images: [ `${IMG_URL}room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
       `${IMG_URL}apartment-03.jpg`, `${IMG_URL}studio-01.jpg`, `${IMG_URL}apartment-01.jpg`],
     isFavorite: false,
     isPremium: true,
