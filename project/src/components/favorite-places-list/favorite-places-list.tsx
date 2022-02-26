@@ -5,10 +5,7 @@ function OffersList(props: OffersProps) {
   const { offers } = props;
   return (
     <div className="favorites__places">
-      {offers.map((offer) => {
-        const { id } = offer;
-        return <FavoritePlaceCard key={id} offer={offer} />;
-      })}
+      {offers.map((offer) => <FavoritePlaceCard key={offer.id} offer={offer} />)}
     </div>
   );
 }

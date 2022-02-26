@@ -14,17 +14,14 @@ function OffersList(props: OffersProps) {
   return (
     <div className="cities__places-list places__list tabs__content">
       {activeOffer}
-      {offers.map((offer) => {
-        const { id } = offer;
-        return (
-          <PlaceCard
-            key={id}
-            offer={offer}
-            mouseOverHandler={handleMouseOver(id)}
-            mouseOutHandler={handleMouseOut}
-          />
-        );
-      })}
+      {offers.map((offer) => (
+        <PlaceCard
+          key={offer.id}
+          offer={offer}
+          mouseOverHandler={handleMouseOver(offer.id)}
+          mouseOutHandler={handleMouseOut}
+        />
+      ))}
     </div>
   );
 }

@@ -13,3 +13,11 @@ export function getAccommodationTitle(type: AccommodationType) {
 export function getRatingStyleData(rating: number) {
   return Math.round(rating) * 20;
 }
+
+export const uniqueId = Object.assign(
+  (prefix = '') => {
+    uniqueId.counter += 1;
+    return `${prefix}${uniqueId.counter}`;
+  },
+  { counter: 0 },
+);
