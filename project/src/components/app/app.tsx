@@ -6,26 +6,23 @@ import RoomPage from '../../pages/room-page/room-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
+import { OffersProps } from '../../types/offers';
+import { AppRoute } from '../../const';
 
-type AppProps = {
-  advertsAmount: number,
-};
-
-function App(props: AppProps): JSX.Element {
-  const { advertsAmount } = props;
+function App(props: OffersProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<MainPage advertsAmount={advertsAmount} />} />
-          <Route path='login' element={<AuthPage />} />
-          <Route path='favorites' element={
+        <Route path={AppRoute.Root} element={<Layout />}>
+          <Route index element={<MainPage offers={props.offers} />} />
+          <Route path={AppRoute.Login} element={<AuthPage />} />
+          <Route path={AppRoute.Favorites} element={
             <PrivateRoute>
-              <FavoritesPage />
+              <FavoritesPage offers={props.offers} />
             </PrivateRoute>
           }
           />
-          <Route path='offer/:id' element={<RoomPage />} />
+          <Route path={AppRoute.Room} element={<RoomPage offers={props.offers} />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
