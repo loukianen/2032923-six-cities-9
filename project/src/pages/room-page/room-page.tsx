@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import RoomGallery from '../../components/room-gallery/room-gallery';
 import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
 import RoomFeaturesList from '../../components/room-features-list/room-features-list';
+import { MarkType } from '../../const';
 import CommentForm from '../../components/comment-form/comment-form';
 import { OffersProps, Offers, Offer } from '../../types/offers';
+import { AppRoute } from '../../const';
 import { getAccommodationTitle, getRatingStyleData } from '../../utils';
 
 function getProcessedOffersData(offers: Offers) {
@@ -43,7 +45,7 @@ function RoomPage(props: OffersProps): JSX.Element | null {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link to="/">
+              <Link to={AppRoute.Root}>
                 <a className="header__logo-link" href="#main">
                   <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
                 </a>
@@ -74,7 +76,7 @@ function RoomPage(props: OffersProps): JSX.Element | null {
           <RoomGallery images={images} />
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium && <PlaceCardMark class="property__mark" />}
+              {isPremium && <PlaceCardMark type={MarkType.Room} />}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}

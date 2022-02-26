@@ -7,21 +7,22 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import { OffersProps } from '../../types/offers';
+import { AppRoute } from '../../const';
 
 function App(props: OffersProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path={AppRoute.Root} element={<Layout />}>
           <Route index element={<MainPage offers={props.offers} />} />
-          <Route path='login' element={<AuthPage />} />
-          <Route path='favorites' element={
+          <Route path={AppRoute.Login} element={<AuthPage />} />
+          <Route path={AppRoute.Favorites} element={
             <PrivateRoute>
               <FavoritesPage offers={props.offers} />
             </PrivateRoute>
           }
           />
-          <Route path='offer/:id' element={<RoomPage offers={props.offers} />} />
+          <Route path={AppRoute.Room} element={<RoomPage offers={props.offers} />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

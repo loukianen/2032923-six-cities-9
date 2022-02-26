@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import PlaceCardMark from '../place-card-mark/place-card-mark';
+import { MarkType } from '../../const';
 import { Offer } from '../../types/offers';
 import { getAccommodationTitle, getRatingStyleData } from '../../utils';
 
@@ -14,7 +15,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
   const { mouseOverHandler, mouseOutHandler } = props;
   return (
     <article className="cities__place-card place-card" onMouseOver={mouseOverHandler} onMouseOut={mouseOutHandler}>
-      {isPremium && <PlaceCardMark class="place-card__mark" />}
+      {isPremium && <PlaceCardMark type={MarkType.PlaceCard} />}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#place-card">
           <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place" />
