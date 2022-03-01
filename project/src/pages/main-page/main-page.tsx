@@ -99,9 +99,7 @@ function MainPage(props: OffersProps): JSX.Element {
               <OffersList setActiveOffer={setActiveOffer} offers={props.offers} />
             </section>
             <div className="cities__right-section">
-              <section style={{backgroundImage: 'none'}} className="cities__map map">
-                <Map city={city} points={points} selectedPoint={activeOffer} />
-              </section>
+              <Map city={city} points={points} selectedPoint={activeOffer} />
             </div>
           </div>
         </div>
