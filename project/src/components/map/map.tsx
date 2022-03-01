@@ -6,20 +6,20 @@ import { Pins, IMG_URL } from '../../const';
 
 const defaultCustomIcon = new Icon({
   iconUrl: `${IMG_URL}${Pins.Normal}`,
-  iconSize: [40, 40],
+  iconSize: [30, 40],
   iconAnchor: [20, 40],
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: `${IMG_URL}${Pins.Active}`,
-  iconSize: [40, 40],
+  iconSize: [30, 40],
   iconAnchor: [20, 40],
 });
 
 type MapProps = {
   city: Location;
   points: Points;
-  selectedPoint: number | undefined;
+  selectedPoint: number | null;
 };
 
 function Map(props: MapProps): JSX.Element {
@@ -47,7 +47,7 @@ function Map(props: MapProps): JSX.Element {
     }
   }, [map, points, selectedPoint]);
 
-  return <div ref={mapRef}></div>;
+  return <div style={{height: '500px'}} ref={mapRef}></div>;
 }
 
 export default Map;

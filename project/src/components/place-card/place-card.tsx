@@ -7,14 +7,13 @@ import { getAccommodationTitle, getRatingStyleData } from '../../utils';
 type PlaceCardProps = {
   offer: Pick<Offer, 'isPremium' | 'price' | 'rating' | 'title' | 'type' | 'previewImage' | 'id'>,
   mouseOverHandler: () => void,
-  mouseOutHandler: () => void,
 }
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
   const { isPremium, price, rating, title, type, id } = props.offer;
-  const { mouseOverHandler, mouseOutHandler } = props;
+  const { mouseOverHandler } = props;
   return (
-    <article className="cities__place-card place-card" onMouseOver={mouseOverHandler} onMouseOut={mouseOutHandler}>
+    <article className="cities__place-card place-card" onMouseOver={mouseOverHandler}>
       {isPremium && <PlaceCardMark type={MarkType.PlaceCard} />}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#place-card">
