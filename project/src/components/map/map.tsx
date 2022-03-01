@@ -6,13 +6,13 @@ import { Pins, IMG_URL } from '../../const';
 
 const defaultCustomIcon = new Icon({
   iconUrl: `${IMG_URL}${Pins.Normal}`,
-  iconSize: [30, 40],
+  iconSize: [28, 40],
   iconAnchor: [20, 40],
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: `${IMG_URL}${Pins.Active}`,
-  iconSize: [30, 40],
+  iconSize: [28, 40],
   iconAnchor: [20, 40],
 });
 
