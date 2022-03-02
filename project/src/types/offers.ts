@@ -45,3 +45,7 @@ export type LocationsDataType = {
   cityName: string,
   offers: Offers,
 }
+
+export type Point = Pick<Offer, 'id' | 'location'>;
+
+export type Points = Point[];

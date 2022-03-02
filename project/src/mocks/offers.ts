@@ -1,17 +1,16 @@
 import { Offer } from '../types/offers';
-
-const IMG_URL = 'img/';
+import { IMG_URL } from '../const';
 
 const offers: Offer[] = [
   {
     bedrooms: 3,
     city: {
       location: {
-        latitude: 12,
-        longitude: 12,
+        latitude: 52.37,
+        longitude: 4.857,
         zoom: 10,
       },
-      name: 'Cologne',
+      name: 'Amsterdam',
     },
     description: '',
     goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
@@ -28,8 +27,8 @@ const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     location: {
-      latitude: 12,
-      longitude: 12,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 10,
     },
     maxAdults: 4,
@@ -43,11 +42,11 @@ const offers: Offer[] = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 12,
-        longitude: 12,
+        latitude: 52.37,
+        longitude: 4.857,
         zoom: 10,
       },
-      name: 'Cologne',
+      name: 'Amsterdam',
     },
     description: '',
     goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
@@ -64,8 +63,8 @@ const offers: Offer[] = [
     isFavorite: false,
     isPremium: false,
     location: {
-      latitude: 12,
-      longitude: 12,
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
       zoom: 10,
     },
     maxAdults: 4,
@@ -79,11 +78,11 @@ const offers: Offer[] = [
     bedrooms: 4,
     city: {
       location: {
-        latitude: 12,
-        longitude: 12,
+        latitude: 52.37,
+        longitude: 4.857,
         zoom: 10,
       },
-      name: 'Brussels',
+      name: 'Amsterdam',
     },
     description: '',
     goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
@@ -100,8 +99,8 @@ const offers: Offer[] = [
     isFavorite: false,
     isPremium: false,
     location: {
-      latitude: 12,
-      longitude: 12,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 10,
     },
     maxAdults: 4,
@@ -115,8 +114,8 @@ const offers: Offer[] = [
     bedrooms: 4,
     city: {
       location: {
-        latitude: 12,
-        longitude: 12,
+        latitude: 52.37,
+        longitude: 4.857,
         zoom: 10,
       },
       name: 'Amsterdam',
@@ -136,8 +135,8 @@ const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     location: {
-      latitude: 12,
-      longitude: 12,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 10,
     },
     maxAdults: 4,
