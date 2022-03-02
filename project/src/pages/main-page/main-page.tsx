@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import OffersList from '../../components/offers-list/offers-list';
+import PlaceCardList from '../../components/place-card-list/place-card-list';
 import Map from '../../components/map/map';
 import { OffersProps } from '../../types/offers';
-import { MapLocation } from '../../const';
 
 function MainPage(props: OffersProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState(null as number | null);
@@ -97,10 +96,10 @@ function MainPage(props: OffersProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList setActiveOffer={setActiveOffer} offers={props.offers} />
+              <PlaceCardList setActiveOffer={setActiveOffer} offers={props.offers} placeCardListType="main" />
             </section>
             <div className="cities__right-section">
-              <Map city={city} points={points} selectedPoint={activeOffer} mapLocation={MapLocation.MainPage} />
+              <Map city={city} points={points} selectedPoint={activeOffer} type="main" />
             </div>
           </div>
         </div>

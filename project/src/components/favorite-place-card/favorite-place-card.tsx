@@ -1,5 +1,4 @@
 import PlaceCardMark from '../place-card-mark/place-card-mark';
-import { MarkType } from '../../const';
 import { Offer } from '../../types/offers';
 import { getAccommodationTitle, getRatingStyleData } from '../../utils';
 
@@ -11,7 +10,7 @@ function FavoritePlaceCard(props: FavoritePlaceCardProps): JSX.Element {
   const { isPremium, price, rating, title, type } = props.offer;
   return (
     <article className="favorites__card place-card">
-      {isPremium && <PlaceCardMark type={MarkType.PlaceCard} />}
+      {isPremium && <PlaceCardMark type="placeCard" />}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <a href="#header__nav">
           <img className="place-card__image" src="img/apartment-small-03.jpg" width="150" height="110" alt="Place" />

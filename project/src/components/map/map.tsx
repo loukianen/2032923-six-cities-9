@@ -2,7 +2,16 @@ import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap';
 import {Location, Points} from '../../types/offers';
+import { MapType } from '../../types/other-types';
 import { Pins, IMG_URL } from '../../const';
+
+function getClassName(type: MapType ): string {
+  const mapping = {
+    main: 'cities__map map',
+    room: 'property__map map',
+  };
+  return mapping[type];
+}
 
 const defaultCustomIcon = new Icon({
   iconUrl: `${IMG_URL}${Pins.Normal}`,
@@ -20,10 +29,10 @@ type MapProps = {
   city: Location;
   points: Points;
   selectedPoint: number | null;
-  mapLocation: string,
+  type: MapType,
 };
 
-const useMapAdapter = (props: Omit<MapProps, 'mapLocation'>)=>{
+const useMapAdapter = (props: Omit<MapProps, 'type'>)=>{
   const { city, points, selectedPoint } = props;
 
   const mapRef = useRef(null);
@@ -50,10 +59,10 @@ const useMapAdapter = (props: Omit<MapProps, 'mapLocation'>)=>{
   return {mapRef};
 };
 
-function Map({city, points, selectedPoint, mapLocation}: MapProps): JSX.Element {
+function Map({city, points, selectedPoint, type}: MapProps): JSX.Element {
   const {mapRef} = useMapAdapter({city, points, selectedPoint});
 
-  return <section ref={mapRef} className={`${mapLocation} map`}></section>;
+  return <section ref={mapRef} className={getClassName(type)}></section>;
 }
 
 export default Map;

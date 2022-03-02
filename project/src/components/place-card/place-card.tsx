@@ -1,30 +1,50 @@
 import { Link } from 'react-router-dom';
 import PlaceCardMark from '../place-card-mark/place-card-mark';
-import { MarkType } from '../../const';
 import { Offer } from '../../types/offers';
+import { PlaceCardType } from '../../types/other-types';
 import { getAccommodationTitle, getRatingStyleData } from '../../utils';
+
+function getClassesName(type: PlaceCardType ) {
+  const mapping = {
+    main: {
+      articleClass: 'cities__place-card place-card',
+      imgWrapperClass: 'cities__image-wrapper place-card__image-wrapper',
+    },
+    room: {
+      articleClass: 'near-places__card place-card',
+      imgWrapperClass: 'near-places__image-wrapper place-card__image-wrapper',
+    },
+  };
+  return mapping[type];
+}
 
 type PlaceCardProps = {
   offer: Pick<Offer, 'isPremium' | 'price' | 'rating' | 'title' | 'type' | 'previewImage' | 'id'>,
-  setActiveOffer: (x: number | null) => void,
+  placeCardType: PlaceCardType,
+  setActiveOffer?: (x: number | null) => void,
 }
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
   const {
+    placeCardType,
     setActiveOffer,
-    offer: { isPremium, price, rating, title, type, id },
+    offer: { isPremium, price, rating, title, type, id, previewImage },
   } = props;
 
   const handleMouseOver = (offerId: number) => () => {
-    setActiveOffer(offerId);
+    if (setActiveOffer) {
+      setActiveOffer(offerId);
+    }
   };
 
+  const { articleClass, imgWrapperClass } = getClassesName(placeCardType);
+
   return (
-    <article className="cities__place-card place-card" onMouseOver={handleMouseOver(id)}>
-      {isPremium && <PlaceCardMark type={MarkType.PlaceCard} />}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className={articleClass} onMouseOver={handleMouseOver(id)}>
+      {isPremium && <PlaceCardMark type="placeCard" />}
+      <div className={imgWrapperClass}>
         <a href="#place-card">
-          <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place" />
         </a>
       </div>
       <div className="place-card__info">
