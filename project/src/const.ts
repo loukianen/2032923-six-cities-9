@@ -16,6 +16,11 @@ export enum AppRoute {
   Root = '/',
 }
 
+export enum MapLocation {
+  MainPage = 'cities__map',
+  RoomPage = 'property__map',
+}
+
 export enum Pins {
   Normal = 'pin.svg',
   Active = 'pin-active.svg',

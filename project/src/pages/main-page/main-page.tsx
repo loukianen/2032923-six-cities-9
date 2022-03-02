@@ -2,6 +2,7 @@ import { useState } from 'react';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { OffersProps } from '../../types/offers';
+import { MapLocation } from '../../const';
 
 function MainPage(props: OffersProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState(null as number | null);
@@ -99,7 +100,7 @@ function MainPage(props: OffersProps): JSX.Element {
               <OffersList setActiveOffer={setActiveOffer} offers={props.offers} />
             </section>
             <div className="cities__right-section">
-              <Map city={city} points={points} selectedPoint={activeOffer} />
+              <Map city={city} points={points} selectedPoint={activeOffer} mapLocation={MapLocation.MainPage} />
             </div>
           </div>
         </div>

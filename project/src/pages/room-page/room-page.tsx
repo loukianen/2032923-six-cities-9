@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import RoomGallery from '../../components/room-gallery/room-gallery';
 import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
 import RoomFeaturesList from '../../components/room-features-list/room-features-list';
-import { MarkType } from '../../const';
 import ReviewBlock from '../../components/review-block/review-block';
+import Map from '../../components/map/map';
 import { OffersProps, Offers, Offer } from '../../types/offers';
-import { AppRoute } from '../../const';
+import { AppRoute, MarkType, MapLocation } from '../../const';
 import { getAccommodationTitle, getRatingStyleData } from '../../utils';
 
 function getProcessedOffersData(offers: Offers) {
@@ -24,6 +24,8 @@ function RoomPage(props: OffersProps): JSX.Element | null {
   const currentPath = document.location.pathname;
   const [, , offerId] = currentPath.split('/');
   const offer = offersStore[offerId];
+  const city = offer.city.location;
+  const points = props.offers.map(({ id, location }) => ({ id, location }));
 
   useEffect(() => {
     if (!offer) {
@@ -139,7 +141,7 @@ function RoomPage(props: OffersProps): JSX.Element | null {
               <ReviewBlock />
             </div>
           </div>
-          <section className="property__map map"></section>
+          <Map city={city} points={points} selectedPoint={Number(offerId)} mapLocation={MapLocation.RoomPage} />
         </section>
         <div className="container">
           <section className="near-places places">

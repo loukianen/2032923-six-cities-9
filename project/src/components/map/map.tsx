@@ -20,9 +20,10 @@ type MapProps = {
   city: Location;
   points: Points;
   selectedPoint: number | null;
+  mapLocation: string,
 };
 
-const useMapAdapter = (props:MapProps)=>{
+const useMapAdapter = (props: Omit<MapProps, 'mapLocation'>)=>{
   const { city, points, selectedPoint } = props;
 
   const mapRef = useRef(null);
@@ -49,10 +50,10 @@ const useMapAdapter = (props:MapProps)=>{
   return {mapRef};
 };
 
-function Map({city,points,selectedPoint}: MapProps): JSX.Element {
+function Map({city, points, selectedPoint, mapLocation}: MapProps): JSX.Element {
   const {mapRef} = useMapAdapter({city, points, selectedPoint});
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  return <section ref={mapRef} className={`${mapLocation} map`}></section>;
 }
 
 export default Map;
