@@ -7,12 +7,6 @@ type OffersListProps = {
 }
 
 function OffersList(props: OffersListProps) {
-  const handleMouseOver = (id: number) => () => {
-    props.setActiveOffer(id);
-  };
-  // const handleMouseOut = () => {
-  //   setActiveOffer(null);
-  // };
   const { offers } = props;
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -20,7 +14,7 @@ function OffersList(props: OffersListProps) {
         <PlaceCard
           key={offer.id}
           offer={offer}
-          mouseOverHandler={handleMouseOver(offer.id)}
+          setActiveOffer={props.setActiveOffer}
         />
       ))}
     </div>

@@ -22,8 +22,8 @@ type MapProps = {
   selectedPoint: number | null;
 };
 
-function Map(props: MapProps): JSX.Element {
-  const {city, points, selectedPoint} = props;
+const useMapAdapter = (props:MapProps)=>{
+  const { city, points, selectedPoint } = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -46,6 +46,11 @@ function Map(props: MapProps): JSX.Element {
       });
     }
   }, [map, points, selectedPoint]);
+  return {mapRef};
+};
+
+function Map({city,points,selectedPoint}: MapProps): JSX.Element {
+  const {mapRef} = useMapAdapter({city, points, selectedPoint});
 
   return <section className="cities__map map" ref={mapRef}></section>;
 }
