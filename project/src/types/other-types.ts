@@ -1,3 +1,5 @@
+import { Offers } from './offers';
+
 export type Comment = {
   comment: string,
   date: string,
@@ -15,6 +17,11 @@ export type MarkType = 'placeCard' | 'room';
 export type PlaceCardType = 'main' | 'room';
 
 export type PlaceCardListType = PlaceCardType;
+
+export type AppState = {
+  city: string,
+  offers: Offers,
+}
 
 export type User = {
   avatarUrl: string,
