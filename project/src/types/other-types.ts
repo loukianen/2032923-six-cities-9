@@ -1,4 +1,10 @@
 import { Offers } from './offers';
+import store from '../store';
+
+export type AppState = {
+  city: string,
+  offers: Offers,
+}
 
 export type Comment = {
   comment: string,
@@ -18,10 +24,7 @@ export type PlaceCardType = 'main' | 'room';
 
 export type PlaceCardListType = PlaceCardType;
 
-export type AppState = {
-  city: string,
-  offers: Offers,
-}
+export type State = ReturnType<typeof store.getState>;
 
 export type User = {
   avatarUrl: string,

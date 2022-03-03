@@ -1,4 +1,5 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import AuthPage from '../../pages/auth-page/auth-page';
@@ -6,23 +7,24 @@ import RoomPage from '../../pages/room-page/room-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { OffersProps } from '../../types/offers';
+import { State } from '../../types/other-types';
 import { AppRoute } from '../../const';
 
-function App(props: OffersProps): JSX.Element {
+function App(): JSX.Element {
+  const { city, offers } = useSelector((state: State) => state);
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Root} element={<Layout />}>
-          <Route index element={<MainPage offers={props.offers} />} />
+          <Route index element={<MainPage offers={offers} city={city}/>} />
           <Route path={AppRoute.Login} element={<AuthPage />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute>
-              <FavoritesPage offers={props.offers} />
+              <FavoritesPage offers={offers} />
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Room} element={<RoomPage offers={props.offers} />} />
+          <Route path={AppRoute.Room} element={<RoomPage offers={offers} />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

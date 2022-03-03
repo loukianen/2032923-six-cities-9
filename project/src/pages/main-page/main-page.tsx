@@ -3,7 +3,9 @@ import PlaceCardList from '../../components/place-card-list/place-card-list';
 import Map from '../../components/map/map';
 import { OffersProps } from '../../types/offers';
 
-function MainPage(props: OffersProps): JSX.Element {
+type MainPageProps = OffersProps & { city: string };
+
+function MainPage(props: MainPageProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState(null as number | null);
   const city = props.offers[0].city.location;
   const points = props.offers.map(({ id, location }) => ({ id, location }));
