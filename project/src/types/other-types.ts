@@ -1,6 +1,8 @@
 import { Offers } from './offers';
 import store from '../store';
 
+export type AppDispatch = typeof store.dispatch;
+
 export type AppState = {
   city: string,
   offers: Offers,

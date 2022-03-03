@@ -1,5 +1,4 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import AuthPage from '../../pages/auth-page/auth-page';
@@ -7,11 +6,11 @@ import RoomPage from '../../pages/room-page/room-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { State } from '../../types/other-types';
+import { useAppSelector } from '../../hooks';
 import { AppRoute } from '../../const';
 
 function App(): JSX.Element {
-  const { city, offers } = useSelector((state: State) => state);
+  const { city, offers } = useAppSelector((state) => state);
   return (
     <BrowserRouter>
       <Routes>

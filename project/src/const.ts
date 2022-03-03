@@ -5,7 +5,7 @@ export enum AppRoute {
   Root = '/',
 }
 
-export const CITY_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const IMG_URL = 'img/';
 

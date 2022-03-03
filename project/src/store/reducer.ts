@@ -4,7 +4,7 @@ import { AppState } from '../types/other-types';
 import offers from '../mocks/offers';
 
 const initialState: AppState = {
-  city: 'paris',
+  city: 'Paris',
   offers: offers,
 };
 
