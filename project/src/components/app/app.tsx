@@ -6,23 +6,24 @@ import RoomPage from '../../pages/room-page/room-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { OffersProps } from '../../types/offers';
+import { useAppSelector } from '../../hooks';
 import { AppRoute } from '../../const';
 
-function App(props: OffersProps): JSX.Element {
+function App(): JSX.Element {
+  const { city, offers } = useAppSelector((state) => state);
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Root} element={<Layout />}>
-          <Route index element={<MainPage offers={props.offers} />} />
+          <Route index element={<MainPage offers={offers} city={city}/>} />
           <Route path={AppRoute.Login} element={<AuthPage />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute>
-              <FavoritesPage offers={props.offers} />
+              <FavoritesPage offers={offers} />
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Room} element={<RoomPage offers={props.offers} />} />
+          <Route path={AppRoute.Room} element={<RoomPage offers={offers} />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
