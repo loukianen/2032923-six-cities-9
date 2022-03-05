@@ -46,7 +46,7 @@ const offers: Offer[] = [
         longitude: 4.857,
         zoom: 10,
       },
-      name: 'Amsterdam',
+      name: 'Hamburg',
     },
     description: '',
     goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
