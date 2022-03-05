@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../hooks';
-import { setCity } from '../../store/action';
+import { setCityName } from '../../store/reducers/city-reducer';
 import { cityNames } from '../../const';
 
 function CityList(props: { city: string }) {
@@ -7,7 +7,7 @@ function CityList(props: { city: string }) {
   const dispatch = useAppDispatch();
 
   function handleClick(cityName: string) {
-    return () => dispatch(setCity(cityName));
+    return () => dispatch(setCityName(cityName));
   }
 
   return (
