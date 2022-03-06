@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PlaceCardMark from '../place-card-mark/place-card-mark';
 import { Offer } from '../../types/offers';
 import { PlaceCardType } from '../../types/other-types';
 import { getAccommodationTitle, getRatingStyleData } from '../../utils';
+import useHover from '../../hooks/useHover';
 
 function getClassesName(type: PlaceCardType ) {
   const mapping = {
@@ -31,22 +33,18 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
     offer: { isPremium, price, rating, title, type, id, previewImage },
   } = props;
 
-  const handleMouseEnter = (offerId: number) => () => {
-    if (setActiveOffer) {
-      setActiveOffer(offerId);
-    }
-  };
+  const [hoverRef, isHover] = useHover<HTMLElement>();
 
-  const handleMouseLeave = () => {
+  useEffect(() => {
     if (setActiveOffer) {
-      setActiveOffer(null);
+      isHover ? setActiveOffer(id) : setActiveOffer(null);
     }
-  };
+  }, [id, setActiveOffer, isHover]);
 
   const { articleClass, imgWrapperClass } = getClassesName(placeCardType);
 
   return (
-    <article className={articleClass} onMouseOver={handleMouseEnter(id)} onMouseLeave={handleMouseLeave}>
+    <article className={articleClass} ref={hoverRef}>
       {isPremium && <PlaceCardMark type="placeCard" />}
       <div className={imgWrapperClass}>
         <a href="#place-card">

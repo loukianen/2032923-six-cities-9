@@ -65,11 +65,11 @@ const useMapAdapter = (props: Omit<MapProps, 'type'>)=>{
       });
     };
   }, [map, points, selectedPoint]);
-  return {mapRef};
+  return mapRef;
 };
 
 function Map({city, points, selectedPoint, type}: MapProps): JSX.Element {
-  const {mapRef} = useMapAdapter({city, points, selectedPoint});
+  const mapRef = useMapAdapter({city, points, selectedPoint});
 
   return <section ref={mapRef} className={getClassName(type)}></section>;
 }
