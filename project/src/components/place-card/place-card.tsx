@@ -37,7 +37,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
     }
   };
 
-  const handleMouseLeave = (offerId: number) => () => {
+  const handleMouseLeave = () => {
     if (setActiveOffer) {
       setActiveOffer(null);
     }
@@ -46,7 +46,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
   const { articleClass, imgWrapperClass } = getClassesName(placeCardType);
 
   return (
-    <article className={articleClass} onMouseOver={handleMouseEnter(id)} onMouseLeave={handleMouseLeave(id)}>
+    <article className={articleClass} onMouseOver={handleMouseEnter(id)} onMouseLeave={handleMouseLeave}>
       {isPremium && <PlaceCardMark type="placeCard" />}
       <div className={imgWrapperClass}>
         <a href="#place-card">
