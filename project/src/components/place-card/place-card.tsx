@@ -31,16 +31,22 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
     offer: { isPremium, price, rating, title, type, id, previewImage },
   } = props;
 
-  const handleMouseOver = (offerId: number) => () => {
+  const handleMouseEnter = (offerId: number) => () => {
     if (setActiveOffer) {
       setActiveOffer(offerId);
+    }
+  };
+
+  const handleMouseLeave = (offerId: number) => () => {
+    if (setActiveOffer) {
+      setActiveOffer(null);
     }
   };
 
   const { articleClass, imgWrapperClass } = getClassesName(placeCardType);
 
   return (
-    <article className={articleClass} onMouseOver={handleMouseOver(id)}>
+    <article className={articleClass} onMouseOver={handleMouseEnter(id)} onMouseLeave={handleMouseLeave(id)}>
       {isPremium && <PlaceCardMark type="placeCard" />}
       <div className={imgWrapperClass}>
         <a href="#place-card">
