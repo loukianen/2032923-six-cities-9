@@ -2,8 +2,8 @@ import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap';
 import {Location, Points} from '../../types/offers';
-import { MapType } from '../../types/other-types';
-import { Pins, IMG_URL } from '../../const';
+import {MapType} from '../../types/other-types';
+import {Pins, IMG_URL} from '../../const';
 
 function getClassName(type: MapType ): string {
   const mapping = {
@@ -39,6 +39,7 @@ const useMapAdapter = (props: Omit<MapProps, 'type'>)=>{
   const map = useMap(mapRef, city);
 
   useEffect(() => {
+    const markers: Marker[] = [];
     if (map) {
       points.forEach((point) => {
         const marker = new Marker({
@@ -53,14 +54,22 @@ const useMapAdapter = (props: Omit<MapProps, 'type'>)=>{
               : defaultCustomIcon,
           )
           .addTo(map);
+        markers.push(marker);
       });
     }
+    return () => {
+      markers.forEach((marker) => {
+        if (map) {
+          marker.removeFrom(map);
+        }
+      });
+    };
   }, [map, points, selectedPoint]);
-  return {mapRef};
+  return mapRef;
 };
 
 function Map({city, points, selectedPoint, type}: MapProps): JSX.Element {
-  const {mapRef} = useMapAdapter({city, points, selectedPoint});
+  const mapRef = useMapAdapter({city, points, selectedPoint});
 
   return <section ref={mapRef} className={getClassName(type)}></section>;
 }

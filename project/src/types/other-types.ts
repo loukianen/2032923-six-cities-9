@@ -26,6 +26,8 @@ export type PlaceCardType = 'main' | 'room';
 
 export type PlaceCardListType = PlaceCardType;
 
+export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
+
 export type State = ReturnType<typeof store.getState>;
 
 export type User = {
