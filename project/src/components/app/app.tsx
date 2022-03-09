@@ -1,5 +1,6 @@
 import {useEffect} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {toast} from 'react-toastify';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import AuthPage from '../../pages/auth-page/auth-page';
@@ -17,10 +18,16 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch((nextDispatch, getState, api) => {
-      api.get('/hotels')
-        .then((response) => {
-          nextDispatch(setOffers(response.data));
-        });
+      toast.promise(
+        api.get('/hotels')
+          .then((response) => {
+            nextDispatch(setOffers(response.data));
+          }),
+        {
+          pending: 'Loading...',
+          error: 'Network error',
+        },
+      );
     });
   }, [dispatch]);
 
