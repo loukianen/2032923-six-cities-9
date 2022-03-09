@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import CityList from '../../components/cities-list/cities-list';
 import MainPageContent from '../../components/main-page-content/main-page-content';
 import MainPageEmpty from '../../components/main-page-empty/main-page-empty';
-import { OffersProps } from '../../types/offers';
+import {useAppSelector} from '../../hooks';
+// import {OffersProps} from '../../types/offers';
 
-type MainPageProps = OffersProps & { city: string };
 
-function MainPage(props: MainPageProps): JSX.Element {
+// type MainPageProps = OffersProps & { city: string };
+
+function MainPage(): JSX.Element {
   const [activeOffer, setActiveOffer] = useState(null as number | null);
-  const { city, offers } = props;
-  const cityLocation = offers[0].city.location;
+  const { city, offers } = useAppSelector((state) => state);
   const sortedByCityOffers = offers.filter((item) => item.city.name === city);
   const isOffersListEmpty = sortedByCityOffers.length === 0;
   const points = sortedByCityOffers.map(({ id, location }) => ({ id, location }));
@@ -46,12 +47,12 @@ function MainPage(props: MainPageProps): JSX.Element {
       <main className={`page__main page__main--index${isOffersListEmpty && ' page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <CityList city={city} />
+          <CityList />
         </div>
         <div className="cities">
           {isOffersListEmpty
             ? <MainPageEmpty />
-            : <MainPageContent setActiveOffer={setActiveOffer} offers={sortedByCityOffers} city={cityLocation} points={points} selectedPoint={activeOffer} />}
+            : <MainPageContent setActiveOffer={setActiveOffer} offers={sortedByCityOffers} points={points} selectedPoint={activeOffer} />}
         </div>
       </main>
     </div>

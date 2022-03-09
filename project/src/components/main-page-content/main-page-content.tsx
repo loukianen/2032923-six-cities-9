@@ -34,17 +34,19 @@ function getCompareFunction(type: OffersSortingType): (a: Offer, b: Offer) => nu
 type MainPageContentProps = {
   setActiveOffer: (x: number | null) => void,
   offers: Offers,
-  city: Location,
   points: { id: number, location: Location }[],
   selectedPoint: number | null,
 }
 
+const defaultLocation = {latitude: 0, longitude: 0, zoom: 0 };
+
 function MainPageContent(props: MainPageContentProps): JSX.Element {
   const cityName = useAppSelector((state) => state.city);
-  const { setActiveOffer, offers, city, points, selectedPoint } = props;
+  const { setActiveOffer, offers, points, selectedPoint } = props;
   const [sortingType, setSortingType] = useState<OffersSortingType>('none');
 
-  const sortedOffers = [...offers].sort(getCompareFunction(sortingType));
+  const sortedOffers: Offers = [...offers].sort(getCompareFunction(sortingType));
+  const cityLocation = sortedOffers[0].city.location ?? defaultLocation;
 
   return (
     <div className="cities__places-container container">
@@ -55,7 +57,7 @@ function MainPageContent(props: MainPageContentProps): JSX.Element {
         <PlaceCardList setActiveOffer={setActiveOffer} offers={sortedOffers} placeCardListType="main" />
       </section>
       <div className="cities__right-section">
-        <Map city={city} points={points} selectedPoint={selectedPoint} type="main" />
+        <Map city={cityLocation} points={points} selectedPoint={selectedPoint} type="main" />
       </div>
     </div>
   );
