@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Offers } from '../../types/offers';
-// import offers from '../../mocks/offers';
 
 const offersReducer = createSlice({
   name: 'offers',

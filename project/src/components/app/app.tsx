@@ -1,6 +1,5 @@
 import {useEffect} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {toast} from 'react-toastify';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import AuthPage from '../../pages/auth-page/auth-page';
@@ -9,7 +8,7 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import {useAppDispatch} from '../../hooks';
-import { setOffers } from '../../store/reducers/offers-reducer';
+import { fetchOffersAction } from '../../store/api-actions';
 import offers from '../../mocks/offers';
 import {AppRoute} from '../../const';
 
@@ -17,18 +16,7 @@ function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch((nextDispatch, getState, api) => {
-      toast.promise(
-        api.get('/hotels')
-          .then((response) => {
-            nextDispatch(setOffers(response.data));
-          }),
-        {
-          pending: 'Loading...',
-          error: 'Network error',
-        },
-      );
-    });
+    dispatch(fetchOffersAction);
   }, [dispatch]);
 
   return (
