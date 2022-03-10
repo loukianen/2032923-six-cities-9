@@ -1,12 +1,6 @@
-import { Offers } from './offers';
-import store from '../store';
+import store from '../store/store';
 
 export type AppDispatch = typeof store.dispatch;
-
-export type AppState = {
-  city: string,
-  offers: Offers,
-}
 
 export type Comment = {
   comment: string,
@@ -17,8 +11,6 @@ export type Comment = {
 }
 
 export type AuthorizationStatusType = 'authrized' | 'unauthrized';
-
-export type Comments = Comment[];
 
 export type MapType = 'main' | 'room';
 

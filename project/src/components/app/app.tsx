@@ -7,7 +7,7 @@ import RoomPage from '../../pages/room-page/room-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch} from '../../hooks/hooks';
 import { fetchOffersAction } from '../../store/api-actions';
 import offers from '../../mocks/offers';
 import {AppRoute} from '../../const';

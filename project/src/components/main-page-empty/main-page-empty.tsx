@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/hooks';
 
 function MainPageEmpty(): JSX.Element {
   const cityName = useAppSelector((state) => state.city);

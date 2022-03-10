@@ -2,11 +2,7 @@ import {useState} from 'react';
 import CityList from '../../components/cities-list/cities-list';
 import MainPageContent from '../../components/main-page-content/main-page-content';
 import MainPageEmpty from '../../components/main-page-empty/main-page-empty';
-import {useAppSelector} from '../../hooks';
-// import {OffersProps} from '../../types/offers';
-
-
-// type MainPageProps = OffersProps & { city: string };
+import {useAppSelector} from '../../hooks/hooks';
 
 function MainPage(): JSX.Element {
   const [activeOffer, setActiveOffer] = useState(null as number | null);

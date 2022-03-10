@@ -37,15 +37,11 @@ export type Offer = {
   type: AccommodationType,
 }
 
-export type Offers = Offer[];
-
-export type OffersProps = { offers: Offers };
+export type OffersProps = { offers: Offer[] };
 
 export type LocationsDataType = {
   cityName: string,
-  offers: Offers,
+  offers: Offer[],
 }
 
 export type Point = Pick<Offer, 'id' | 'location'>;
-
-export type Points = Point[];

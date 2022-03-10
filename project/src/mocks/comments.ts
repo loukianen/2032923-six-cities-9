@@ -1,7 +1,7 @@
-import { Comments } from '../types/other-types';
-import { IMG_URL } from '../const';
+import {Comment} from '../types/other-types';
+import {IMG_URL} from '../const';
 
-const comments: Comments = [
+const comments: Comment[] = [
   {
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
     date: '2019-04-24',
