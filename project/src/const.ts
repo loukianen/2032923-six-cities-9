@@ -1,5 +1,13 @@
 import { OffersSortingType } from './types/other-types';
 
+export enum APIRoute {
+  Comments = '/comments',
+  Favorites = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
+  Offers = '/hotels',
+}
+
 export enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',

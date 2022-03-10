@@ -46,7 +46,6 @@ const useMapAdapter = (props: Omit<MapProps, 'type'>)=>{
           lat: point.location.latitude,
           lng: point.location.longitude,
         });
-
         marker
           .setIcon(
             selectedPoint !== undefined && point.id === selectedPoint

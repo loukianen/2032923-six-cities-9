@@ -1,15 +1,16 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import RoomGallery from '../../components/room-gallery/room-gallery';
 import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
 import RoomFeaturesList from '../../components/room-features-list/room-features-list';
 import ReviewBlock from '../../components/review-block/review-block';
 import Map from '../../components/map/map';
 import PlaceCardList from '../../components/place-card-list/place-card-list';
-import { OffersProps, Offers, Offer } from '../../types/offers';
-import { AppRoute } from '../../const';
-import { getAccommodationTitle, getRatingStyleData } from '../../utils';
+import {useAppSelector} from '../../hooks';
+import {Offers, Offer} from '../../types/offers';
+import {AppRoute} from '../../const';
+import {getAccommodationTitle, getRatingStyleData} from '../../utils';
 
 function getProcessedOffersData(offers: Offers) {
   return offers.reduce((acc: { [offerId: string]: Offer}, offer: Offer) => {
@@ -18,16 +19,14 @@ function getProcessedOffersData(offers: Offers) {
   }, {});
 }
 
-function RoomPage(props: OffersProps): JSX.Element | null {
+function RoomPage(): JSX.Element | null {
   const navigate = useNavigate();
-  const offersStore = getProcessedOffersData(props.offers);
+  const { city, offers } = useAppSelector((state) => state);
+  const offersStore = getProcessedOffersData(offers);
 
   const currentPath = document.location.pathname;
   const [, , offerId] = currentPath.split('/');
   const offer = offersStore[offerId];
-  const city = offer.city.location;
-  const points = props.offers.map(({ id, location }) => ({ id, location }));
-  const offersNear = props.offers.filter(({ id }) => id.toString() !== offerId);
 
   useEffect(() => {
     if (!offer) {
@@ -39,6 +38,9 @@ function RoomPage(props: OffersProps): JSX.Element | null {
     return null;
   }
 
+  const cityLocation = offer.city.location;
+  const offersNear = offers.filter(({ city: {name} }) => city === name);
+  const points = offersNear.map(({ id, location }) => ({ id, location }));
   const {
     images, title, rating, isPremium, type, bedrooms, maxAdults, price, goods,
   } = offer;
@@ -143,7 +145,7 @@ function RoomPage(props: OffersProps): JSX.Element | null {
               <ReviewBlock />
             </div>
           </div>
-          <Map city={city} points={points} selectedPoint={Number(offerId)} type="room" />
+          <Map city={cityLocation} points={points} selectedPoint={Number(offerId)} type="room" />
         </section>
         <div className="container">
           <section className="near-places places">

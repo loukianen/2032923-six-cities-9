@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -6,16 +7,23 @@ import RoomPage from '../../pages/room-page/room-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { useAppSelector } from '../../hooks';
-import { AppRoute } from '../../const';
+import {useAppDispatch} from '../../hooks';
+import { fetchOffersAction } from '../../store/api-actions';
+import offers from '../../mocks/offers';
+import {AppRoute} from '../../const';
 
 function App(): JSX.Element {
-  const { city, offers } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOffersAction);
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Root} element={<Layout />}>
-          <Route index element={<MainPage offers={offers} city={city}/>} />
+          <Route index element={<MainPage />} />
           <Route path={AppRoute.Login} element={<AuthPage />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute>
@@ -23,7 +31,7 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Room} element={<RoomPage offers={offers} />} />
+          <Route path={AppRoute.Room} element={<RoomPage />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

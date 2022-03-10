@@ -16,6 +16,8 @@ export type Comment = {
   user: Omit<User, 'email' | 'token'>,
 }
 
+export type AuthorizationStatusType = 'authrized' | 'unauthrized';
+
 export type Comments = Comment[];
 
 export type MapType = 'main' | 'room';
@@ -28,7 +30,7 @@ export type PlaceCardListType = PlaceCardType;
 
 export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
 
-export type State = ReturnType<typeof store.getState>;
+export type StateType = ReturnType<typeof store.getState>;
 
 export type User = {
   avatarUrl: string,
