@@ -7,7 +7,7 @@ export type Comment = {
   date: string,
   id: number,
   rating: number,
-  user: Omit<User, 'email' | 'token'>,
+  user: Omit<UserType, 'email' | 'token'>,
 }
 
 export type AuthorizationStatusType = 'authorized' | 'unauthorized';
@@ -24,7 +24,7 @@ export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRating
 
 export type StateType = ReturnType<typeof store.getState>;
 
-export type User = {
+export type UserType = {
   avatarUrl: string,
   email: string,
   id: number,

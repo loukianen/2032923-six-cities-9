@@ -17,6 +17,15 @@ export enum AppRoute {
 
 export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
+export const DEFAULT_USER = {
+  avatarUrl: '',
+  email: '',
+  id: 0,
+  isPro: false,
+  name: '',
+  token: '',
+};
+
 export const IMG_URL = 'img/';
 
 export enum HTTP_CODE {
