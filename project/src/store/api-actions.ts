@@ -2,7 +2,8 @@ import {Dispatch} from '@reduxjs/toolkit';
 import {setOffers} from './reducers/offers-reducer';
 import {setAuthStatus} from './reducers/auth-status';
 import {setUser} from './reducers/user-reducer';
-import {APIRoute, DEFAULT_USER} from '../const';
+import {redirectToRoute} from './actions';
+import {APIRoute, AppRoute, DEFAULT_USER} from '../const';
 import {AxiosInstance, AxiosResponse} from 'axios';
 import {toast} from 'react-toastify';
 import {errorHandle} from '../services/error-handle';
@@ -37,16 +38,16 @@ export const checkAuthAction = (nextDispatch: Dispatch, getState: () => StateTyp
   });
 };
 
-export const authAction = (
+export const authAction = (authData: AuthDataType) => (
   nextDispatch: Dispatch,
   getState: () => StateType,
-  data: { api: AxiosInstance, authData: AuthDataType },
+  api: AxiosInstance,
 ) => {
-  const { api, authData } = data;
   toast.promise(api.post(APIRoute.Login, authData)
     .then((response: AxiosResponse) => {
       nextDispatch(setAuthStatus('authorized'));
       nextDispatch(setUser(response.data));
+      nextDispatch(redirectToRoute(AppRoute.Root));
     })
     .catch((error) => {
       nextDispatch(setAuthStatus('unauthorized'));
