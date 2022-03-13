@@ -3,8 +3,9 @@ import {toast} from 'react-toastify';
 import {ErrorType} from '../types/error';
 import {HTTP_CODE} from '../const';
 
-export const errorHandle = (error: ErrorType | unknown): void => {
+export const errorHandle = (error: ErrorType): void => {
   if (!request.isAxiosError(error)) {
+    toast.error('Somthing has gone wrong');
     throw error;
   }
 
@@ -20,6 +21,9 @@ export const errorHandle = (error: ErrorType | unknown): void => {
         break;
       case HTTP_CODE.NOT_FOUND:
         toast.info(response.data.error);
+        break;
+      default:
+        toast.error('Somthing has gone wrong');
         break;
     }
   }

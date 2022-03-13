@@ -1,4 +1,4 @@
-import { uniqueId } from '../../utils';
+import { uniqueId } from '../../services/utils';
 
 function RoomGallery(props: { images: string[] }): JSX.Element {
   const { images } = props;

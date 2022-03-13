@@ -1,4 +1,4 @@
-import { uniqueId } from '../../utils';
+import {uniqueId} from '../../services/utils';
 
 function RoomFeaturesList(props: { goods: string[] }): JSX.Element {
   const { goods } = props;

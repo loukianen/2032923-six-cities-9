@@ -1,6 +1,6 @@
 import PlaceCardMark from '../place-card-mark/place-card-mark';
 import { Offer } from '../../types/offers';
-import { getAccommodationTitle, getRatingStyleData } from '../../utils';
+import { getAccommodationTitle, getRatingStyleData } from '../../services/utils';
 
 type FavoritePlaceCardProps = {
   offer: Pick<Offer, 'isPremium' | 'price' | 'rating' | 'title' | 'type' | 'previewImage'>

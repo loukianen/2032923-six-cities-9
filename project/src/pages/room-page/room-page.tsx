@@ -10,7 +10,7 @@ import PlaceCardList from '../../components/place-card-list/place-card-list';
 import {useAppSelector} from '../../hooks/hooks';
 import {Offer} from '../../types/offers';
 import {AppRoute} from '../../const';
-import {getAccommodationTitle, getRatingStyleData} from '../../utils';
+import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
 
 function getProcessedOffersData(offers: Offer[]) {
   return offers.reduce((acc: { [offerId: string]: Offer}, offer: Offer) => {

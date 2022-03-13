@@ -1,5 +1,5 @@
-import { Comment } from '../../types/other-types';
-import { getRatingStyleData } from '../../utils';
+import {Comment} from '../../types/other-types';
+import {getRatingStyleData} from '../../services/utils';
 
 function Review(props: { comment: Comment }): JSX.Element {
   const { comment: {

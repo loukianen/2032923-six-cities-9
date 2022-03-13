@@ -24,15 +24,6 @@ export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRating
 
 export type StateType = ReturnType<typeof store.getState>;
 
-export type InfoMessageType = {
-  checkLine: () => void;
-  isSpinerRun: boolean;
-  spinerLine: string[];
-  spinerRun: (id: string) => void;
-  spinerStop: (id: string) => void;
-  startToastLoading: (id: string) => string;
-};
-
 export type User = {
   avatarUrl: string,
   email: string,
