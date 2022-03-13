@@ -10,6 +10,11 @@ export type Comment = {
   user: Omit<UserType, 'email' | 'token'>,
 }
 
+export type AuthDataType = {
+  email: string,
+  password: string,
+}
+
 export type AuthorizationStatusType = 'authorized' | 'unauthorized';
 
 export type MapType = 'main' | 'room';
