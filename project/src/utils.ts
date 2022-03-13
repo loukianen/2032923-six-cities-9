@@ -1,4 +1,6 @@
 import { AccommodationType } from './types/offers';
+import {toast} from 'react-toastify';
+import { ReactText } from 'react';
 
 export function getAccommodationTitle(type: AccommodationType) {
   const mapping = {
@@ -21,3 +23,40 @@ export const uniqueId = Object.assign(
   },
   { counter: 0 },
 );
+
+export const infoMessage = {
+  checkLine: () : void => {
+    const nextSpiner: ReactText | undefined = infoMessage.spinerLine[0];
+    if (nextSpiner) {
+      toast.loading('Loading...', {
+        position: toast.POSITION.TOP_CENTER,
+        toastId: nextSpiner,
+      });
+    } else {
+      infoMessage.isSpinerRun = false;
+    }
+  },
+  isSpinerRun: false,
+  spinerLine: [] as string[],
+  spinerRun: (id: string) : void => {
+    if (infoMessage.isSpinerRun) {
+      infoMessage.spinerLine.push(id);
+    } else {
+      infoMessage.isSpinerRun = true;
+      infoMessage.startToastLoading(id);
+    }
+  },
+  spinerStop: (id: string) :void => {
+    if (infoMessage.spinerLine.includes(id)) {
+      infoMessage.spinerLine = infoMessage.spinerLine.filter((item) => item !== id);
+      infoMessage.checkLine();
+    } else {
+      toast.dismiss(id);
+      infoMessage.isSpinerRun = false;
+    }
+  },
+  startToastLoading: (id: string) => toast.loading('Loading...', {
+    position: toast.POSITION.TOP_CENTER,
+    toastId: id,
+  }),
+};

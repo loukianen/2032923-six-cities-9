@@ -19,6 +19,12 @@ export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg'
 
 export const IMG_URL = 'img/';
 
+export enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}
+
 export const MIN_REVIEW_LENGTH = 50;
 
 export const MAX_STARS_RATING = 5;
