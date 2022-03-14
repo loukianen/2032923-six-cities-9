@@ -25,6 +25,8 @@ export const fetchOffersAction = (nextDispatch: Dispatch, getState: () => StateT
 export const checkAuthAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
   toast.promise(api.get(APIRoute.Login)
     .then((response: AxiosResponse) => {
+      // надо подумать, чтобы происшествие (хороший ответ) обрабатывали оба слайса и посылать в хранилище акцию не два раза а один.
+      // https://redux-toolkit.js.org/api/createslice#extrareducers
       nextDispatch(setAuthStatus('authorized'));
       nextDispatch(setUser(response.data));
     })
@@ -45,6 +47,8 @@ export const authAction = (authData: AuthDataType) => (
 ) => {
   toast.promise(api.post(APIRoute.Login, authData)
     .then((response: AxiosResponse) => {
+      // и тем более три раза не надо вызывать диспетчеризацию акций
+      //https://redux-toolkit.js.org/api/createslice#extrareducers
       nextDispatch(setAuthStatus('authorized'));
       nextDispatch(setUser(response.data));
       nextDispatch(redirectToRoute(AppRoute.Root));
