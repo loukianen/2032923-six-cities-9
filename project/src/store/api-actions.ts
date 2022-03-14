@@ -2,6 +2,7 @@ import {Dispatch} from '@reduxjs/toolkit';
 import {setOffers} from './reducers/offers-reducer';
 import {setAuthStatus} from './reducers/auth-status';
 import {setUser} from './reducers/user-reducer';
+import {setRoom} from './reducers/room-reducer';
 import {redirectToRoute} from './actions';
 import {APIRoute, AppRoute, DEFAULT_USER} from '../const';
 import {AxiosInstance, AxiosResponse} from 'axios';
@@ -15,6 +16,20 @@ export const fetchOffersAction = (nextDispatch: Dispatch, getState: () => StateT
       nextDispatch(setOffers(response.data));
     })
     .catch((error) => {
+      errorHandle(error);
+    }),
+  {
+    pending: 'Loading...',
+  });
+};
+
+export const fetchRoomAction = (hotelId: string) => (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+  toast.promise(api.get(`${APIRoute.Offers}/${hotelId}`)
+    .then((response: AxiosResponse) => {
+      nextDispatch(setRoom(response.data));
+    })
+    .catch((error) => {
+      nextDispatch(redirectToRoute(AppRoute.NotFound));
       errorHandle(error);
     }),
   {

@@ -1,5 +1,4 @@
 import {useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import RoomGallery from '../../components/room-gallery/room-gallery';
 import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
@@ -7,43 +6,46 @@ import RoomFeaturesList from '../../components/room-features-list/room-features-
 import ReviewBlock from '../../components/review-block/review-block';
 import Map from '../../components/map/map';
 import PlaceCardList from '../../components/place-card-list/place-card-list';
-import {useAppSelector} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {fetchRoomAction} from '../../store/api-actions';
 import {Offer} from '../../types/offers';
 import {AppRoute} from '../../const';
 import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
+import offers from '../../mocks/offers';
 
-function getProcessedOffersData(offers: Offer[]) {
-  return offers.reduce((acc: { [offerId: string]: Offer}, offer: Offer) => {
+function getProcessedOffersData(curOffers: Offer[]) {
+  return curOffers.reduce((acc: { [offerId: string]: Offer}, offer: Offer) => {
     acc[offer.id] = offer;
     return acc;
   }, {});
 }
 
 function RoomPage(): JSX.Element | null {
-  const navigate = useNavigate();
-  const { city, offers } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+  const {room} = useAppSelector((state) => state);
   const offersStore = getProcessedOffersData(offers);
+  const city = 'Amsterdam';
 
   const currentPath = document.location.pathname;
   const [, , offerId] = currentPath.split('/');
-  const offer = offersStore[offerId];
+
+  const offer = offersStore['2'];
 
   useEffect(() => {
-    if (!offer) {
-      navigate('/notfound', { replace: true });
-    }
-  });
+    dispatch(fetchRoomAction(offerId));
+  }, [offerId, dispatch]);
 
-  if (!offer) {
+  if (!room) {
     return null;
   }
 
   const cityLocation = offer.city.location;
-  const offersNear = offers.filter(({ city: {name} }) => city === name);
+  const offersNear = [...offers.filter(({ city: {name} }) => city === name), room];
   const points = offersNear.map(({ id, location }) => ({ id, location }));
+
   const {
     images, title, rating, isPremium, type, bedrooms, maxAdults, price, goods,
-  } = offer;
+  } = room;
 
   return (
     <div className="page">
