@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PlaceCardMark from '../place-card-mark/place-card-mark';
 import { Offer } from '../../types/offers';
 import { PlaceCardType } from '../../types/other-types';
-import { getAccommodationTitle, getRatingStyleData } from '../../utils';
+import { getAccommodationTitle, getRatingStyleData } from '../../services/utils';
 import useHover from '../../hooks/useHover';
 
 function getClassesName(type: PlaceCardType ) {

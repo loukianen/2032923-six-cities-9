@@ -1,4 +1,4 @@
-import { AccommodationType } from './types/offers';
+import { AccommodationType } from '../types/offers';
 
 export function getAccommodationTitle(type: AccommodationType) {
   const mapping = {

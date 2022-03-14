@@ -2,8 +2,8 @@ import {useState} from 'react';
 import SortingMenu from '../sorting-menu/sorting-menu';
 import PlaceCardList from '../../components/place-card-list/place-card-list';
 import Map from '../../components/map/map';
-import {useAppSelector} from '../../hooks';
-import {Offer, Offers, Location} from '../../types/offers';
+import {useAppSelector} from '../../hooks/hooks';
+import {Offer, Location} from '../../types/offers';
 import {OffersSortingType} from '../../types/other-types';
 
 function getCompareFunction(type: OffersSortingType): (a: Offer, b: Offer) => number {
@@ -33,7 +33,7 @@ function getCompareFunction(type: OffersSortingType): (a: Offer, b: Offer) => nu
 
 type MainPageContentProps = {
   setActiveOffer: (x: number | null) => void,
-  offers: Offers,
+  offers: Offer[],
   points: { id: number, location: Location }[],
   selectedPoint: number | null,
 }
@@ -45,7 +45,7 @@ function MainPageContent(props: MainPageContentProps): JSX.Element {
   const { setActiveOffer, offers, points, selectedPoint } = props;
   const [sortingType, setSortingType] = useState<OffersSortingType>('none');
 
-  const sortedOffers: Offers = [...offers].sort(getCompareFunction(sortingType));
+  const sortedOffers: Offer[] = [...offers].sort(getCompareFunction(sortingType));
   const cityLocation = sortedOffers[0].city.location ?? defaultLocation;
 
   return (

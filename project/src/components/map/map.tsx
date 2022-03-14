@@ -1,7 +1,7 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap';
-import {Location, Points} from '../../types/offers';
+import {Location, Point} from '../../types/offers';
 import {MapType} from '../../types/other-types';
 import {Pins, IMG_URL} from '../../const';
 
@@ -27,7 +27,7 @@ const currentCustomIcon = new Icon({
 
 type MapProps = {
   city: Location;
-  points: Points;
+  points: Point[];
   selectedPoint: number | null;
   type: MapType,
 };

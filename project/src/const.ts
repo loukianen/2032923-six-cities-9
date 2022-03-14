@@ -17,7 +17,22 @@ export enum AppRoute {
 
 export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
+export const DEFAULT_USER = {
+  avatarUrl: '',
+  email: '',
+  id: 0,
+  isPro: false,
+  name: '',
+  token: '',
+};
+
 export const IMG_URL = 'img/';
+
+export enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}
 
 export const MIN_REVIEW_LENGTH = 50;
 

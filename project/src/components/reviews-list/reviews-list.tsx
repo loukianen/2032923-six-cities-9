@@ -1,7 +1,7 @@
 import Review from '../review/review';
-import { Comments } from '../../types/other-types';
+import {Comment} from '../../types/other-types';
 
-function ReviewsList(props: { comments: Comments }): JSX.Element {
+function ReviewsList(props: { comments: Comment[] }): JSX.Element {
   const { comments } = props;
   return (
     <ul className="reviews__list">

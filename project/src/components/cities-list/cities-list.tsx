@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCityName } from '../../store/reducers/city-reducer';
-import { cityNames } from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {setCityName} from '../../store/reducers/city-reducer';
+import {cityNames} from '../../const';
 
 function CityList() {
   const { city } = useAppSelector((state) => state);

@@ -1,9 +1,9 @@
 import FavoriteLocation from '../favorite-location/favorite-location';
-import { OffersProps, Offer, Offers } from '../../types/offers';
+import {OffersProps, Offer} from '../../types/offers';
 
 function FavoriteLocationsList(props: OffersProps) {
   const { offers } = props;
-  const sortedOffers = offers.reduce((acc: { [cityName: string]: Offers}, offer: Offer) => {
+  const sortedOffers = offers.reduce((acc: { [cityName: string]: Offer[]}, offer: Offer) => {
     const cityName = offer.city.name;
     if (!acc[cityName]) {
       acc[cityName] = [];

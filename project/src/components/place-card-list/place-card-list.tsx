@@ -1,6 +1,6 @@
 import PlaceCard from '../place-card/place-card';
-import { Offers } from '../../types/offers';
-import { PlaceCardListType } from '../../types/other-types';
+import {Offer} from '../../types/offers';
+import {PlaceCardListType} from '../../types/other-types';
 
 function getClassName(type: PlaceCardListType ): string {
   const mapping = {
@@ -12,7 +12,7 @@ function getClassName(type: PlaceCardListType ): string {
 
 
 type PlaceCardListProps = {
-  offers: Offers,
+  offers: Offer[],
   setActiveOffer?: (x: number | null) => void,
   placeCardListType: PlaceCardListType,
 }
