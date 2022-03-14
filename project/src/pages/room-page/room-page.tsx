@@ -1,49 +1,39 @@
 import {useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import RoomGallery from '../../components/room-gallery/room-gallery';
 import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
 import RoomFeaturesList from '../../components/room-features-list/room-features-list';
+import RoomHost from '../../components/room-host/room-host';
 import ReviewBlock from '../../components/review-block/review-block';
 import Map from '../../components/map/map';
 import PlaceCardList from '../../components/place-card-list/place-card-list';
-import {useAppSelector} from '../../hooks/hooks';
-import {Offer} from '../../types/offers';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {fetchRoomAction, fetchOffersNearbyAction} from '../../store/api-actions';
 import {AppRoute} from '../../const';
 import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
 
-function getProcessedOffersData(offers: Offer[]) {
-  return offers.reduce((acc: { [offerId: string]: Offer}, offer: Offer) => {
-    acc[offer.id] = offer;
-    return acc;
-  }, {});
-}
-
 function RoomPage(): JSX.Element | null {
-  const navigate = useNavigate();
-  const { city, offers } = useAppSelector((state) => state);
-  const offersStore = getProcessedOffersData(offers);
+  const dispatch = useAppDispatch();
+  const {room, offersNearby} = useAppSelector((state) => state);
 
   const currentPath = document.location.pathname;
   const [, , offerId] = currentPath.split('/');
-  const offer = offersStore[offerId];
 
   useEffect(() => {
-    if (!offer) {
-      navigate('/notfound', { replace: true });
-    }
-  });
+    dispatch(fetchRoomAction(offerId));
+    dispatch(fetchOffersNearbyAction(offerId));
+  }, [offerId, dispatch]);
 
-  if (!offer) {
+  if (!room) {
     return null;
   }
 
-  const cityLocation = offer.city.location;
-  const offersNear = offers.filter(({ city: {name} }) => city === name);
-  const points = offersNear.map(({ id, location }) => ({ id, location }));
+  const cityLocation = room.city.location;
+  const points = [...offersNearby, room].map(({ id, location }) => ({ id, location }));
+
   const {
-    images, title, rating, isPremium, type, bedrooms, maxAdults, price, goods,
-  } = offer;
+    images, title, rating, isPremium, type, bedrooms, maxAdults, price, goods, description, host,
+  } = room;
 
   return (
     <div className="page">
@@ -122,23 +112,10 @@ function RoomPage(): JSX.Element | null {
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
-                  </div>
-                  <span className="property__user-name">
-                    Angelina
-                  </span>
-                  <span className="property__user-status">
-                    Pro
-                  </span>
-                </div>
+                <RoomHost host={host} />
                 <div className="property__description">
                   <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    {description}
                   </p>
                 </div>
               </div>
@@ -151,7 +128,7 @@ function RoomPage(): JSX.Element | null {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <PlaceCardList offers={offersNear} placeCardListType="room" />
+              <PlaceCardList offers={offersNearby} placeCardListType="room" />
             </div>
           </section>
         </div>
