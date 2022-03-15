@@ -113,7 +113,7 @@ function RoomPage(): JSX.Element | null {
                   </p>
                 </div>
               </div>
-              {isAuthorisedUser && <ReviewBlock />}
+              <ReviewBlock />
             </div>
           </div>
           <Map city={cityLocation} points={points} selectedPoint={Number(offerId)} type="room" />

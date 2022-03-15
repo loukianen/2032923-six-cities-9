@@ -9,6 +9,8 @@ export type AuthDataType = {
 
 export type AuthorizationStatusType = 'authorized' | 'unauthorized';
 
+export type CommentFormDataType = { rating: number | null, comment: string };
+
 export type MapType = 'main' | 'room';
 
 export type MarkType = 'placeCard' | 'room';
