@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../hooks/hooks';
 
 function HeaderNavLogged(): JSX.Element {
-  const { email } = useAppSelector((state) => state.user);
+  const email = useAppSelector((state) => state.user.email);
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">

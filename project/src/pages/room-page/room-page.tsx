@@ -15,7 +15,10 @@ import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
 function RoomPage(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const curLocation = useLocation();
-  const {room, offersNearby} = useAppSelector((state) => state);
+  const {room, offersNearby} = useAppSelector((state) => ({
+    room: state.room,
+    offersNearby: state.offersNearby,
+  }));
 
   const currentPath = curLocation.pathname;
   const [, , offerId] = currentPath.split('/');

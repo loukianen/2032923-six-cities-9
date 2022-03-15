@@ -3,7 +3,7 @@ import {setCityName} from '../../store/reducers/city-reducer';
 import {cityNames} from '../../const';
 
 function CityList() {
-  const { city } = useAppSelector((state) => state);
+  const city = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
 
   function handleClick(cityName: string) {
