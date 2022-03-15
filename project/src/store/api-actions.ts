@@ -1,15 +1,30 @@
-import {Dispatch} from '@reduxjs/toolkit';
-import {setOffers} from './reducers/offers-reducer';
-import {setAuthStatus} from './reducers/auth-status';
-import {setUser} from './reducers/user-reducer';
-import {setRoom} from './reducers/room-reducer';
-import {setOffersNearby} from './reducers/offers-nearby-reducer';
-import {redirectToRoute} from './actions';
-import {APIRoute, AppRoute, DEFAULT_USER} from '../const';
-import {AxiosInstance, AxiosResponse} from 'axios';
-import {toast} from 'react-toastify';
-import {errorHandle} from '../services/error-handle';
-import {StateType, AuthDataType} from '../types/other-types';
+import { Dispatch } from '@reduxjs/toolkit';
+import { setOffers } from './reducers/offers-reducer';
+import { setAuthStatus } from './reducers/auth-status';
+import { setUser } from './reducers/user-reducer';
+import { setRoom } from './reducers/room-reducer';
+import { setOffersNearby } from './reducers/offers-nearby-reducer';
+import { setComments } from './reducers/comments-reducer';
+import { redirectToRoute } from './actions';
+import { APIRoute, AppRoute, DEFAULT_USER } from '../const';
+import { AxiosInstance, AxiosResponse } from 'axios';
+import { toast } from 'react-toastify';
+import { errorHandle } from '../services/error-handle';
+import { StateType, AuthDataType } from '../types/other-types';
+
+export const fetchCommentsAction = (hotelId: string) => (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+  toast.promise(api.get(`${APIRoute.Comments}/${hotelId}`)
+    .then((response: AxiosResponse) => {
+      nextDispatch(setComments(response.data));
+    })
+    .catch((error) => {
+      nextDispatch(setComments([]));
+      errorHandle(error);
+    }),
+  {
+    pending: 'Loading...',
+  });
+};
 
 export const fetchOffersAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
   toast.promise(api.get(APIRoute.Offers)
@@ -24,13 +39,13 @@ export const fetchOffersAction = (nextDispatch: Dispatch, getState: () => StateT
   });
 };
 
-export const fetchRoomAction = (hotelId: string) => (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
-  toast.promise(api.get(`${APIRoute.Offers}/${hotelId}`)
+export const fetchOffersNearbyAction = (hotelId: string) => (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+  toast.promise(api.get(`${APIRoute.Offers}/${hotelId}/nearby`)
     .then((response: AxiosResponse) => {
-      nextDispatch(setRoom(response.data));
+      nextDispatch(setOffersNearby(response.data));
     })
     .catch((error) => {
-      nextDispatch(redirectToRoute(AppRoute.NotFound));
+      nextDispatch(setOffersNearby([]));
       errorHandle(error);
     }),
   {
@@ -38,12 +53,13 @@ export const fetchRoomAction = (hotelId: string) => (nextDispatch: Dispatch, get
   });
 };
 
-export const fetchOffersNearbyAction = (hotelId: string) => (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
-  toast.promise(api.get(`${APIRoute.Offers}/${hotelId}/nearby`)
+export const fetchRoomAction = (hotelId: string) => (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+  toast.promise(api.get(`${APIRoute.Offers}/${hotelId}`)
     .then((response: AxiosResponse) => {
-      nextDispatch(setOffersNearby(response.data));
+      nextDispatch(setRoom(response.data));
     })
     .catch((error) => {
+      nextDispatch(redirectToRoute(AppRoute.NotFound));
       errorHandle(error);
     }),
   {

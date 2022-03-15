@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import RoomGallery from '../../components/room-gallery/room-gallery';
 import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
 import RoomFeaturesList from '../../components/room-features-list/room-features-list';
@@ -8,20 +8,24 @@ import ReviewBlock from '../../components/review-block/review-block';
 import Map from '../../components/map/map';
 import PlaceCardList from '../../components/place-card-list/place-card-list';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {fetchRoomAction, fetchOffersNearbyAction} from '../../store/api-actions';
+import {fetchRoomAction, fetchOffersNearbyAction, fetchCommentsAction} from '../../store/api-actions';
 import {AppRoute} from '../../const';
 import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
 
 function RoomPage(): JSX.Element | null {
   const dispatch = useAppDispatch();
+  const curLocation = useLocation();
   const {room, offersNearby} = useAppSelector((state) => state);
 
-  const currentPath = document.location.pathname;
+  const currentPath = curLocation.pathname;
   const [, , offerId] = currentPath.split('/');
 
   useEffect(() => {
-    dispatch(fetchRoomAction(offerId));
-    dispatch(fetchOffersNearbyAction(offerId));
+    if (offerId) {
+      dispatch(fetchRoomAction(offerId));
+      dispatch(fetchOffersNearbyAction(offerId));
+      dispatch(fetchCommentsAction(offerId));
+    }
   }, [offerId, dispatch]);
 
   if (!room) {

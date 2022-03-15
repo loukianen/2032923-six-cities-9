@@ -1,11 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Offer} from '../../types/offers';
 
+type RoomStateType = Offer | null;
+
 const roomReducer = createSlice({
   name: 'room',
-  initialState: null as Offer | null,
+  initialState: null as RoomStateType,
   reducers: {
-    setRoom: (state, action: PayloadAction<Offer>) => {
+    setRoom: (state, action: PayloadAction<RoomStateType>) => {
       state = action.payload;
       return state;
     },
