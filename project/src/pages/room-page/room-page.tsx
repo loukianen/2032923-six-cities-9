@@ -1,5 +1,7 @@
 import {useEffect} from 'react';
 import {Link, useLocation} from 'react-router-dom';
+import HeaderNavLogged from '../../components/header-nav-logged/header-nav-logged';
+import HeaderNavNotLogged from '../../components/header-nav-not-logged/header-nav-not-logged';
 import RoomGallery from '../../components/room-gallery/room-gallery';
 import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
 import RoomFeaturesList from '../../components/room-features-list/room-features-list';
@@ -15,10 +17,12 @@ import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
 function RoomPage(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const curLocation = useLocation();
-  const {room, offersNearby} = useAppSelector((state) => ({
+  const {room, offersNearby, authorizationStatus} = useAppSelector((state) => ({
     room: state.room,
     offersNearby: state.offersNearby,
+    authorizationStatus: state.authorizationStatus,
   }));
+  const isAuthorisedUser = authorizationStatus === 'authorized';
 
   const currentPath = curLocation.pathname;
   const [, , offerId] = currentPath.split('/');
@@ -52,22 +56,7 @@ function RoomPage(): JSX.Element | null {
                 </a>
               </Link>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#sign-out">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            {isAuthorisedUser ? <HeaderNavLogged /> : <HeaderNavNotLogged />}
           </div>
         </div>
       </header>
@@ -124,7 +113,7 @@ function RoomPage(): JSX.Element | null {
                   </p>
                 </div>
               </div>
-              <ReviewBlock />
+              {isAuthorisedUser && <ReviewBlock />}
             </div>
           </div>
           <Map city={cityLocation} points={points} selectedPoint={Number(offerId)} type="room" />

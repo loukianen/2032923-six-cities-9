@@ -1,7 +1,16 @@
-import { useAppSelector } from '../../hooks/hooks';
+import { SyntheticEvent } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
+import {finishAuthAction} from '../../store/api-actions';
 
 function HeaderNavLogged(): JSX.Element {
   const email = useAppSelector((state) => state.user.email);
+  const dispatch = useAppDispatch();
+
+  function handleClick(e: SyntheticEvent) {
+    e.preventDefault();
+    dispatch(finishAuthAction);
+  }
+
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -13,7 +22,7 @@ function HeaderNavLogged(): JSX.Element {
           </a>
         </li>
         <li className="header__nav-item">
-          <a className="header__nav-link" href="#nav-link">
+          <a className="header__nav-link" href="#nav-link" onClick={handleClick}>
             <span className="header__signout">Sign out</span>
           </a>
         </li>

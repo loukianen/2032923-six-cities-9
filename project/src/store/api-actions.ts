@@ -7,8 +7,43 @@ import { APIRoute, AppRoute } from '../const';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { errorHandle } from '../services/error-handle';
+import { saveToken, dropToken } from '../services/token';
 import { DEFAULT_ROOM_DATA } from '../const';
 import { StateType, AuthDataType } from '../types/other-types';
+
+export const authAction = (authData: AuthDataType) => (
+  nextDispatch: Dispatch,
+  getState: () => StateType,
+  api: AxiosInstance,
+) => {
+  toast.promise(api.post(APIRoute.Login, authData)
+    .then((response: AxiosResponse) => {
+      saveToken(response.data.token);
+      nextDispatch(successfulAuth(response.data));
+    })
+    .catch((error) => {
+      errorHandle(error);
+      nextDispatch(unSuccessfulAuth());
+    }),
+  {
+    pending: 'Loading...',
+  });
+};
+
+export const checkAuthAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+  toast.promise(api.get(APIRoute.Login)
+    .then((response: AxiosResponse) => {
+      nextDispatch(successfulAuth(response.data));
+    })
+    .catch((error) => {
+      dropToken();
+      errorHandle(error);
+      nextDispatch(unSuccessfulAuth());
+    }),
+  {
+    pending: 'Loading...',
+  });
+};
 
 export const fetchOffersAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
   toast.promise(api.get(APIRoute.Offers)
@@ -48,32 +83,18 @@ export const fetchRoomDataAction = (hotelId: string) => (nextDispatch: Dispatch,
   });
 };
 
-export const checkAuthAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
-  toast.promise(api.get(APIRoute.Login)
-    .then((response: AxiosResponse) => {
-      nextDispatch(successfulAuth(response.data));
-    })
-    .catch((error) => {
-      errorHandle(error);
-      nextDispatch(unSuccessfulAuth());
-    }),
-  {
-    pending: 'Loading...',
-  });
-};
-
-export const authAction = (authData: AuthDataType) => (
+export const finishAuthAction = (
   nextDispatch: Dispatch,
   getState: () => StateType,
   api: AxiosInstance,
 ) => {
-  toast.promise(api.post(APIRoute.Login, authData)
-    .then((response: AxiosResponse) => {
-      nextDispatch(successfulAuth(response.data));
+  toast.promise(api.delete(APIRoute.Logout)
+    .then(() => {
+      dropToken();
+      nextDispatch(unSuccessfulAuth());
     })
     .catch((error) => {
       errorHandle(error);
-      nextDispatch(unSuccessfulAuth());
     }),
   {
     pending: 'Loading...',
