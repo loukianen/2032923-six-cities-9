@@ -19,6 +19,12 @@ export enum AppRoute {
 
 export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
+export const DEFAULT_ROOM_DATA = {
+  comments: [],
+  offersNearby: [],
+  room: null,
+};
+
 export const DEFAULT_USER = {
   avatarUrl: '',
   email: '',

@@ -1,7 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Offer} from '../../types/offers';
-
-type RoomStateType = Offer | null;
+import {RoomStateType, RoomDataType} from '../../types/offers';
 
 const roomReducer = createSlice({
   name: 'room',
@@ -11,9 +9,13 @@ const roomReducer = createSlice({
       state = action.payload;
       return state;
     },
+    setRoomData: (state, action: PayloadAction<RoomDataType>) => {
+      state = action.payload.room;
+      return state;
+    },
   },
 });
 
-export const { setRoom } = roomReducer.actions;
+export const { setRoom, setRoomData } = roomReducer.actions;
 
 export default roomReducer;

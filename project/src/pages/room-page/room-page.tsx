@@ -8,7 +8,7 @@ import ReviewBlock from '../../components/review-block/review-block';
 import Map from '../../components/map/map';
 import PlaceCardList from '../../components/place-card-list/place-card-list';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {fetchRoomAction, fetchOffersNearbyAction, fetchCommentsAction} from '../../store/api-actions';
+import {fetchRoomDataAction} from '../../store/api-actions';
 import {AppRoute} from '../../const';
 import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
 
@@ -25,9 +25,7 @@ function RoomPage(): JSX.Element | null {
 
   useEffect(() => {
     if (offerId) {
-      dispatch(fetchRoomAction(offerId));
-      dispatch(fetchOffersNearbyAction(offerId));
-      dispatch(fetchCommentsAction(offerId));
+      dispatch(fetchRoomDataAction(offerId));
     }
   }, [offerId, dispatch]);
 

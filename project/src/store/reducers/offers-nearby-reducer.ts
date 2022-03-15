@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Offer} from '../../types/offers';
+import {setRoomData} from './room-reducer';
+import {Offer, RoomDataType} from '../../types/offers';
 
 const offersNearbyReducer = createSlice({
   name: 'offersNearby',
@@ -9,6 +10,13 @@ const offersNearbyReducer = createSlice({
       state = action.payload;
       return state;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(setRoomData, (state, action: PayloadAction<RoomDataType>) => {
+        state = action.payload.offersNearby;
+        return state;
+      });
   },
 });
 
