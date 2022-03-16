@@ -24,7 +24,7 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Room} element={<RoomPage />} />
+          <Route path={AppRoute.RoomId} element={<RoomPage />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

@@ -1,14 +1,22 @@
-import { SyntheticEvent, useState, useEffect, Fragment } from 'react';
-import { MIN_REVIEW_LENGTH, MAX_STARS_RATING } from '../../const';
+import {SyntheticEvent, useState, useEffect, Fragment} from 'react';
+import {errorHandle} from '../../services/error-handle';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {sendCommentAction} from '../../store/api-actions';
+import {MIN_REVIEW_LENGTH, MAX_STARS_RATING} from '../../const';
+import {CommentFormDataType} from '../../types/other-types';
+
+export const FORM_DATA_INIT_STATE = { rating: null, comment: '' };
 
 function getCheckboxesInitState() {
   return Array(MAX_STARS_RATING).fill(false);
 }
 
 function CommentForm(): JSX.Element {
-  const [formData, setFormData] = useState({ rating: null, review: '' } as { rating: number | null, review: string });
+  const [formData, setFormData] = useState(FORM_DATA_INIT_STATE as CommentFormDataType);
   const [isFormValid, setIsFormValid] = useState(false);
   const [checkboxes, setCheckboxes] = useState(getCheckboxesInitState());
+  const dispatch = useAppDispatch();
+  const hotelId = useAppSelector((state) => state.room ? state.room.id : null);
 
   function handleChange(e: SyntheticEvent) {
     const { name, value } = e.target as HTMLFormElement;
@@ -17,17 +25,22 @@ function CommentForm(): JSX.Element {
 
   function handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
-    setCheckboxes(getCheckboxesInitState());
-    setFormData({ rating: null, review: '' });
+    if (hotelId) {
+      setCheckboxes(getCheckboxesInitState());
+      setFormData(FORM_DATA_INIT_STATE);
+      dispatch(sendCommentAction(formData, hotelId.toString(), setFormData));
+    } else {
+      errorHandle({error: new Error()});
+    }
   }
 
   useEffect(() => {
-    const { rating, review } = formData;
+    const { rating, comment } = formData;
     const newCheckboxes = getCheckboxesInitState();
     if (rating !== null) {
       newCheckboxes[MAX_STARS_RATING - rating] = true;
     }
-    setIsFormValid(rating !== null && review.length >= MIN_REVIEW_LENGTH);
+    setIsFormValid(rating !== null && comment.length >= MIN_REVIEW_LENGTH);
     setCheckboxes(newCheckboxes);
   }, [formData]);
 
@@ -49,7 +62,7 @@ function CommentForm(): JSX.Element {
           );
         })}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" value={formData.review}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="comment" name="comment" placeholder="Tell how was your stay, what you like and what can be improved" value={formData.comment}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.

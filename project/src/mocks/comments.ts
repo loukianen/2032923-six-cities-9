@@ -1,4 +1,4 @@
-import {Comment} from '../types/other-types';
+import {Comment} from '../types/offers';
 import {IMG_URL} from '../const';
 
 const comments: Comment[] = [

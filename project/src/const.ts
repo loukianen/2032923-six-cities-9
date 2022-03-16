@@ -11,11 +11,19 @@ export enum APIRoute {
 export enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',
-  Room = '/offer/:id',
+  NotFound = '/notfound',
+  Room = '/offer/',
+  RoomId = '/offer/:id',
   Root = '/',
 }
 
 export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const DEFAULT_ROOM_DATA = {
+  comments: [],
+  offersNearby: [],
+  room: null,
+};
 
 export const DEFAULT_USER = {
   avatarUrl: '',

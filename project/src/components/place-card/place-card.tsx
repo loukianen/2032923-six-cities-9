@@ -4,6 +4,7 @@ import PlaceCardMark from '../place-card-mark/place-card-mark';
 import { Offer } from '../../types/offers';
 import { PlaceCardType } from '../../types/other-types';
 import { getAccommodationTitle, getRatingStyleData } from '../../services/utils';
+import { AppRoute } from '../../const';
 import useHover from '../../hooks/useHover';
 
 function getClassesName(type: PlaceCardType ) {
@@ -71,7 +72,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`offer/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.Room}${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{getAccommodationTitle(type)}</p>
       </div>

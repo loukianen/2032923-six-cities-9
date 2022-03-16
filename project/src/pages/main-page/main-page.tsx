@@ -8,10 +8,17 @@ import {useAppSelector} from '../../hooks/hooks';
 
 function MainPage(): JSX.Element {
   const [activeOffer, setActiveOffer] = useState(null as number | null);
-  const { city, offers, authorizationStatus } = useAppSelector((state) => state);
+
+  const { city, offers, authorizationStatus } = useAppSelector((state) => ({
+    city: state.city,
+    offers: state.offers,
+    authorizationStatus: state.authorizationStatus,
+  }));
+
   const sortedByCityOffers = offers.filter((item) => item.city.name === city);
   const isOffersListEmpty = sortedByCityOffers.length === 0;
   const points = sortedByCityOffers.map(({ id, location }) => ({ id, location }));
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
