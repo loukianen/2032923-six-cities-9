@@ -4,7 +4,7 @@ import { AuthorizationStatusType } from '../../types/other-types';
 
 const authorizationStatusReducer = createSlice({
   name: 'authorizationStatus',
-  initialState: 'unauthorized',
+  initialState: 'unauthorized' as AuthorizationStatusType,
   reducers: {
     setAuthStatus: (state, action:PayloadAction<AuthorizationStatusType>) => {
       state = action.payload;

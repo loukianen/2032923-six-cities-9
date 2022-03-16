@@ -1,13 +1,14 @@
 import { AccommodationType } from '../types/offers';
 
+const accomodationTitleMapping = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+};
+
 export function getAccommodationTitle(type: AccommodationType) {
-  const mapping = {
-    apartment: 'Apartment',
-    room: 'Private Room',
-    house: 'House',
-    hotel: 'Hotel',
-  };
-  return mapping[type];
+  return accomodationTitleMapping[type];
 }
 
 export function getRatingStyleData(rating: number) {
