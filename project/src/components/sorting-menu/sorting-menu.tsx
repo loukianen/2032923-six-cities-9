@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { offersSortingVariants } from '../../const';
+import {memo, useState} from 'react';
+import {offersSortingVariants} from '../../const';
 import {OffersSortingType} from '../../types/other-types';
 
 const getTextBySortingType = (type: OffersSortingType) => {
@@ -48,4 +48,4 @@ function SortingMenu(props: SortingMenuProps): JSX.Element {
   );
 }
 
-export default SortingMenu;
+export default memo(SortingMenu, (prevProps, nextProps) => prevProps.sortingType === nextProps.sortingType);
