@@ -1,7 +1,6 @@
 import {useEffect} from 'react';
-import {Link, useLocation} from 'react-router-dom';
-import HeaderNavLogged from '../../components/header-nav-logged/header-nav-logged';
-import HeaderNavNotLogged from '../../components/header-nav-not-logged/header-nav-not-logged';
+import {useLocation} from 'react-router-dom';
+import Header from '../../components/header/header';
 import RoomGallery from '../../components/room-gallery/room-gallery';
 import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
 import RoomFeaturesList from '../../components/room-features-list/room-features-list';
@@ -11,18 +10,16 @@ import Map from '../../components/map/map';
 import PlaceCardList from '../../components/place-card-list/place-card-list';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {fetchRoomDataAction} from '../../store/api-actions';
-import {AppRoute} from '../../const';
 import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
+import {NameSpace} from '../../const';
 
 function RoomPage(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const curLocation = useLocation();
-  const {room, offersNearby, authorizationStatus} = useAppSelector((state) => ({
-    room: state.room,
-    offersNearby: state.offersNearby,
-    authorizationStatus: state.authorizationStatus,
+  const {room, offersNearby} = useAppSelector((state) => ({
+    room: state[NameSpace.room],
+    offersNearby: state[NameSpace.offersNearby],
   }));
-  const isAuthorisedUser = authorizationStatus === 'authorized';
 
   const currentPath = curLocation.pathname;
   const [, , offerId] = currentPath.split('/');
@@ -46,20 +43,7 @@ function RoomPage(): JSX.Element | null {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link to={AppRoute.Root}>
-                <a className="header__logo-link" href="#main">
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                </a>
-              </Link>
-            </div>
-            {isAuthorisedUser ? <HeaderNavLogged /> : <HeaderNavNotLogged />}
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className="page__main page__main--property">
         <section className="property">

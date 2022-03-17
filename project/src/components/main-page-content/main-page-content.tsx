@@ -1,65 +1,68 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import SortingMenu from '../sorting-menu/sorting-menu';
 import PlaceCardList from '../../components/place-card-list/place-card-list';
 import Map from '../../components/map/map';
 import {useAppSelector} from '../../hooks/hooks';
-import {Offer, Location} from '../../types/offers';
+import {Offer} from '../../types/offers';
 import {OffersSortingType} from '../../types/other-types';
+import {NameSpace} from '../../const';
+
+const DEFAULT_LOCATION = {latitude: 0, longitude: 0, zoom: 0 };
+
+const compareFunctionMapping = {
+  none: () => 0,
+  byPriceUp: (a: Offer, b: Offer) => {
+    if (a.price === b.price) {
+      return 0;
+    }
+    return a.price > b.price ? 1 : -1;
+  },
+  byPriceDown: (a: Offer, b: Offer) => {
+    if (a.price === b.price) {
+      return 0;
+    }
+    return a.price < b.price ? 1 : -1;
+  },
+  byRatingDown: (a: Offer, b: Offer) => {
+    if (a.rating === b.rating) {
+      return 0;
+    }
+    return a.rating > b.rating ? -1 : 1;
+  },
+};
 
 function getCompareFunction(type: OffersSortingType): (a: Offer, b: Offer) => number {
-  const mapping = {
-    none: () => 0,
-    byPriceUp: (a: Offer, b: Offer) => {
-      if (a.price === b.price) {
-        return 0;
-      }
-      return a.price > b.price ? 1 : -1;
-    },
-    byPriceDown: (a: Offer, b: Offer) => {
-      if (a.price === b.price) {
-        return 0;
-      }
-      return a.price < b.price ? 1 : -1;
-    },
-    byRatingDown: (a: Offer, b: Offer) => {
-      if (a.rating === b.rating) {
-        return 0;
-      }
-      return a.rating > b.rating ? -1 : 1;
-    },
-  };
-  return mapping[type];
+  return compareFunctionMapping[type];
 }
 
-type MainPageContentProps = {
-  setActiveOffer: (x: number | null) => void,
-  offers: Offer[],
-  points: { id: number, location: Location }[],
-  selectedPoint: number | null,
-}
+function MainPageContent(): JSX.Element {
+  const {city, offers} = useAppSelector((state) => ({
+    offers: state[NameSpace.offers],
+    city: state[NameSpace.city],
+  }));
 
-const defaultLocation = {latitude: 0, longitude: 0, zoom: 0 };
+  const [activeOffer, setActiveOffer] = useState(null as number | null);
 
-function MainPageContent(props: MainPageContentProps): JSX.Element {
-  const cityName = useAppSelector((state) => state.city);
-  const { setActiveOffer, offers, points, selectedPoint } = props;
   const [sortingType, setSortingType] = useState<OffersSortingType>('none');
+  const memoSetSortingType = useCallback(() => setSortingType, [setSortingType]);
 
-  const sortedOffers: Offer[] = [...offers].sort(getCompareFunction(sortingType));
-  const cityLocation = sortedOffers[0].city.location ?? defaultLocation;
+  const sortedByCityOffers = offers.filter((item) => item.city.name === city);
+  const points = sortedByCityOffers.map(({ id, location }) => ({ id, location }));
+  const sortedOffers = [...sortedByCityOffers].sort(getCompareFunction(sortingType));
+  const cityLocation = sortedOffers[0].city.location ?? DEFAULT_LOCATION;
 
   return (
-    <div className="cities__places-container container">
+    <>
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offers.length} places to stay in {cityName}</b>
-        <SortingMenu setSorting={setSortingType} sortingType={sortingType} />
+        <b className="places__found">{sortedByCityOffers.length} places to stay in {city}</b>
+        <SortingMenu setSortingType={memoSetSortingType} sortingType={sortingType} />
         <PlaceCardList setActiveOffer={setActiveOffer} offers={sortedOffers} placeCardListType="main" />
       </section>
       <div className="cities__right-section">
-        <Map city={cityLocation} points={points} selectedPoint={selectedPoint} type="main" />
+        <Map city={cityLocation} points={points} selectedPoint={activeOffer} type="main" />
       </div>
-    </div>
+    </>
   );
 }
 

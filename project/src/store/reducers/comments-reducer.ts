@@ -1,9 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {setRoomData} from './room-reducer';
 import {Comment, RoomDataType} from '../../types/offers';
+import {NameSpace} from '../../const';
 
 const commentsReducer = createSlice({
-  name: 'offers',
+  name: NameSpace.offers,
   initialState: [] as Comment[],
   reducers: {
     setComments: (state, action:PayloadAction<Comment[]>) => {

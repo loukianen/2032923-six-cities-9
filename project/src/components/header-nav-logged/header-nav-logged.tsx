@@ -1,10 +1,9 @@
 import { SyntheticEvent } from 'react';
-import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 import {finishAuthAction} from '../../store/api-actions';
+import { AppDispatch } from '../../types/other-types';
 
-function HeaderNavLogged(): JSX.Element {
-  const email = useAppSelector((state) => state.user.email);
-  const dispatch = useAppDispatch();
+function HeaderNavLogged(props: {dispatch: AppDispatch, email: string}): JSX.Element {
+  const {dispatch, email} = props;
 
   function handleClick(e: SyntheticEvent) {
     e.preventDefault();

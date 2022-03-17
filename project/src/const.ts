@@ -46,6 +46,16 @@ export const MIN_REVIEW_LENGTH = 50;
 
 export const MAX_STARS_RATING = 5;
 
+export enum NameSpace {
+  auth = 'AUTH',
+  city = 'CITY',
+  comments = 'COMMENTS',
+  offersNearby = 'OFFERS_NEARBY',
+  offers = 'OFFERS',
+  room = 'ROOM',
+  user = 'USER',
+}
+
 export const offersSortingVariants: OffersSortingType[] = ['none', 'byPriceUp', 'byPriceDown', 'byRatingDown'];
 
 export enum Pins {

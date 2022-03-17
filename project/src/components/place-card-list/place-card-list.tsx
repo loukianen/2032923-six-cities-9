@@ -1,15 +1,8 @@
+import {memo} from 'react';
+import cn from 'classnames';
 import PlaceCard from '../place-card/place-card';
 import {Offer} from '../../types/offers';
 import {PlaceCardListType} from '../../types/other-types';
-
-function getClassName(type: PlaceCardListType ): string {
-  const mapping = {
-    main: 'cities__places-list places__list tabs__content',
-    room: 'near-places__list places__list',
-  };
-  return mapping[type];
-}
-
 
 type PlaceCardListProps = {
   offers: Offer[],
@@ -19,8 +12,15 @@ type PlaceCardListProps = {
 
 function PlaceCardList(props: PlaceCardListProps) {
   const { offers, placeCardListType } = props;
+
+  const cardClassName = cn('places__list', {
+    'cities__places-list': placeCardListType === 'main',
+    'tabs__content': placeCardListType === 'main',
+    'near-places__list': placeCardListType === 'room',
+  });
+
   return (
-    <div className={getClassName(placeCardListType)}>
+    <div className={cardClassName}>
       {offers.map((offer) => (
         <PlaceCard
           key={offer.id}
@@ -33,4 +33,9 @@ function PlaceCardList(props: PlaceCardListProps) {
   );
 }
 
-export default PlaceCardList;
+export default memo(PlaceCardList, (prevProps, nextProps) => {
+  const isOfferIdsEqual = (prevOffers: Offer[], nextOffers: Offer[]) => prevOffers.every(
+    (item, index) => item.id === nextOffers[index].id);
+  return isOfferIdsEqual(prevProps.offers, nextProps.offers)
+    && prevProps.placeCardListType === nextProps.placeCardListType;
+});

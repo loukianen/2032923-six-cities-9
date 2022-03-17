@@ -1,11 +1,12 @@
 import CommentForm from '../../components/comment-form/comment-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import {useAppSelector} from '../../hooks/hooks';
+import {NameSpace} from '../../const';
 
 function ReviewBlock(): JSX.Element {
   const {comments, authorizationStatus} = useAppSelector((state) => ({
-    comments: state.comments,
-    authorizationStatus: state.authorizationStatus,
+    comments: state[NameSpace.comments],
+    authorizationStatus: state[NameSpace.auth],
   }));
   const isAuthorisedUser = authorizationStatus === 'authorized';
   return (

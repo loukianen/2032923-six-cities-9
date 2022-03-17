@@ -1,9 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {DEFAULT_USER} from '../../const';
 import {UserType} from '../../types/offers';
+import {NameSpace} from '../../const';
 
 const userReducer = createSlice({
-  name: 'user',
+  name: NameSpace.user,
   initialState: DEFAULT_USER,
   reducers: {
     successfulAuth: (state, action:PayloadAction<UserType>) => {
