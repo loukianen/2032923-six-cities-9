@@ -1,11 +1,11 @@
-import {memo} from 'react';
 import cn from 'classnames';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {setCityName} from '../../store/reducers/city-reducer';
 import {cityNames} from '../../const';
-import { Dispatch } from '@reduxjs/toolkit';
 
-function CityList(props: {city: string, dispatch: Dispatch}) {
-  const {city, dispatch} = props;
+function CityList() {
+  const dispatch = useAppDispatch();
+  const city = useAppSelector((state) => state.city);
 
   function handleClick(cityName: string) {
     return () => dispatch(setCityName(cityName));
@@ -31,4 +31,4 @@ function CityList(props: {city: string, dispatch: Dispatch}) {
   );
 }
 
-export default memo(CityList, (prevProps, nextProps) => prevProps.city === nextProps.city);
+export default CityList;

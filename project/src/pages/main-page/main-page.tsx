@@ -26,7 +26,7 @@ function MainPage(): JSX.Element {
       <main className={`page__main page__main--index${isOffersListEmpty && ' page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <CityList city={city} dispatch={dispatch} />
+          <CityList />
         </div>
         <div className="cities">
           {isOffersListEmpty
