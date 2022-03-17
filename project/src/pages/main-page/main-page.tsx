@@ -1,15 +1,15 @@
-import {useState, useCallback} from 'react';
+import {useState} from 'react';
 import CityList from '../../components/cities-list/cities-list';
 import HeaderNavLogged from '../../components/header-nav-logged/header-nav-logged';
 import HeaderNavNotLogged from '../../components/header-nav-not-logged/header-nav-not-logged';
 import MainPageContent from '../../components/main-page-content/main-page-content';
 import MainPageEmpty from '../../components/main-page-empty/main-page-empty';
-import {useAppSelector} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 
 function MainPage(): JSX.Element {
   const [activeOffer, setActiveOffer] = useState(null as number | null);
-  const memoSetActiveOffer = useCallback(setActiveOffer, [setActiveOffer]);
 
+  const dispatch = useAppDispatch();
   const { city, offers, authorizationStatus } = useAppSelector((state) => ({
     city: state.city,
     offers: state.offers,
@@ -40,12 +40,12 @@ function MainPage(): JSX.Element {
       <main className={`page__main page__main--index${isOffersListEmpty && ' page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <CityList />
+          <CityList city={city} dispatch={dispatch} />
         </div>
         <div className="cities">
           {isOffersListEmpty
             ? <MainPageEmpty />
-            : <MainPageContent setActiveOffer={memoSetActiveOffer} offers={sortedByCityOffers} points={points} selectedPoint={activeOffer} />}
+            : <MainPageContent setActiveOffer={setActiveOffer} offers={sortedByCityOffers} points={points} selectedPoint={activeOffer} />}
         </div>
       </main>
     </div>
