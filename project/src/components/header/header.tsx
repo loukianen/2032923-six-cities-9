@@ -1,12 +1,14 @@
 import {Link} from 'react-router-dom';
-import {useAppSelector} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import HeaderNavLogged from '../header-nav-logged/header-nav-logged';
 import HeaderNavNotLogged from '../header-nav-not-logged/header-nav-not-logged';
 import {AppRoute} from '../../const';
 
 function Header(): JSX.Element {
-  const {authorizationStatus} = useAppSelector((state) => ({
+  const dispatch = useAppDispatch();
+  const {authorizationStatus, email} = useAppSelector((state) => ({
     authorizationStatus: state.authorizationStatus,
+    email: state.user.email,
   }));
   const isAuthorisedUser = authorizationStatus === 'authorized';
 
@@ -21,7 +23,7 @@ function Header(): JSX.Element {
               </a>
             </Link>
           </div>
-          {isAuthorisedUser ? <HeaderNavLogged /> : <HeaderNavNotLogged />}
+          {isAuthorisedUser ? <HeaderNavLogged dispatch={dispatch} email={email} /> : <HeaderNavNotLogged />}
         </div>
       </div>
     </header>
