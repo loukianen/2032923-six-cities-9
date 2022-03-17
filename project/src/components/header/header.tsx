@@ -3,12 +3,13 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import HeaderNavLogged from '../header-nav-logged/header-nav-logged';
 import HeaderNavNotLogged from '../header-nav-not-logged/header-nav-not-logged';
 import {AppRoute} from '../../const';
+import {NameSpace} from '../../const';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
   const {authStatus, email} = useAppSelector((state) => ({
-    authStatus: state.authorizationStatus,
-    email: state.user.email,
+    authStatus: state[NameSpace.auth],
+    email: state[NameSpace.user].email,
   }));
   const isAuthorisedUser = authStatus === 'authorized';
 

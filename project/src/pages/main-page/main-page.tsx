@@ -4,9 +4,10 @@ import CityList from '../../components/cities-list/cities-list';
 import MainPageContent from '../../components/main-page-content/main-page-content';
 import MainPageEmpty from '../../components/main-page-empty/main-page-empty';
 import {useAppSelector} from '../../hooks/hooks';
+import {NameSpace} from '../../const';
 
 function MainPage(): JSX.Element {
-  const offersCount = useAppSelector((state) => state.offers.length);
+  const offersCount = useAppSelector((state) => state[NameSpace.offers].length);
   const isOffersListEmpty = offersCount === 0;
 
   const pageClassName = cn('page__main page__main--index', {

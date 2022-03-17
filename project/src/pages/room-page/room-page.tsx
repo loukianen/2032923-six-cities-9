@@ -11,13 +11,14 @@ import PlaceCardList from '../../components/place-card-list/place-card-list';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {fetchRoomDataAction} from '../../store/api-actions';
 import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
+import {NameSpace} from '../../const';
 
 function RoomPage(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const curLocation = useLocation();
   const {room, offersNearby} = useAppSelector((state) => ({
-    room: state.room,
-    offersNearby: state.offersNearby,
+    room: state[NameSpace.room],
+    offersNearby: state[NameSpace.offersNearby],
   }));
 
   const currentPath = curLocation.pathname;

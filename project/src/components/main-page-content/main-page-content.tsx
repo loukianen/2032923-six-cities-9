@@ -5,6 +5,7 @@ import Map from '../../components/map/map';
 import {useAppSelector} from '../../hooks/hooks';
 import {Offer} from '../../types/offers';
 import {OffersSortingType} from '../../types/other-types';
+import {NameSpace} from '../../const';
 
 const DEFAULT_LOCATION = {latitude: 0, longitude: 0, zoom: 0 };
 
@@ -36,8 +37,8 @@ function getCompareFunction(type: OffersSortingType): (a: Offer, b: Offer) => nu
 
 function MainPageContent(): JSX.Element {
   const {city, offers} = useAppSelector((state) => ({
-    offers: state.offers,
-    city: state.city,
+    offers: state[NameSpace.offers],
+    city: state[NameSpace.city],
   }));
 
   const [activeOffer, setActiveOffer] = useState(null as number | null);

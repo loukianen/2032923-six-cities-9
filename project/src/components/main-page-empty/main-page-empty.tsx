@@ -1,7 +1,8 @@
 import {useAppSelector} from '../../hooks/hooks';
+import {NameSpace} from '../../const';
 
 function MainPageEmpty(): JSX.Element {
-  const city = useAppSelector((state) => state.city);
+  const city = useAppSelector((state) => state[NameSpace.city]);
   return (
     <>
       <section className="cities__no-places">

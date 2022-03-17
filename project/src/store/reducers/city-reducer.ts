@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {NameSpace} from '../../const';
 
 const cityReducer = createSlice({
-  name: 'city',
+  name: NameSpace.city,
   initialState: 'Paris',
   reducers: {
     setCityName: (state, action:PayloadAction<string>) => {
