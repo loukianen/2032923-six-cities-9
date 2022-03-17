@@ -6,11 +6,11 @@ import {AppRoute} from '../../const';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {authorizationStatus, email} = useAppSelector((state) => ({
-    authorizationStatus: state.authorizationStatus,
+  const {authStatus, email} = useAppSelector((state) => ({
+    authStatus: state.authorizationStatus,
     email: state.user.email,
   }));
-  const isAuthorisedUser = authorizationStatus === 'authorized';
+  const isAuthorisedUser = authStatus === 'authorized';
 
   return (
     <header className="header">

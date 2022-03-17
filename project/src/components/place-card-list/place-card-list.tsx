@@ -1,16 +1,8 @@
 import {memo} from 'react';
+import cn from 'classnames';
 import PlaceCard from '../place-card/place-card';
 import {Offer} from '../../types/offers';
 import {PlaceCardListType} from '../../types/other-types';
-
-const placeCardClassNameMapping = {
-  main: 'cities__places-list places__list tabs__content',
-  room: 'near-places__list places__list',
-};
-
-function getPlaceCardClassName(type: PlaceCardListType ): string {
-  return placeCardClassNameMapping[type];
-}
 
 type PlaceCardListProps = {
   offers: Offer[],
@@ -20,8 +12,15 @@ type PlaceCardListProps = {
 
 function PlaceCardList(props: PlaceCardListProps) {
   const { offers, placeCardListType } = props;
+
+  const cardClassName = cn('places__list', {
+    'cities__places-list': placeCardListType === 'main',
+    'tabs__content': placeCardListType === 'main',
+    'near-places__list': placeCardListType === 'room',
+  });
+
   return (
-    <div className={getPlaceCardClassName(placeCardListType)}>
+    <div className={cardClassName}>
       {offers.map((offer) => (
         <PlaceCard
           key={offer.id}

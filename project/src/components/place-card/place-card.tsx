@@ -24,7 +24,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
   const [hoverRef, isHover] = useHover<HTMLElement>();
 
   useEffect(() => {
-    if (setActiveOffer) {
+    if (setActiveOffer !== undefined) {
       isHover ? setActiveOffer(id) : setActiveOffer(null);
     }
   }, [id, setActiveOffer, isHover]);

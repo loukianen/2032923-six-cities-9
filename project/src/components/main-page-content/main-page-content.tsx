@@ -1,8 +1,9 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import SortingMenu from '../sorting-menu/sorting-menu';
 import PlaceCardList from '../../components/place-card-list/place-card-list';
 import Map from '../../components/map/map';
-import {Offer, Location} from '../../types/offers';
+import {useAppSelector} from '../../hooks/hooks';
+import {Offer} from '../../types/offers';
 import {OffersSortingType} from '../../types/other-types';
 
 const DEFAULT_LOCATION = {latitude: 0, longitude: 0, zoom: 0 };
@@ -33,33 +34,34 @@ function getCompareFunction(type: OffersSortingType): (a: Offer, b: Offer) => nu
   return compareFunctionMapping[type];
 }
 
-type MainPageContentProps = {
-  city: string,
-  setActiveOffer: (x: number | null) => void,
-  offers: Offer[],
-  points: { id: number, location: Location }[],
-  selectedPoint: number | null,
-}
+function MainPageContent(): JSX.Element {
+  const {city, offers} = useAppSelector((state) => ({
+    offers: state.offers,
+    city: state.city,
+  }));
 
-function MainPageContent(props: MainPageContentProps): JSX.Element {
-  const { city, setActiveOffer, offers, points, selectedPoint } = props;
+  const [activeOffer, setActiveOffer] = useState(null as number | null);
+
   const [sortingType, setSortingType] = useState<OffersSortingType>('none');
+  const memoSetSortingType = useCallback(() => setSortingType, [setSortingType]);
 
-  const sortedOffers: Offer[] = [...offers].sort(getCompareFunction(sortingType));
+  const sortedByCityOffers = offers.filter((item) => item.city.name === city);
+  const points = sortedByCityOffers.map(({ id, location }) => ({ id, location }));
+  const sortedOffers = [...sortedByCityOffers].sort(getCompareFunction(sortingType));
   const cityLocation = sortedOffers[0].city.location ?? DEFAULT_LOCATION;
 
   return (
-    <div className="cities__places-container container">
+    <>
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offers.length} places to stay in {city}</b>
-        <SortingMenu setSortingType={setSortingType} sortingType={sortingType} />
+        <b className="places__found">{sortedByCityOffers.length} places to stay in {city}</b>
+        <SortingMenu setSortingType={memoSetSortingType} sortingType={sortingType} />
         <PlaceCardList setActiveOffer={setActiveOffer} offers={sortedOffers} placeCardListType="main" />
       </section>
       <div className="cities__right-section">
-        <Map city={cityLocation} points={points} selectedPoint={selectedPoint} type="main" />
+        <Map city={cityLocation} points={points} selectedPoint={activeOffer} type="main" />
       </div>
-    </div>
+    </>
   );
 }
 
