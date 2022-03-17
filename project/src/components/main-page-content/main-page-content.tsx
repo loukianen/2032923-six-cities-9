@@ -53,7 +53,7 @@ function MainPageContent(props: MainPageContentProps): JSX.Element {
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{offers.length} places to stay in {cityName}</b>
-        <SortingMenu setSorting={setSortingType} sortingType={sortingType} />
+        <SortingMenu setSortingType={setSortingType} sortingType={sortingType} />
         <PlaceCardList setActiveOffer={setActiveOffer} offers={sortedOffers} placeCardListType="main" />
       </section>
       <div className="cities__right-section">

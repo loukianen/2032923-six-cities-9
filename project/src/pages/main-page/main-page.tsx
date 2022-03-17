@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import CityList from '../../components/cities-list/cities-list';
 import HeaderNavLogged from '../../components/header-nav-logged/header-nav-logged';
 import HeaderNavNotLogged from '../../components/header-nav-not-logged/header-nav-not-logged';
@@ -8,6 +8,7 @@ import {useAppSelector} from '../../hooks/hooks';
 
 function MainPage(): JSX.Element {
   const [activeOffer, setActiveOffer] = useState(null as number | null);
+  const memoSetActiveOffer = useCallback(setActiveOffer, [setActiveOffer]);
 
   const { city, offers, authorizationStatus } = useAppSelector((state) => ({
     city: state.city,
@@ -44,7 +45,7 @@ function MainPage(): JSX.Element {
         <div className="cities">
           {isOffersListEmpty
             ? <MainPageEmpty />
-            : <MainPageContent setActiveOffer={setActiveOffer} offers={sortedByCityOffers} points={points} selectedPoint={activeOffer} />}
+            : <MainPageContent setActiveOffer={memoSetActiveOffer} offers={sortedByCityOffers} points={points} selectedPoint={activeOffer} />}
         </div>
       </main>
     </div>

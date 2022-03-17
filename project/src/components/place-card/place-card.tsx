@@ -1,25 +1,12 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import PlaceCardMark from '../place-card-mark/place-card-mark';
 import { Offer } from '../../types/offers';
 import { PlaceCardType } from '../../types/other-types';
 import { getAccommodationTitle, getRatingStyleData } from '../../services/utils';
 import { AppRoute } from '../../const';
 import useHover from '../../hooks/useHover';
-
-function getClassesName(type: PlaceCardType ) {
-  const mapping = {
-    main: {
-      articleClass: 'cities__place-card place-card',
-      imgWrapperClass: 'cities__image-wrapper place-card__image-wrapper',
-    },
-    room: {
-      articleClass: 'near-places__card place-card',
-      imgWrapperClass: 'near-places__image-wrapper place-card__image-wrapper',
-    },
-  };
-  return mapping[type];
-}
 
 type PlaceCardProps = {
   offer: Pick<Offer, 'isPremium' | 'price' | 'rating' | 'title' | 'type' | 'previewImage' | 'id'>,
@@ -42,7 +29,15 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
     }
   }, [id, setActiveOffer, isHover]);
 
-  const { articleClass, imgWrapperClass } = getClassesName(placeCardType);
+  const articleClass = cn('place-card', {
+    'cities__place-card': placeCardType === 'main',
+    'near-places__card': placeCardType === 'room',
+  });
+
+  const imgWrapperClass = cn('place-card__image-wrapper', {
+    'cities__image-wrapper': placeCardType === 'main',
+    'near-places__image-wrapper': placeCardType === 'room',
+  });
 
   return (
     <article className={articleClass} ref={hoverRef}>
