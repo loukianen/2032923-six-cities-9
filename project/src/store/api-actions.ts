@@ -21,6 +21,7 @@ export const authAction = (authData: AuthDataType) => (
     .then((response: AxiosResponse) => {
       saveToken(response.data.token);
       nextDispatch(successfulAuth(response.data));
+      nextDispatch(redirectToRoute(AppRoute.Root));
     })
     .catch((error) => {
       errorHandle(error);
