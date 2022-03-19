@@ -1,16 +1,16 @@
-import { Dispatch } from '@reduxjs/toolkit';
-import { setOffers } from './reducers/offers-reducer';
-import { successfulAuth, unSuccessfulAuth } from './reducers/user-reducer';
-import { setRoomData } from './reducers/room-reducer';
+import {Dispatch} from '@reduxjs/toolkit';
+import {setOffers, replaceOffer} from './reducers/offers-reducer';
+import {successfulAuth, unSuccessfulAuth} from './reducers/user-reducer';
+import {setRoomData} from './reducers/room-reducer';
 import {setComments} from './reducers/comments-reducer';
-import { redirectToRoute } from './actions';
-import { APIRoute, AppRoute } from '../const';
-import { AxiosInstance, AxiosResponse } from 'axios';
-import { toast } from 'react-toastify';
-import { errorHandle } from '../services/error-handle';
-import { saveToken, dropToken } from '../services/token';
-import { DEFAULT_ROOM_DATA } from '../const';
-import { StateType, AuthDataType, CommentFormDataType } from '../types/other-types';
+import {redirectToRoute} from './actions';
+import {APIRoute, AppRoute} from '../const';
+import {AxiosInstance, AxiosResponse} from 'axios';
+import {toast} from 'react-toastify';
+import {errorHandle} from '../services/error-handle';
+import {saveToken, dropToken} from '../services/token';
+import {DEFAULT_ROOM_DATA} from '../const';
+import {StateType, AuthDataType, CommentFormDataType} from '../types/other-types';
 
 export const authAction = (authData: AuthDataType) => (
   nextDispatch: Dispatch,
@@ -46,6 +46,22 @@ export const checkAuthAction = (nextDispatch: Dispatch, getState: () => StateTyp
     pending: 'Loading...',
   });
 };
+
+export const changeOfferStatusAction = (hotelId: string, isFavorite: boolean) =>
+  (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+    const status = isFavorite ? 1 : 0;
+    const path = `${APIRoute.Favorites}/${hotelId}/${status}`;
+    toast.promise(api.get(path)
+      .then((response: AxiosResponse) => {
+        nextDispatch(replaceOffer(response.data));
+      })
+      .catch((error) => {
+        errorHandle(error);
+      }),
+    {
+      pending: 'Loading...',
+    });
+  };
 
 export const fetchOffersAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
   toast.promise(api.get(APIRoute.Offers)

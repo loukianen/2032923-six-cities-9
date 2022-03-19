@@ -1,16 +1,18 @@
+import cn from 'classnames';
 import { MarkType } from '../../types/other-types';
 
-function getClassName(type: MarkType ): string {
-  const mapping = {
-    placeCard: 'place-card__mark',
-    room: 'property__mark',
-  };
-  return mapping[type];
-}
-
 function PlaceCardMark(props: { type: MarkType }) {
+  const {type} = props;
+  const isTypePlaceCard = type === 'placeCard';
+  const isTypeRoom = type === 'room';
+
+  const markClassName = cn ({
+    'place-card__mark': isTypePlaceCard,
+    'property__mark': isTypeRoom,
+  });
+
   return (
-    <div className={getClassName(props.type)}>
+    <div className={markClassName}>
       <span>Premium</span>
     </div>
   );

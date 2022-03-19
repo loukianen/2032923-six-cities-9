@@ -1,14 +1,24 @@
 import cn from 'classnames';
+import {useAppSelector, useAppDispatch} from '../../hooks/hooks';
+import {changeOfferStatusAction} from '../../store/api-actions';
+import {redirectToRoute} from '../../store/actions';
 import {MarkType} from '../../types/other-types';
+import {AppRoute} from '../../const';
 
 function Bookmark(props: {hotelId: string, isFavorite: boolean, type: MarkType}): JSX.Element {
+  const dispatch = useAppDispatch();
+  const authStatus = useAppSelector((state) => state.AUTH);
   const {hotelId, isFavorite, type} = props;
   const isTypePlaceCard = type === 'placeCard';
   const isTypeFavoriteCard = type === 'favoriteCard';
   const isTypeRoom = type === 'room';
 
-  function toggle() {
-    return hotelId;
+  function toggleStatus() {
+    if (authStatus !== 'authorized') {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
+    const newStatus = !isFavorite;
+    dispatch(changeOfferStatusAction(hotelId, newStatus));
   }
 
   const buttonClassName = cn('button', {
@@ -26,7 +36,7 @@ function Bookmark(props: {hotelId: string, isFavorite: boolean, type: MarkType})
   const height = cn({'19': isTypePlaceCard || isTypeFavoriteCard, '33': isTypeRoom});
 
   return (
-    <button className={buttonClassName} type="button" onClick={toggle}>
+    <button className={buttonClassName} type="button" onClick={toggleStatus}>
       <svg className={svgClassName} width={width} height={height}>
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
