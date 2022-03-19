@@ -12,7 +12,7 @@ import {toast} from 'react-toastify';
 import {errorHandle} from '../services/error-handle';
 import {saveToken, dropToken} from '../services/token';
 import {DEFAULT_ROOM_DATA} from '../const';
-import {StateType, AuthDataType, CommentFormDataType, MarkType} from '../types/other-types';
+import {StateType, AuthDataType, CommentFormDataType, PlaceCardType} from '../types/other-types';
 
 const secondActionMapping = {
   'placeCard': replaceOffer,
@@ -21,7 +21,7 @@ const secondActionMapping = {
   'room': setRoom,
 };
 
-function getSecondAction(type: MarkType) {
+function getAction(type: PlaceCardType) {
   return secondActionMapping[type];
 }
 
@@ -60,31 +60,15 @@ export const checkAuthAction = (nextDispatch: Dispatch, getState: () => StateTyp
   });
 };
 
-export const changeOfferStatusAction = (hotelId: number, isFavorite: boolean, secondActionType: MarkType) =>
+export const changeOfferStatusAction = (hotelId: number, isFavorite: boolean, actionType: PlaceCardType) =>
   (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
     const status = isFavorite ? 1 : 0;
     const path = `${APIRoute.Favorites}/${hotelId}/${status}`;
     toast.promise(api.post(path)
       .then((response: AxiosResponse) => {
-        const secondAction = getSecondAction(secondActionType);
-        nextDispatch(secondAction(response.data));
+        const action = getAction(actionType);
+        nextDispatch(action(response.data));
       })
-      .catch((error) => {
-        errorHandle(error);
-      }),
-    {
-      pending: 'Loading...',
-    });
-  };
-
-export const changeOfferStatusFromFavoritesAction = (hotelId: number) =>
-  (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
-    const path = `${APIRoute.Favorites}/${hotelId}/0`;
-    toast.promise(api.post(path)
-      .then(() => api.get(APIRoute.Favorites)
-        .then((favoritesResponse: AxiosResponse) => {
-          nextDispatch(setFavorites(favoritesResponse.data));
-        }))
       .catch((error) => {
         errorHandle(error);
       }),
