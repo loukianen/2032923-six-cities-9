@@ -13,7 +13,7 @@ export type CommentFormDataType = { rating: number | null, comment: string };
 
 export type MapType = 'main' | 'room';
 
-export type MarkType = 'placeCard' | 'room';
+export type MarkType = 'favoriteCard' | 'placeCard' | 'room';
 
 export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
 

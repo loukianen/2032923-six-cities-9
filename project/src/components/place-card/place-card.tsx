@@ -20,6 +20,8 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
     setActiveOffer,
     offer: { isPremium, price, rating, title, type, id, previewImage },
   } = props;
+  const isTypePlaceCard = placeCardType === 'main';
+  const isTypeRoom = placeCardType === 'room';
 
   const [hoverRef, isHover] = useHover<HTMLElement>();
 
@@ -30,13 +32,13 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
   }, [id, setActiveOffer, isHover]);
 
   const articleClass = cn('place-card', {
-    'cities__place-card': placeCardType === 'main',
-    'near-places__card': placeCardType === 'room',
+    'cities__place-card': isTypePlaceCard,
+    'near-places__card': isTypeRoom,
   });
 
   const imgWrapperClass = cn('place-card__image-wrapper', {
-    'cities__image-wrapper': placeCardType === 'main',
-    'near-places__image-wrapper': placeCardType === 'room',
+    'cities__image-wrapper': isTypePlaceCard,
+    'near-places__image-wrapper': isTypeRoom,
   });
 
   return (

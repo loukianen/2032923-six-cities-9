@@ -11,10 +11,10 @@ function FavoritesPage(props: OffersProps): JSX.Element {
   const mainClassName = cn('page__main', 'page__main--favorites', {
     'page__main--favorites-empty': isFaviritesEmpty,
   });
+
   return (
     <div className="page">
       <Header />
-
       <main className={mainClassName}>
         <div className="page__favorites-container container">
           {isFaviritesEmpty
