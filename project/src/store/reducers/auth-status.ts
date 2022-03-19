@@ -5,7 +5,7 @@ import {NameSpace} from '../../const';
 
 const authorizationStatusReducer = createSlice({
   name: NameSpace.auth,
-  initialState: 'unauthorized' as AuthorizationStatusType,
+  initialState: 'unknown' as AuthorizationStatusType,
   reducers: {
     setAuthStatus: (state, action:PayloadAction<AuthorizationStatusType>) => {
       state = action.payload;

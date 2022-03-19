@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import cn from 'classnames';
 import PlaceCardMark from '../place-card-mark/place-card-mark';
 import Bookmark from '../bookmark/bookmark';
-import { Offer } from '../../types/offers';
-import { PlaceCardType } from '../../types/other-types';
-import { getAccommodationTitle, getRatingStyleData } from '../../services/utils';
-import { AppRoute } from '../../const';
+import {Offer} from '../../types/offers';
+import {PlaceCardType} from '../../types/other-types';
+import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
+import {AppRoute} from '../../const';
 import useHover from '../../hooks/useHover';
 
 type PlaceCardProps = {
@@ -21,8 +21,8 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
     setActiveOffer,
     offer: { isPremium, isFavorite, price, rating, title, type, id, previewImage },
   } = props;
-  const isTypePlaceCard = placeCardType === 'main';
-  const isTypeRoom = placeCardType === 'room';
+  const isTypePlaceCard = placeCardType === 'placeCard';
+  const isTypePlaceNearby = placeCardType === 'placeNearby';
 
   const [hoverRef, isHover] = useHover<HTMLElement>();
 
@@ -34,12 +34,12 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
 
   const articleClass = cn('place-card', {
     'cities__place-card': isTypePlaceCard,
-    'near-places__card': isTypeRoom,
+    'near-places__card': isTypePlaceNearby,
   });
 
   const imgWrapperClass = cn('place-card__image-wrapper', {
     'cities__image-wrapper': isTypePlaceCard,
-    'near-places__image-wrapper': isTypeRoom,
+    'near-places__image-wrapper': isTypePlaceNearby,
   });
 
   return (
@@ -56,7 +56,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <Bookmark hotelId={id} isFavorite={isFavorite} type="placeCard" />
+          <Bookmark hotelId={id} isFavorite={isFavorite} type={placeCardType} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

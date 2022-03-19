@@ -3,37 +3,37 @@ import {useAppSelector, useAppDispatch} from '../../hooks/hooks';
 import {changeOfferStatusAction} from '../../store/api-actions';
 import {redirectToRoute} from '../../store/actions';
 import {MarkType} from '../../types/other-types';
-import {AppRoute} from '../../const';
+import {AppRoute, NameSpace} from '../../const';
 
 function Bookmark(props: {hotelId: number, isFavorite: boolean, type: MarkType}): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state.AUTH);
+  const authStatus = useAppSelector((state) => state[NameSpace.auth]);
   const {hotelId, isFavorite, type} = props;
-  const isTypePlaceCard = type === 'placeCard';
-  const isTypeFavoriteCard = type === 'favoriteCard';
   const isTypeRoom = type === 'room';
 
   function toggleStatus() {
     if (authStatus !== 'authorized') {
       dispatch(redirectToRoute(AppRoute.Login));
+    } else {
+      const newStatus = !isFavorite;
+      dispatch(changeOfferStatusAction(hotelId, newStatus, type));
     }
-    const newStatus = !isFavorite;
-    dispatch(changeOfferStatusAction(hotelId, newStatus));
   }
 
   const buttonClassName = cn('button', {
-    'place-card__bookmark-button--active button': isFavorite,
-    'place-card__bookmark-button': isTypePlaceCard || isTypeFavoriteCard,
+    'place-card__bookmark-button--active button': isFavorite && !isTypeRoom,
+    'property__bookmark-button--active button': isFavorite && isTypeRoom,
+    'place-card__bookmark-button': !isTypeRoom,
     'property__bookmark-button': isTypeRoom,
   });
 
   const svgClassName = cn({
-    'place-card__bookmark-icon': isTypePlaceCard || isTypeFavoriteCard,
+    'place-card__bookmark-icon': !isTypeRoom,
     'property__bookmark-icon': isTypeRoom,
   });
 
-  const width = cn({'18': isTypePlaceCard || isTypeFavoriteCard, '31': isTypeRoom});
-  const height = cn({'19': isTypePlaceCard || isTypeFavoriteCard, '33': isTypeRoom});
+  const width = cn({'18': !isTypeRoom, '31': isTypeRoom});
+  const height = cn({'19': !isTypeRoom, '33': isTypeRoom});
 
   return (
     <button className={buttonClassName} type="button" onClick={toggleStatus}>

@@ -7,17 +7,17 @@ export type AuthDataType = {
   password: FormDataEntryValue | null,
 }
 
-export type AuthorizationStatusType = 'authorized' | 'unauthorized';
+export type AuthorizationStatusType = 'authorized' | 'unauthorized' | 'unknown';
 
 export type CommentFormDataType = { rating: number | null, comment: string };
 
 export type MapType = 'main' | 'room';
 
-export type MarkType = 'favoriteCard' | 'placeCard' | 'room';
+export type MarkType = 'favorite' | 'placeCard' | 'placeNearby' | 'room';
 
 export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
 
-export type PlaceCardType = 'main' | 'room';
+export type PlaceCardType = 'placeCard' | 'placeNearby'| 'room';
 
 export type PlaceCardListType = PlaceCardType;
 

@@ -11,6 +11,11 @@ const offersNearbyReducer = createSlice({
       state = action.payload;
       return state;
     },
+    replaceOfferNearby: (state, action:PayloadAction<Offer>) => {
+      const newOffer = action.payload;
+      const newState = state.map((offer) => offer.id === newOffer.id ? newOffer : offer);
+      return newState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -21,6 +26,6 @@ const offersNearbyReducer = createSlice({
   },
 });
 
-export const { setOffersNearby } = offersNearbyReducer.actions;
+export const {setOffersNearby, replaceOfferNearby} = offersNearbyReducer.actions;
 
 export default offersNearbyReducer;

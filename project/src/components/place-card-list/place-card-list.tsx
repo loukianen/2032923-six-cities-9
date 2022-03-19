@@ -14,9 +14,9 @@ function PlaceCardList(props: PlaceCardListProps) {
   const { offers, placeCardListType } = props;
 
   const cardClassName = cn('places__list', {
-    'cities__places-list': placeCardListType === 'main',
-    'tabs__content': placeCardListType === 'main',
-    'near-places__list': placeCardListType === 'room',
+    'cities__places-list': placeCardListType === 'placeCard',
+    'tabs__content': placeCardListType === 'placeCard',
+    'near-places__list': placeCardListType === 'placeNearby',
   });
 
   return (
@@ -26,7 +26,7 @@ function PlaceCardList(props: PlaceCardListProps) {
           key={offer.id}
           offer={offer}
           setActiveOffer={props.setActiveOffer}
-          placeCardType="main"
+          placeCardType={placeCardListType}
         />
       ))}
     </div>
@@ -35,7 +35,7 @@ function PlaceCardList(props: PlaceCardListProps) {
 
 export default memo(PlaceCardList, (prevProps, nextProps) => {
   const isOfferIdsEqual = (prevOffers: Offer[], nextOffers: Offer[]) => prevOffers.every(
-    (item, index) => item.id === nextOffers[index].id);
+    (item, index) => item.id === nextOffers[index].id && item.isFavorite === nextOffers[index].isFavorite);
   return isOfferIdsEqual(prevProps.offers, nextProps.offers)
     && prevProps.placeCardListType === nextProps.placeCardListType;
 });

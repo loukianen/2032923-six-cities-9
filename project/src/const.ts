@@ -50,6 +50,7 @@ export enum NameSpace {
   auth = 'AUTH',
   city = 'CITY',
   comments = 'COMMENTS',
+  favorites = 'FAVORITES',
   offersNearby = 'OFFERS_NEARBY',
   offers = 'OFFERS',
   room = 'ROOM',

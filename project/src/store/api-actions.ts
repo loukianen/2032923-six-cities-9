@@ -1,8 +1,10 @@
 import {Dispatch} from '@reduxjs/toolkit';
 import {setOffers, replaceOffer} from './reducers/offers-reducer';
+import {replaceOfferNearby} from './reducers/offers-nearby-reducer';
 import {successfulAuth, unSuccessfulAuth} from './reducers/user-reducer';
-import {setRoomData} from './reducers/room-reducer';
+import {setRoom, setRoomData} from './reducers/room-reducer';
 import {setComments} from './reducers/comments-reducer';
+import {setFavorites, removeOffer} from './reducers/favorites-reducer';
 import {redirectToRoute} from './actions';
 import {APIRoute, AppRoute} from '../const';
 import {AxiosInstance, AxiosResponse} from 'axios';
@@ -10,7 +12,18 @@ import {toast} from 'react-toastify';
 import {errorHandle} from '../services/error-handle';
 import {saveToken, dropToken} from '../services/token';
 import {DEFAULT_ROOM_DATA} from '../const';
-import {StateType, AuthDataType, CommentFormDataType} from '../types/other-types';
+import {StateType, AuthDataType, CommentFormDataType, MarkType} from '../types/other-types';
+
+const secondActionMapping = {
+  'placeCard': replaceOffer,
+  'placeNearby': replaceOfferNearby,
+  'favorite': removeOffer,
+  'room': setRoom,
+};
+
+function getSecondAction(type: MarkType) {
+  return secondActionMapping[type];
+}
 
 export const authAction = (authData: AuthDataType) => (
   nextDispatch: Dispatch,
@@ -47,13 +60,14 @@ export const checkAuthAction = (nextDispatch: Dispatch, getState: () => StateTyp
   });
 };
 
-export const changeOfferStatusAction = (hotelId: number, isFavorite: boolean) =>
+export const changeOfferStatusAction = (hotelId: number, isFavorite: boolean, secondActionType: MarkType) =>
   (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
     const status = isFavorite ? 1 : 0;
     const path = `${APIRoute.Favorites}/${hotelId}/${status}`;
     toast.promise(api.post(path)
       .then((response: AxiosResponse) => {
-        nextDispatch(replaceOffer(response.data));
+        const secondAction = getSecondAction(secondActionType);
+        nextDispatch(secondAction(response.data));
       })
       .catch((error) => {
         errorHandle(error);
@@ -62,6 +76,35 @@ export const changeOfferStatusAction = (hotelId: number, isFavorite: boolean) =>
       pending: 'Loading...',
     });
   };
+
+export const changeOfferStatusFromFavoritesAction = (hotelId: number) =>
+  (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+    const path = `${APIRoute.Favorites}/${hotelId}/0`;
+    toast.promise(api.post(path)
+      .then(() => api.get(APIRoute.Favorites)
+        .then((favoritesResponse: AxiosResponse) => {
+          nextDispatch(setFavorites(favoritesResponse.data));
+        }))
+      .catch((error) => {
+        errorHandle(error);
+      }),
+    {
+      pending: 'Loading...',
+    });
+  };
+
+export const fetchFavoritesAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+  toast.promise(api.get(APIRoute.Favorites)
+    .then((response: AxiosResponse) => {
+      nextDispatch(setFavorites(response.data));
+    })
+    .catch((error) => {
+      errorHandle(error);
+    }),
+  {
+    pending: 'Loading...',
+  });
+};
 
 export const fetchOffersAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
   toast.promise(api.get(APIRoute.Offers)
