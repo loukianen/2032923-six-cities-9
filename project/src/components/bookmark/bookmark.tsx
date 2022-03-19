@@ -2,10 +2,10 @@ import cn from 'classnames';
 import {useAppSelector, useAppDispatch} from '../../hooks/hooks';
 import {changeOfferStatusAction} from '../../store/api-actions';
 import {redirectToRoute} from '../../store/actions';
-import {MarkType} from '../../types/other-types';
+import {PlaceCardType} from '../../types/other-types';
 import {AppRoute, NameSpace} from '../../const';
 
-function Bookmark(props: {hotelId: number, isFavorite: boolean, type: MarkType}): JSX.Element {
+function Bookmark(props: {hotelId: number, isFavorite: boolean, type: PlaceCardType}): JSX.Element {
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector((state) => state[NameSpace.auth]);
   const {hotelId, isFavorite, type} = props;

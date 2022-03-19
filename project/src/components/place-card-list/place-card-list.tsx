@@ -2,12 +2,12 @@ import {memo} from 'react';
 import cn from 'classnames';
 import PlaceCard from '../place-card/place-card';
 import {Offer} from '../../types/offers';
-import {PlaceCardListType} from '../../types/other-types';
+import {PlaceCardType} from '../../types/other-types';
 
 type PlaceCardListProps = {
   offers: Offer[],
   setActiveOffer?: (x: number | null) => void,
-  placeCardListType: PlaceCardListType,
+  placeCardListType: PlaceCardType,
 }
 
 function PlaceCardList(props: PlaceCardListProps) {

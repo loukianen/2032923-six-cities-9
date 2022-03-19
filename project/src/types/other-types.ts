@@ -13,12 +13,8 @@ export type CommentFormDataType = { rating: number | null, comment: string };
 
 export type MapType = 'main' | 'room';
 
-export type MarkType = 'favorite' | 'placeCard' | 'placeNearby' | 'room';
-
 export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
 
-export type PlaceCardType = 'placeCard' | 'placeNearby'| 'room';
-
-export type PlaceCardListType = PlaceCardType;
+export type PlaceCardType = 'favorite' | 'placeCard' | 'placeNearby'| 'room';
 
 export type StateType = ReturnType<typeof store.getState>;

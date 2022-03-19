@@ -1,10 +1,10 @@
-import FavoritePlaceCard from '../favorite-place-card/favorite-place-card';
+import PlaceCard from '../place-card/place-card';
 import {Offer} from '../../types/offers';
 
 function FavoritePlacesList(props: {offers: Offer[]}) {
   return (
     <div className="favorites__places">
-      {props.offers.map((offer) => <FavoritePlaceCard key={offer.id} offer={offer} />)}
+      {props.offers.map((offer) => <PlaceCard key={offer.id} offer={offer} placeCardType='favorite' />)}
     </div>
   );
 }
