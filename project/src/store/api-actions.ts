@@ -47,11 +47,11 @@ export const checkAuthAction = (nextDispatch: Dispatch, getState: () => StateTyp
   });
 };
 
-export const changeOfferStatusAction = (hotelId: string, isFavorite: boolean) =>
+export const changeOfferStatusAction = (hotelId: number, isFavorite: boolean) =>
   (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
     const status = isFavorite ? 1 : 0;
     const path = `${APIRoute.Favorites}/${hotelId}/${status}`;
-    toast.promise(api.get(path)
+    toast.promise(api.post(path)
       .then((response: AxiosResponse) => {
         nextDispatch(replaceOffer(response.data));
       })

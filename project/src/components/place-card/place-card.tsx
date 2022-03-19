@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import PlaceCardMark from '../place-card-mark/place-card-mark';
+import Bookmark from '../bookmark/bookmark';
 import { Offer } from '../../types/offers';
 import { PlaceCardType } from '../../types/other-types';
 import { getAccommodationTitle, getRatingStyleData } from '../../services/utils';
@@ -9,7 +10,7 @@ import { AppRoute } from '../../const';
 import useHover from '../../hooks/useHover';
 
 type PlaceCardProps = {
-  offer: Pick<Offer, 'isPremium' | 'price' | 'rating' | 'title' | 'type' | 'previewImage' | 'id'>,
+  offer: Pick<Offer, 'isPremium' | 'isFavorite' | 'price' | 'rating' | 'title' | 'type' | 'previewImage' | 'id'>,
   placeCardType: PlaceCardType,
   setActiveOffer?: (x: number | null) => void,
 }
@@ -18,7 +19,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
   const {
     placeCardType,
     setActiveOffer,
-    offer: { isPremium, price, rating, title, type, id, previewImage },
+    offer: { isPremium, isFavorite, price, rating, title, type, id, previewImage },
   } = props;
   const isTypePlaceCard = placeCardType === 'main';
   const isTypeRoom = placeCardType === 'room';
@@ -55,12 +56,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <Bookmark hotelId={id} isFavorite={isFavorite} type="placeCard" />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

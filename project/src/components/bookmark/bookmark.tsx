@@ -5,7 +5,7 @@ import {redirectToRoute} from '../../store/actions';
 import {MarkType} from '../../types/other-types';
 import {AppRoute} from '../../const';
 
-function Bookmark(props: {hotelId: string, isFavorite: boolean, type: MarkType}): JSX.Element {
+function Bookmark(props: {hotelId: number, isFavorite: boolean, type: MarkType}): JSX.Element {
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector((state) => state.AUTH);
   const {hotelId, isFavorite, type} = props;

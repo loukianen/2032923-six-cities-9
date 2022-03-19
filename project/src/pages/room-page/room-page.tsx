@@ -3,6 +3,7 @@ import {useLocation} from 'react-router-dom';
 import Header from '../../components/header/header';
 import RoomGallery from '../../components/room-gallery/room-gallery';
 import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
+import Bookmark from '../../components/bookmark/bookmark';
 import RoomFeaturesList from '../../components/room-features-list/room-features-list';
 import RoomHost from '../../components/room-host/room-host';
 import ReviewBlock from '../../components/review-block/review-block';
@@ -38,7 +39,7 @@ function RoomPage(): JSX.Element | null {
   const points = [...offersNearby, room].map(({ id, location }) => ({ id, location }));
 
   const {
-    images, title, rating, isPremium, type, bedrooms, maxAdults, price, goods, description, host,
+    id, images, title, rating, isPremium, isFavorite, type, bedrooms, maxAdults, price, goods, description, host,
   } = room;
 
   return (
@@ -55,12 +56,7 @@ function RoomPage(): JSX.Element | null {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <Bookmark hotelId={id} isFavorite={isFavorite} type="room" />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
