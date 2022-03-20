@@ -42,6 +42,7 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
+export const MAX_REVIEW_COUNT = 10;
 export const MIN_REVIEW_LENGTH = 50;
 
 export const MAX_STARS_RATING = 5;
