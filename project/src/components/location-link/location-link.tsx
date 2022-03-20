@@ -3,7 +3,7 @@ import {useAppDispatch} from '../../hooks/hooks';
 import {setCityName} from '../../store/reducers/city-reducer';
 import {AppRoute} from '../../const';
 
-function LocationLink(props: {cityName: string }) {
+function LocationLink(props: {cityName: string}) {
   const dispatch = useAppDispatch();
   const {cityName} = props;
 
