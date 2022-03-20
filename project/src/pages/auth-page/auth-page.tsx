@@ -1,11 +1,19 @@
-import {SyntheticEvent} from 'react';
+import {SyntheticEvent, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {authAction} from '../../store/api-actions';
-import {AppRoute} from '../../const';
+import {redirectToRoute} from '../../store/actions';
+import {AppRoute, NameSpace} from '../../const';
 
 function AuthPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const authStatus = useAppSelector((state) => state[NameSpace.auth]);
+
+  useEffect(() => {
+    if (authStatus === 'authorized') {
+      dispatch(redirectToRoute(AppRoute.Root));
+    }
+  }, [dispatch, authStatus]);
 
   function handleSubmit(evt: SyntheticEvent) {
     evt.preventDefault();
