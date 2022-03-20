@@ -1,13 +1,12 @@
 import cn from 'classnames';
-import { MarkType } from '../../types/other-types';
+import {PlaceCardType} from '../../types/other-types';
 
-function PlaceCardMark(props: { type: MarkType }) {
+function PlaceCardMark(props: { type: PlaceCardType }) {
   const {type} = props;
-  const isTypePlaceCard = type === 'placeCard';
   const isTypeRoom = type === 'room';
 
   const markClassName = cn ({
-    'place-card__mark': isTypePlaceCard,
+    'place-card__mark': !isTypeRoom,
     'property__mark': isTypeRoom,
   });
 

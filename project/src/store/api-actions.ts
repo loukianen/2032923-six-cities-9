@@ -14,15 +14,15 @@ import {saveToken, dropToken} from '../services/token';
 import {DEFAULT_ROOM_DATA} from '../const';
 import {StateType, AuthDataType, CommentFormDataType, PlaceCardType} from '../types/other-types';
 
-const secondActionMapping = {
+const storeActionMapping = {
   'placeCard': replaceOffer,
   'placeNearby': replaceOfferNearby,
   'favorite': removeOffer,
   'room': setRoom,
 };
 
-function getAction(type: PlaceCardType) {
-  return secondActionMapping[type];
+function getStoreAction(type: PlaceCardType) {
+  return storeActionMapping[type];
 }
 
 export const authAction = (authData: AuthDataType) => (
@@ -66,8 +66,8 @@ export const changeOfferStatusAction = (hotelId: number, isFavorite: boolean, ac
     const path = `${APIRoute.Favorites}/${hotelId}/${status}`;
     toast.promise(api.post(path)
       .then((response: AxiosResponse) => {
-        const action = getAction(actionType);
-        nextDispatch(action(response.data));
+        const storeAction = getStoreAction(actionType);
+        nextDispatch(storeAction(response.data));
       })
       .catch((error) => {
         errorHandle(error);
