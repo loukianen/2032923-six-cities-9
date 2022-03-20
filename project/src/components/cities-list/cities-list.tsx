@@ -20,9 +20,9 @@ function CityList() {
           });
           return (
             <li key={cityName} className="locations__item" onClick={handleClick(cityName)}>
-              <a className={locationClassName} href="#locations__item">
+              <div className={locationClassName}>
                 <span>{cityName}</span>
-              </a>
+              </div>
             </li>
           );
         })}
