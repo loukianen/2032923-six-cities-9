@@ -2,7 +2,7 @@ import {SyntheticEvent, useState, useEffect, Fragment} from 'react';
 import {errorHandle} from '../../services/error-handle';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {sendCommentAction} from '../../store/api-actions';
-import {MIN_REVIEW_LENGTH, MAX_STARS_RATING} from '../../const';
+import {MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH, MAX_STARS_RATING} from '../../const';
 import {CommentFormDataType} from '../../types/other-types';
 import {NameSpace} from '../../const';
 
@@ -66,7 +66,7 @@ function CommentForm(): JSX.Element {
           );
         })}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="comment" name="comment" placeholder="Tell how was your stay, what you like and what can be improved" value={formData.comment}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="comment" name="comment" maxLength={MAX_REVIEW_LENGTH} placeholder="Tell how was your stay, what you like and what can be improved" value={formData.comment}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
