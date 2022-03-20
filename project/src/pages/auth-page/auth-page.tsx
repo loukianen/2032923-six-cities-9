@@ -1,13 +1,20 @@
 import {SyntheticEvent, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {setCityName} from '../../store/reducers/city-reducer';
 import {authAction} from '../../store/api-actions';
 import {redirectToRoute} from '../../store/actions';
-import {AppRoute, NameSpace} from '../../const';
+import {getRandomValue} from '../../services/utils';
+import {AppRoute, NameSpace, cityNames} from '../../const';
 
 function AuthPage(): JSX.Element {
+  const cityName = getRandomValue(cityNames);
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector((state) => state[NameSpace.auth]);
+
+  function handleClick() {
+    dispatch(setCityName(cityName as string));
+  }
 
   useEffect(() => {
     if (authStatus === 'authorized') {
@@ -58,11 +65,13 @@ function AuthPage(): JSX.Element {
             </form>
           </section>
           <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="#locations__item">
-                <span>Amsterdam</span>
-              </a>
-            </div>
+            <Link to={AppRoute.Root}>
+              <div className="locations__item" onClick={handleClick}>
+                <div className="locations__item-link">
+                  <span>{cityName as string}</span>
+                </div>
+              </div>
+            </Link>
           </section>
         </div>
       </main>
