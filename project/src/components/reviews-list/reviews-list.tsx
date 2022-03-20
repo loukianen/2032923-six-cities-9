@@ -1,6 +1,6 @@
 import Review from '../review/review';
 import {Comment} from '../../types/offers';
-import {MAX_REVIEW_COUNT} from '../../const';
+import {REVIEW} from '../../const';
 
 function compare(a: Comment, b: Comment) {
   const first = Date.parse(a.date);
@@ -10,7 +10,7 @@ function compare(a: Comment, b: Comment) {
 
 function getCommentsForRendering(data: Comment[]) {
   const sortedComments = [...data].sort(compare);
-  return sortedComments.slice(0, MAX_REVIEW_COUNT);
+  return sortedComments.slice(0, REVIEW.MaxCount);
 }
 
 function ReviewsList(props: { comments: Comment[] }): JSX.Element {
