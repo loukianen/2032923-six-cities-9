@@ -7,18 +7,14 @@ export type AuthDataType = {
   password: FormDataEntryValue | null,
 }
 
-export type AuthorizationStatusType = 'authorized' | 'unauthorized';
+export type AuthorizationStatusType = 'authorized' | 'unauthorized' | 'unknown';
 
 export type CommentFormDataType = { rating: number | null, comment: string };
 
 export type MapType = 'main' | 'room';
 
-export type MarkType = 'placeCard' | 'room';
-
 export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
 
-export type PlaceCardType = 'main' | 'room';
-
-export type PlaceCardListType = PlaceCardType;
+export type PlaceCardType = 'favorite' | 'placeCard' | 'placeNearby'| 'room';
 
 export type StateType = ReturnType<typeof store.getState>;

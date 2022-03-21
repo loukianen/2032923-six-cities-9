@@ -1,13 +1,12 @@
-import FavoritePlaceCard from '../favorite-place-card/favorite-place-card';
-import { OffersProps } from '../../types/offers';
+import PlaceCard from '../place-card/place-card';
+import {Offer} from '../../types/offers';
 
-function OffersList(props: OffersProps) {
-  const { offers } = props;
+function FavoritePlacesList(props: {offers: Offer[]}) {
   return (
     <div className="favorites__places">
-      {offers.map((offer) => <FavoritePlaceCard key={offer.id} offer={offer} />)}
+      {props.offers.map((offer) => <PlaceCard key={offer.id} offer={offer} placeCardType='favorite' />)}
     </div>
   );
 }
 
-export default OffersList;
+export default FavoritePlacesList;

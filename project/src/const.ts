@@ -42,14 +42,13 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
-export const MIN_REVIEW_LENGTH = 50;
-
 export const MAX_STARS_RATING = 5;
 
 export enum NameSpace {
   auth = 'AUTH',
   city = 'CITY',
   comments = 'COMMENTS',
+  favorites = 'FAVORITES',
   offersNearby = 'OFFERS_NEARBY',
   offers = 'OFFERS',
   room = 'ROOM',
@@ -62,3 +61,9 @@ export enum Pins {
   Normal = 'pin.svg',
   Active = 'pin-active.svg',
 }
+
+export const REVIEW = {
+  MaxCount: 10,
+  MinLength: 50,
+  MaxLength: 300,
+} as const;

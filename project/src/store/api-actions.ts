@@ -1,16 +1,29 @@
-import { Dispatch } from '@reduxjs/toolkit';
-import { setOffers } from './reducers/offers-reducer';
-import { successfulAuth, unSuccessfulAuth } from './reducers/user-reducer';
-import { setRoomData } from './reducers/room-reducer';
+import {Dispatch} from '@reduxjs/toolkit';
+import {setOffers, replaceOffer} from './reducers/offers-reducer';
+import {replaceOfferNearby} from './reducers/offers-nearby-reducer';
+import {successfulAuth, unSuccessfulAuth} from './reducers/user-reducer';
+import {setRoom, setRoomData} from './reducers/room-reducer';
 import {setComments} from './reducers/comments-reducer';
-import { redirectToRoute } from './actions';
-import { APIRoute, AppRoute } from '../const';
-import { AxiosInstance, AxiosResponse } from 'axios';
-import { toast } from 'react-toastify';
-import { errorHandle } from '../services/error-handle';
-import { saveToken, dropToken } from '../services/token';
-import { DEFAULT_ROOM_DATA } from '../const';
-import { StateType, AuthDataType, CommentFormDataType } from '../types/other-types';
+import {setFavorites, removeOffer} from './reducers/favorites-reducer';
+import {redirectToRoute} from './actions';
+import {APIRoute, AppRoute} from '../const';
+import {AxiosInstance, AxiosResponse} from 'axios';
+import {toast} from 'react-toastify';
+import {errorHandle} from '../services/error-handle';
+import {saveToken, dropToken} from '../services/token';
+import {DEFAULT_ROOM_DATA} from '../const';
+import {StateType, AuthDataType, CommentFormDataType, PlaceCardType} from '../types/other-types';
+
+const storeActionMapping = {
+  'placeCard': replaceOffer,
+  'placeNearby': replaceOfferNearby,
+  'favorite': removeOffer,
+  'room': setRoom,
+};
+
+function getStoreAction(type: PlaceCardType) {
+  return storeActionMapping[type];
+}
 
 export const authAction = (authData: AuthDataType) => (
   nextDispatch: Dispatch,
@@ -21,6 +34,7 @@ export const authAction = (authData: AuthDataType) => (
     .then((response: AxiosResponse) => {
       saveToken(response.data.token);
       nextDispatch(successfulAuth(response.data));
+      nextDispatch(redirectToRoute(AppRoute.Root));
     })
     .catch((error) => {
       errorHandle(error);
@@ -40,6 +54,36 @@ export const checkAuthAction = (nextDispatch: Dispatch, getState: () => StateTyp
       dropToken();
       errorHandle(error);
       nextDispatch(unSuccessfulAuth());
+    }),
+  {
+    pending: 'Loading...',
+  });
+};
+
+export const changeOfferStatusAction = (hotelId: number, isFavorite: boolean, actionType: PlaceCardType) =>
+  (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+    const status = isFavorite ? 1 : 0;
+    const path = `${APIRoute.Favorites}/${hotelId}/${status}`;
+    toast.promise(api.post(path)
+      .then((response: AxiosResponse) => {
+        const storeAction = getStoreAction(actionType);
+        nextDispatch(storeAction(response.data));
+      })
+      .catch((error) => {
+        errorHandle(error);
+      }),
+    {
+      pending: 'Loading...',
+    });
+  };
+
+export const fetchFavoritesAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+  toast.promise(api.get(APIRoute.Favorites)
+    .then((response: AxiosResponse) => {
+      nextDispatch(setFavorites(response.data));
+    })
+    .catch((error) => {
+      errorHandle(error);
     }),
   {
     pending: 'Loading...',

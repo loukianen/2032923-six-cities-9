@@ -1,11 +1,22 @@
-import {SyntheticEvent} from 'react';
+import {SyntheticEvent, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {authAction} from '../../store/api-actions';
-import {AppRoute} from '../../const';
+import {redirectToRoute} from '../../store/actions';
+import LocationLink from '../../components/location-link/location-link';
+import {getRandomValue} from '../../services/utils';
+import {AppRoute, NameSpace, cityNames} from '../../const';
 
 function AuthPage(): JSX.Element {
+  const cityName = getRandomValue(cityNames);
   const dispatch = useAppDispatch();
+  const authStatus = useAppSelector((state) => state[NameSpace.auth]);
+
+  useEffect(() => {
+    if (authStatus === 'authorized') {
+      dispatch(redirectToRoute(AppRoute.Root));
+    }
+  }, [dispatch, authStatus]);
 
   function handleSubmit(evt: SyntheticEvent) {
     evt.preventDefault();
@@ -51,9 +62,7 @@ function AuthPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#locations__item">
-                <span>Amsterdam</span>
-              </a>
+              <LocationLink cityName={cityName as string} />
             </div>
           </section>
         </div>
