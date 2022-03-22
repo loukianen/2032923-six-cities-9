@@ -1,9 +1,19 @@
-import cn from 'classnames';
+import {Link} from 'react-router-dom';
 import {useAppSelector, useAppDispatch} from '../../hooks/hooks';
 import {changeOfferStatusAction} from '../../store/api-actions';
-import {redirectToRoute} from '../../store/actions';
 import {PlaceCardType} from '../../types/other-types';
 import {AppRoute, NameSpace} from '../../const';
+
+const roomButtonSize = {width: 31, height: 33};
+const standartButtonSize = {width: 18, height: 19};
+
+const getButtonSize = (isRoom: boolean) => isRoom ? roomButtonSize : standartButtonSize;
+
+const getSvgClassName = (isRoom: boolean) => isRoom ? 'property__bookmark-icon' : 'place-card__bookmark-icon';
+
+const getElementClassName = (isRoom: boolean) => `${isRoom ? 'property__bookmark-button' : 'place-card__bookmark-button'}`;
+const getModifier = (className: string, isFavorite: boolean) => `${className} ${isFavorite ? `${className}--active` : ''}`;
+const getButtonClassName = (isRoom: boolean, isFavorite: boolean) => `${getModifier(getElementClassName(isRoom), isFavorite)} button`;
 
 function Bookmark(props: {hotelId: number, isFavorite: boolean, type: PlaceCardType}): JSX.Element {
   const dispatch = useAppDispatch();
@@ -11,38 +21,44 @@ function Bookmark(props: {hotelId: number, isFavorite: boolean, type: PlaceCardT
   const {hotelId, isFavorite, type} = props;
   const isTypeRoom = type === 'room';
 
-  function toggleStatus() {
-    if (authStatus !== 'authorized') {
-      dispatch(redirectToRoute(AppRoute.Login));
-    } else {
-      const newStatus = !isFavorite;
-      dispatch(changeOfferStatusAction(hotelId, newStatus, type));
-    }
+  function handleButtonClick() {
+    dispatch(changeOfferStatusAction(hotelId, !isFavorite, type));
   }
 
-  const buttonClassName = cn('button', {
-    'place-card__bookmark-button--active button': isFavorite && !isTypeRoom,
-    'property__bookmark-button--active button': isFavorite && isTypeRoom,
-    'place-card__bookmark-button': !isTypeRoom,
-    'property__bookmark-button': isTypeRoom,
-  });
+  const buttonClassName = getButtonClassName(isTypeRoom, isFavorite);
+  const svgClassName = getSvgClassName(isTypeRoom);
+  const {width, height} = getButtonSize(isTypeRoom);
 
-  const svgClassName = cn({
-    'place-card__bookmark-icon': !isTypeRoom,
-    'property__bookmark-icon': isTypeRoom,
-  });
+  function getButtonContent() {
+    return (
+      <>
+        <svg className={svgClassName} width={width} height={height}>
+          <use xlinkHref="#icon-bookmark"></use>
+        </svg>
+        <span className="visually-hidden">In bookmarks</span>
+      </>
+    );
+  }
 
-  const width = cn({'18': !isTypeRoom, '31': isTypeRoom});
-  const height = cn({'19': !isTypeRoom, '33': isTypeRoom});
+  function renderButton() {
+    return (
+      <button className={buttonClassName} type="button" onClick={handleButtonClick}>
+        {getButtonContent()}
+      </button>
+    );
+  }
 
-  return (
-    <button className={buttonClassName} type="button" onClick={toggleStatus}>
-      <svg className={svgClassName} width={width} height={height}>
-        <use xlinkHref="#icon-bookmark"></use>
-      </svg>
-      <span className="visually-hidden">In bookmarks</span>
-    </button>
-  );
+  function renderLink() {
+    return (
+      <Link to={AppRoute.Login}>
+        <div className={buttonClassName}>
+          {getButtonContent()}
+        </div>
+      </Link>
+    );
+  }
+
+  return authStatus === 'authorized' ? renderButton() : renderLink();
 }
 
 export default Bookmark;
