@@ -1,8 +1,9 @@
-import {useAppSelector} from '../../hooks/hooks';
-import {NameSpace} from '../../const';
+import {useParams} from 'react-router-dom';
+import {DEFAULT_CITY} from '../../const';
 
 function MainPageEmpty(): JSX.Element {
-  const city = useAppSelector((state) => state[NameSpace.city]);
+  const pathParams = useParams();
+  const city = pathParams.city ?? DEFAULT_CITY;
   return (
     <>
       <section className="cities__no-places">

@@ -24,6 +24,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path={AppRoute.Root} element={<Layout />}>
           <Route index element={<MainPage />} />
+          <Route path={AppRoute.City} element={<MainPage />} />
           <Route path={AppRoute.Login} element={<AuthPage />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute>

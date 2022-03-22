@@ -10,11 +10,11 @@ const favoritesReducer = createSlice({
       state = action.payload;
       return state;
     },
-    removeOffer: (state, action:PayloadAction<Offer>) => state
+    removeFavoriteOffer: (state, action:PayloadAction<Offer>) => state
       .filter((offer) => offer.id !== action.payload.id),
   },
 });
 
-export const {setFavorites, removeOffer} = favoritesReducer.actions;
+export const {setFavorites, removeFavoriteOffer} = favoritesReducer.actions;
 
 export default favoritesReducer;

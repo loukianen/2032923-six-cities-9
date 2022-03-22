@@ -15,9 +15,12 @@ export enum AppRoute {
   Room = '/offer/',
   RoomId = '/offer/:id',
   Root = '/',
+  City = '/:city',
 }
 
 export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const DEFAULT_CITY = 'Paris';
 
 export const DEFAULT_ROOM_DATA = {
   comments: [],

@@ -18,7 +18,7 @@ function AuthPage(): JSX.Element {
     }
   }, [dispatch, authStatus]);
 
-  function handleSubmit(evt: SyntheticEvent) {
+  function handleFormSubmit(evt: SyntheticEvent) {
     evt.preventDefault();
     if (evt.target instanceof HTMLFormElement) {
       const formData = new FormData(evt.target);
@@ -35,9 +35,9 @@ function AuthPage(): JSX.Element {
           <div className="header__wrapper">
             <div className="header__left">
               <Link to={AppRoute.Root}>
-                <a className="header__logo-link" href="main.html">
+                <div className="header__logo-link">
                   <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                </a>
+                </div>
               </Link>
             </div>
           </div>
@@ -48,7 +48,7 @@ function AuthPage(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
+            <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input className="login__input form__input" type="email" name="email" placeholder="Email" required />

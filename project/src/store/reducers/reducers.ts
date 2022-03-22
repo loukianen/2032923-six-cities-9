@@ -1,5 +1,4 @@
 import {combineReducers} from 'redux';
-import city from './city-reducer';
 import offers from './offers-reducer';
 import authorizationStatus from './auth-status';
 import user from './user-reducer';
@@ -11,7 +10,6 @@ import {NameSpace} from '../../const';
 
 const reducer = combineReducers({
   [NameSpace.auth]: authorizationStatus.reducer,
-  [NameSpace.city]: city.reducer,
   [NameSpace.comments]: comments.reducer,
   [NameSpace.favorites]: favorites.reducer,
   [NameSpace.offers]: offers.reducer,

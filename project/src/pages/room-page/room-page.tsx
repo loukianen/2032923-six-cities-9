@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {useLocation} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import Header from '../../components/header/header';
 import RoomGallery from '../../components/room-gallery/room-gallery';
 import PlaceCardMark from '../../components/place-card-mark/place-card-mark';
@@ -16,14 +16,13 @@ import {NameSpace} from '../../const';
 
 function RoomPage(): JSX.Element | null {
   const dispatch = useAppDispatch();
-  const curLocation = useLocation();
+  const pathParams = useParams();
   const {room, offersNearby} = useAppSelector((state) => ({
     room: state[NameSpace.room],
     offersNearby: state[NameSpace.offersNearby],
   }));
 
-  const currentPath = curLocation.pathname;
-  const [, , offerId] = currentPath.split('/');
+  const offerId = pathParams.id;
 
   useEffect(() => {
     if (offerId) {

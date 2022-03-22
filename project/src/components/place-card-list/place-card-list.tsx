@@ -12,11 +12,13 @@ type PlaceCardListProps = {
 
 function PlaceCardList(props: PlaceCardListProps) {
   const { offers, placeCardListType } = props;
+  const isPlaceCard = placeCardListType === 'placeCard';
+  const isPlaceNearby = placeCardListType === 'placeNearby';
 
   const cardClassName = cn('places__list', {
-    'cities__places-list': placeCardListType === 'placeCard',
-    'tabs__content': placeCardListType === 'placeCard',
-    'near-places__list': placeCardListType === 'placeNearby',
+    'cities__places-list': isPlaceCard,
+    'tabs__content': isPlaceCard,
+    'near-places__list': isPlaceNearby,
   });
 
   return (

@@ -4,7 +4,7 @@ import {replaceOfferNearby} from './reducers/offers-nearby-reducer';
 import {successfulAuth, unSuccessfulAuth} from './reducers/user-reducer';
 import {setRoom, setRoomData} from './reducers/room-reducer';
 import {setComments} from './reducers/comments-reducer';
-import {setFavorites, removeOffer} from './reducers/favorites-reducer';
+import {setFavorites, removeFavoriteOffer} from './reducers/favorites-reducer';
 import {redirectToRoute} from './actions';
 import {APIRoute, AppRoute} from '../const';
 import {AxiosInstance, AxiosResponse} from 'axios';
@@ -17,7 +17,7 @@ import {StateType, AuthDataType, CommentFormDataType, PlaceCardType} from '../ty
 const storeActionMapping = {
   'placeCard': replaceOffer,
   'placeNearby': replaceOfferNearby,
-  'favorite': removeOffer,
+  'favorite': removeFavoriteOffer,
   'room': setRoom,
 };
 

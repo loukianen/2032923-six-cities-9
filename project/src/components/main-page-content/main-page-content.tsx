@@ -1,11 +1,12 @@
 import {useState, useMemo} from 'react';
+import {useParams} from 'react-router-dom';
 import SortingMenu from '../sorting-menu/sorting-menu';
 import PlaceCardList from '../../components/place-card-list/place-card-list';
 import Map from '../../components/map/map';
 import {useAppSelector} from '../../hooks/hooks';
 import {Offer} from '../../types/offers';
 import {OffersSortingType} from '../../types/other-types';
-import {NameSpace} from '../../const';
+import {DEFAULT_CITY, NameSpace} from '../../const';
 
 const DEFAULT_LOCATION = {latitude: 0, longitude: 0, zoom: 0 };
 
@@ -29,10 +30,10 @@ function getRenderData(city: string, offers: Offer[], sortingType: OffersSorting
 }
 
 function MainPageContent(): JSX.Element {
-  const {city, offers} = useAppSelector((state) => ({
-    offers: state[NameSpace.offers],
-    city: state[NameSpace.city],
-  }));
+  const offers = useAppSelector((state) => state[NameSpace.offers]);
+
+  const pathParams = useParams();
+  const city = pathParams.city ?? DEFAULT_CITY;
 
   const [activeOffer, setActiveOffer] = useState(null as number | null);
 

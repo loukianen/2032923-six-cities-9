@@ -1,15 +1,10 @@
+import {Link, useParams} from 'react-router-dom';
 import cn from 'classnames';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {setCityName} from '../../store/reducers/city-reducer';
-import {cityNames, NameSpace} from '../../const';
+import {AppRoute, cityNames, DEFAULT_CITY} from '../../const';
 
 function CityList() {
-  const dispatch = useAppDispatch();
-  const city = useAppSelector((state) => state[NameSpace.city]);
-
-  function handleClick(cityName: string) {
-    return () => dispatch(setCityName(cityName));
-  }
+  const params = useParams();
+  const city = params.city ?? DEFAULT_CITY;
 
   return (
     <section className="locations container">
@@ -19,11 +14,13 @@ function CityList() {
             'tabs__item--active': cityName === city,
           });
           return (
-            <li key={cityName} className="locations__item" onClick={handleClick(cityName)}>
-              <a className={locationClassName} href="#locations__item">
-                <span>{cityName}</span>
-              </a>
-            </li>
+            <Link key={cityName} to={`${AppRoute.Root}${cityName}`}>
+              <li className="locations__item">
+                <div className={locationClassName}>
+                  <span>{cityName}</span>
+                </div>
+              </li>
+            </Link>
           );
         })}
       </ul>
