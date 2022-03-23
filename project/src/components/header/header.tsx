@@ -8,8 +8,8 @@ import {NameSpace} from '../../const';
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
   const {authStatus, email} = useAppSelector((state) => ({
-    authStatus: state[NameSpace.auth],
-    email: state[NameSpace.user].email,
+    authStatus: state[NameSpace.Auth],
+    email: state[NameSpace.User].email,
   }));
   const isAuthorisedUser = authStatus === 'authorized';
 

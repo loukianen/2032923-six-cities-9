@@ -14,7 +14,7 @@ const setIsFavoriteProperty = (offer: Offer, favorites: Offer[]) => {
 };
 
 const offersReducer = createSlice({
-  name: NameSpace.offers,
+  name: NameSpace.Offers,
   initialState: [] as Offer[],
   reducers: {
     setOffers: (state, action:PayloadAction<Offer[]>) => {

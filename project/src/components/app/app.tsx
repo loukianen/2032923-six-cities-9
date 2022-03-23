@@ -13,7 +13,7 @@ import Layout from '../layout/layout';
 import {AppRoute, NameSpace} from '../../const';
 
 function App(): JSX.Element {
-  const authStatus = useAppSelector((state) => state[NameSpace.auth]);
+  const authStatus = useAppSelector((state) => state[NameSpace.Auth]);
 
   if (authStatus === 'unknown') {
     return <LoadingScreen />;

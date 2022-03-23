@@ -30,7 +30,7 @@ function getRenderData(city: string, offers: Offer[], sortingType: OffersSorting
 }
 
 function MainPageContent(): JSX.Element {
-  const offers = useAppSelector((state) => state[NameSpace.offers]);
+  const offers = useAppSelector((state) => state[NameSpace.Offers]);
 
   const pathParams = useParams();
   const city = pathParams.city ?? DEFAULT_CITY;

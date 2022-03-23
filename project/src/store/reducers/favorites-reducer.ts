@@ -3,7 +3,7 @@ import {Offer} from '../../types/offers';
 import {NameSpace} from '../../const';
 
 const favoritesReducer = createSlice({
-  name: NameSpace.favorites,
+  name: NameSpace.Favorites,
   initialState: [] as Offer[],
   reducers: {
     setFavorites: (state, action:PayloadAction<Offer[]>) => {

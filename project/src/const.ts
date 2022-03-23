@@ -48,14 +48,14 @@ export enum HTTP_CODE {
 export const MAX_STARS_RATING = 5;
 
 export enum NameSpace {
-  auth = 'AUTH',
-  city = 'CITY',
-  comments = 'COMMENTS',
-  favorites = 'FAVORITES',
-  offersNearby = 'OFFERS_NEARBY',
-  offers = 'OFFERS',
-  room = 'ROOM',
-  user = 'USER',
+  Auth = 'AUTH',
+  City = 'CITY',
+  Comments = 'COMMENTS',
+  Favorites = 'FAVORITES',
+  OffersNearby = 'OFFERS_NEARBY',
+  Offers = 'OFFERS',
+  Room = 'ROOM',
+  User = 'USER',
 }
 
 export const offersSortingVariants: OffersSortingType[] = ['none', 'byPriceUp', 'byPriceDown', 'byRatingDown'];

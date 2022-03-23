@@ -5,8 +5,8 @@ import {NameSpace} from '../../const';
 
 function ReviewBlock(): JSX.Element {
   const {comments, authorizationStatus} = useAppSelector((state) => ({
-    comments: state[NameSpace.comments],
-    authorizationStatus: state[NameSpace.auth],
+    comments: state[NameSpace.Comments],
+    authorizationStatus: state[NameSpace.Auth],
   }));
   const isAuthorisedUser = authorizationStatus === 'authorized';
 

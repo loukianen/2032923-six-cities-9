@@ -7,7 +7,7 @@ import {useAppSelector} from '../../hooks/hooks';
 import {NameSpace} from '../../const';
 
 function MainPage(): JSX.Element {
-  const offersCount = useAppSelector((state) => state[NameSpace.offers].length);
+  const offersCount = useAppSelector((state) => state[NameSpace.Offers].length);
   const isOffersListEmpty = offersCount === 0;
 
   const pageClassName = cn('page__main page__main--index', {

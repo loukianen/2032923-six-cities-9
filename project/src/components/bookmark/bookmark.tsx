@@ -17,7 +17,7 @@ const getButtonClassName = (isRoom: boolean, isFavorite: boolean) => `${getModif
 
 function Bookmark(props: {hotelId: number, isFavorite: boolean, type: PlaceCardType}): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state[NameSpace.auth]);
+  const authStatus = useAppSelector((state) => state[NameSpace.Auth]);
   const {hotelId, isFavorite, type} = props;
   const isTypeRoom = type === 'room';
 

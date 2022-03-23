@@ -10,7 +10,7 @@ import {AppRoute, NameSpace, cityNames} from '../../const';
 function AuthPage(): JSX.Element {
   const cityName = getRandomValue(cityNames);
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state[NameSpace.auth]);
+  const authStatus = useAppSelector((state) => state[NameSpace.Auth]);
 
   useEffect(() => {
     if (authStatus === 'authorized') {

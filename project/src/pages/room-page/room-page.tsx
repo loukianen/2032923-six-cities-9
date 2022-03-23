@@ -18,8 +18,8 @@ function RoomPage(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const pathParams = useParams();
   const {room, offersNearby} = useAppSelector((state) => ({
-    room: state[NameSpace.room],
-    offersNearby: state[NameSpace.offersNearby],
+    room: state[NameSpace.Room],
+    offersNearby: state[NameSpace.OffersNearby],
   }));
 
   const offerId = pathParams.id;

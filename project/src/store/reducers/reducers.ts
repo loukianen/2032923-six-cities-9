@@ -9,13 +9,13 @@ import favorites from './favorites-reducer';
 import {NameSpace} from '../../const';
 
 const reducer = combineReducers({
-  [NameSpace.auth]: authorizationStatus.reducer,
-  [NameSpace.comments]: comments.reducer,
-  [NameSpace.favorites]: favorites.reducer,
-  [NameSpace.offers]: offers.reducer,
-  [NameSpace.offersNearby]: offersNearby.reducer,
-  [NameSpace.room]: room.reducer,
-  [NameSpace.user]: user.reducer,
+  [NameSpace.Auth]: authorizationStatus.reducer,
+  [NameSpace.Comments]: comments.reducer,
+  [NameSpace.Favorites]: favorites.reducer,
+  [NameSpace.Offers]: offers.reducer,
+  [NameSpace.OffersNearby]: offersNearby.reducer,
+  [NameSpace.Room]: room.reducer,
+  [NameSpace.User]: user.reducer,
 });
 
 export default reducer;

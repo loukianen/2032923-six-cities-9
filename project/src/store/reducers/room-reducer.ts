@@ -3,7 +3,7 @@ import {RoomStateType, RoomDataType} from '../../types/offers';
 import {NameSpace} from '../../const';
 
 const roomReducer = createSlice({
-  name: NameSpace.room,
+  name: NameSpace.Room,
   initialState: null as RoomStateType,
   reducers: {
     setRoom: (state, action: PayloadAction<RoomStateType>) => {

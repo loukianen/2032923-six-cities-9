@@ -4,7 +4,7 @@ import {UserType} from '../../types/offers';
 import {NameSpace} from '../../const';
 
 const userReducer = createSlice({
-  name: NameSpace.user,
+  name: NameSpace.Auth,
   initialState: DEFAULT_USER,
   reducers: {
     successfulAuth: (state, action:PayloadAction<UserType>) => {

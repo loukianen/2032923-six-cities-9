@@ -10,7 +10,7 @@ import {NameSpace} from '../../const';
 
 function FavoritesPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const offers = useAppSelector((state) => state[NameSpace.favorites]);
+  const offers = useAppSelector((state) => state[NameSpace.Favorites]);
   const isFaviritesEmpty = offers.length === 0;
 
   useLayoutEffect(() => {

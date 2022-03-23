@@ -18,7 +18,7 @@ function CommentForm(): JSX.Element {
   const [checkboxes, setCheckboxes] = useState(getCheckboxesInitState());
   const dispatch = useAppDispatch();
   const hotelId = useAppSelector((state) => {
-    const room = state[NameSpace.room];
+    const room = state[NameSpace.Room];
     return room ? room.id : null;
   });
 

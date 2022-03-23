@@ -4,7 +4,7 @@ import {Comment, RoomDataType} from '../../types/offers';
 import {NameSpace} from '../../const';
 
 const commentsReducer = createSlice({
-  name: NameSpace.offers,
+  name: NameSpace.Comments,
   initialState: [] as Comment[],
   reducers: {
     setComments: (state, action:PayloadAction<Comment[]>) => {
