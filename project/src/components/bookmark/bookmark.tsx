@@ -1,8 +1,9 @@
 import {Link} from 'react-router-dom';
 import {useAppSelector, useAppDispatch} from '../../hooks/hooks';
 import {changeOfferStatusAction} from '../../store/api-actions';
+import {getAuthStatus} from '../../store/user-process/selectors';
 import {PlaceCardType} from '../../types/other-types';
-import {AppRoute, NameSpace} from '../../const';
+import {AppRoute} from '../../const';
 
 const roomButtonSize = {width: 31, height: 33};
 const standartButtonSize = {width: 18, height: 19};
@@ -17,7 +18,7 @@ const getButtonClassName = (isRoom: boolean, isFavorite: boolean) => `${getModif
 
 function Bookmark(props: {hotelId: number, isFavorite: boolean, type: PlaceCardType}): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state[NameSpace.Auth]);
+  const authStatus = useAppSelector(getAuthStatus);
   const {hotelId, isFavorite, type} = props;
   const isTypeRoom = type === 'room';
 

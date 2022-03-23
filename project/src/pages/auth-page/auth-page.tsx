@@ -3,14 +3,15 @@ import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {authAction} from '../../store/api-actions';
 import {redirectToRoute} from '../../store/actions';
+import {getAuthStatus} from '../../store/user-process/selectors';
 import LocationLink from '../../components/location-link/location-link';
 import {getRandomValue} from '../../services/utils';
-import {AppRoute, NameSpace, cityNames} from '../../const';
+import {AppRoute, cityNames} from '../../const';
 
 function AuthPage(): JSX.Element {
   const cityName = getRandomValue(cityNames);
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state[NameSpace.Auth]);
+  const authStatus = useAppSelector(getAuthStatus);
 
   useEffect(() => {
     if (authStatus === 'authorized') {

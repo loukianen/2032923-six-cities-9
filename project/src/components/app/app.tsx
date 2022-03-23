@@ -10,10 +10,11 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import Layout from '../layout/layout';
-import {AppRoute, NameSpace} from '../../const';
+import {getAuthStatus} from '../../store/user-process/selectors';
+import {AppRoute} from '../../const';
 
 function App(): JSX.Element {
-  const authStatus = useAppSelector((state) => state[NameSpace.Auth]);
+  const authStatus = useAppSelector(getAuthStatus);
 
   if (authStatus === 'unknown') {
     return <LoadingScreen />;

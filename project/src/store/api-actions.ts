@@ -1,7 +1,7 @@
 import {Dispatch} from '@reduxjs/toolkit';
 import {setOffers, replaceOffer} from './reducers/offers-reducer';
 import {replaceOfferNearby} from './reducers/offers-nearby-reducer';
-import {successfulAuth, unSuccessfulAuth} from './reducers/user-reducer';
+import {successfulAuth, unSuccessfulAuth} from './user-process/user-process';
 import {setRoom, setRoomData} from './reducers/room-reducer';
 import {setComments} from './reducers/comments-reducer';
 import {setFavorites, removeFavoriteOffer} from './reducers/favorites-reducer';
