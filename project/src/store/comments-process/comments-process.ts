@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {setRoomData} from './room-reducer';
+import {setRoomData} from '../room-process/room-process';
 import {Comment, RoomDataType} from '../../types/offers';
 import {NameSpace} from '../../const';
 

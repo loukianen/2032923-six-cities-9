@@ -12,15 +12,12 @@ import PlaceCardList from '../../components/place-card-list/place-card-list';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {fetchRoomDataAction} from '../../store/api-actions';
 import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
-import {NameSpace} from '../../const';
+import {getRoomPageData} from '../../store/room-process/selectors';
 
 function RoomPage(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const pathParams = useParams();
-  const {room, offersNearby} = useAppSelector((state) => ({
-    room: state[NameSpace.Room],
-    offersNearby: state[NameSpace.OffersNearby],
-  }));
+  const {room, offersNearby} = useAppSelector(getRoomPageData);
 
   const offerId = pathParams.id;
 

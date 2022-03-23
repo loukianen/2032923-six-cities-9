@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {sendCommentAction} from '../../store/api-actions';
 import {REVIEW, MAX_STARS_RATING} from '../../const';
 import {CommentFormDataType} from '../../types/other-types';
-import {NameSpace} from '../../const';
+import {getHotelId} from '../../store/room-process/selectors';
 
 export const FORM_DATA_INIT_STATE = { rating: null, comment: '' };
 
@@ -17,10 +17,7 @@ function CommentForm(): JSX.Element {
   const [isFormValid, setIsFormValid] = useState(false);
   const [checkboxes, setCheckboxes] = useState(getCheckboxesInitState());
   const dispatch = useAppDispatch();
-  const hotelId = useAppSelector((state) => {
-    const room = state[NameSpace.Room];
-    return room ? room.id : null;
-  });
+  const hotelId = useAppSelector(getHotelId);
 
   function handleChange(e: SyntheticEvent) {
     const { name, value } = e.target as HTMLFormElement;

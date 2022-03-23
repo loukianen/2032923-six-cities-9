@@ -1,9 +1,9 @@
 import {Dispatch} from '@reduxjs/toolkit';
 import {setOffers, replaceOffer} from './offers-process/offers-process';
-import {replaceOfferNearby} from './reducers/offers-nearby-reducer';
+import {replaceOfferNearby} from './offers-nearby-process/offers-nearby-process';
 import {successfulAuth, unSuccessfulAuth} from './user-process/user-process';
-import {setRoom, setRoomData} from './reducers/room-reducer';
-import {setComments} from './reducers/comments-reducer';
+import {setRoom, setRoomData} from './room-process/room-process';
+import {setComments} from './comments-process/comments-process';
 import {setFavorites, removeFavoriteOffer} from './favorites-process/favorites-process';
 import {redirectToRoute} from './actions';
 import {APIRoute, AppRoute} from '../const';

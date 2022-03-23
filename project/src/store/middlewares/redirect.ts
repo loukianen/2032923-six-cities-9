@@ -1,6 +1,6 @@
 import browserHistory from '../../browser-history';
 import {Middleware} from 'redux';
-import reducer from '../reducers/reducers';
+import reducer from '../root-reducer';
 import {redirectToRoute} from '../actions';
 
 type Reducer = ReturnType<typeof reducer>;
