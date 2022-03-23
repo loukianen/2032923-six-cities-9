@@ -6,7 +6,7 @@ import {PlaceCardType} from '../../types/other-types';
 
 type PlaceCardListProps = {
   offers: Offer[],
-  setActiveOffer?: (x: number | null) => void,
+  onActiveOffer?: (x: number | null) => void,
   placeCardListType: PlaceCardType,
 }
 
@@ -27,7 +27,7 @@ function PlaceCardList(props: PlaceCardListProps) {
         <PlaceCard
           key={offer.id}
           offer={offer}
-          setActiveOffer={props.setActiveOffer}
+          onActiveOffer={props.onActiveOffer}
           placeCardType={placeCardListType}
         />
       ))}

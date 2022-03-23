@@ -6,11 +6,11 @@ import Header from '../../components/header/header';
 import FavoriteLocationsList from '../../components/favorite-locations-list/favotie-locations-list';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import FavoritesFooter from '../../components/favorites-footer/favorites-footer';
-import {NameSpace} from '../../const';
+import {getFavorites} from '../../store/favorites-process/selectors';
 
 function FavoritesPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const offers = useAppSelector((state) => state[NameSpace.Favorites]);
+  const offers = useAppSelector(getFavorites);
   const isFaviritesEmpty = offers.length === 0;
 
   useLayoutEffect(() => {

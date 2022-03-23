@@ -12,16 +12,16 @@ const textMapping = {
 const getTextBySortingType = (type: OffersSortingType) => textMapping[type];
 
 type SortingMenuProps = {
-  setSortingType: (type: OffersSortingType) => void,
+  onSortingType: (type: OffersSortingType) => void,
   sortingType: OffersSortingType,
 }
 
 function SortingMenu(props: SortingMenuProps): JSX.Element {
-  const {setSortingType, sortingType} = props;
+  const {onSortingType, sortingType} = props;
   const [isMenuOpened, setIsMenuOpened] = useState(false);
 
   const shooseSortingType = (type: OffersSortingType) => () => {
-    setSortingType(type);
+    onSortingType(type);
     setIsMenuOpened(false);
   };
 

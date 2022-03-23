@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Offer} from '../../types/offers';
 import {NameSpace} from '../../const';
 
-const favoritesReducer = createSlice({
+const favoritesProcess = createSlice({
   name: NameSpace.Favorites,
   initialState: [] as Offer[],
   reducers: {
@@ -15,6 +15,6 @@ const favoritesReducer = createSlice({
   },
 });
 
-export const {setFavorites, removeFavoriteOffer} = favoritesReducer.actions;
+export const {setFavorites, removeFavoriteOffer} = favoritesProcess.actions;
 
-export default favoritesReducer;
+export default favoritesProcess;

@@ -1,10 +1,9 @@
-import {Link, useParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import cn from 'classnames';
-import {AppRoute, cityNames, DEFAULT_CITY} from '../../const';
+import {AppRoute, cityNames} from '../../const';
 
-function CityList() {
-  const params = useParams();
-  const city = params.city ?? DEFAULT_CITY;
+function CityList(props: {city: string}) {
+  const {city} = props;
 
   return (
     <section className="locations container">

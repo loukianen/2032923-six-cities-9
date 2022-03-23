@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {setFavorites, removeFavoriteOffer} from './favorites-reducer';
+import {setFavorites, removeFavoriteOffer} from '../favorites-process/favorites-process';
 import {Offer} from '../../types/offers';
 import {NameSpace} from '../../const';
 
@@ -13,7 +13,7 @@ const setIsFavoriteProperty = (offer: Offer, favorites: Offer[]) => {
   return newOffer;
 };
 
-const offersReducer = createSlice({
+const offersProcess = createSlice({
   name: NameSpace.Offers,
   initialState: [] as Offer[],
   reducers: {
@@ -45,6 +45,6 @@ const offersReducer = createSlice({
   },
 });
 
-export const {setOffers, replaceOffer} = offersReducer.actions;
+export const {setOffers, replaceOffer} = offersProcess.actions;
 
-export default offersReducer;
+export default offersProcess;
