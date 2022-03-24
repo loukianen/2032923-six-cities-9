@@ -1,16 +1,20 @@
 import {Link} from 'react-router-dom';
+import BookmarkContent from '../bookmark-content/bookmark-content';
 import {useAppSelector, useAppDispatch} from '../../hooks/hooks';
 import {changeOfferStatusAction} from '../../store/api-actions';
 import {getAuthStatus} from '../../store/user-process/selectors';
 import {PlaceCardType} from '../../types/other-types';
 import {AppRoute} from '../../const';
 
-const roomButtonSize = {width: 31, height: 33};
-const standartButtonSize = {width: 18, height: 19};
-
-const getButtonSize = (isRoom: boolean) => isRoom ? roomButtonSize : standartButtonSize;
-
+const getWidth = (isRoom: boolean) => isRoom ? '31' : '18';
+const getHeight = (isRoom: boolean) => isRoom ? '33' : '19';
 const getSvgClassName = (isRoom: boolean) => isRoom ? 'property__bookmark-icon' : 'place-card__bookmark-icon';
+
+const getViewProps = (isTypeRoom: boolean, isFavorite: boolean) => ({
+  svgClassName: getSvgClassName(isTypeRoom),
+  width: getWidth(isTypeRoom),
+  height: getHeight(isTypeRoom),
+});
 
 const getElementClassName = (isRoom: boolean) => `${isRoom ? 'property__bookmark-button' : 'place-card__bookmark-button'}`;
 const getModifier = (className: string, isFavorite: boolean) => `${className} ${isFavorite ? `${className}--active` : ''}`;
@@ -27,39 +31,12 @@ function Bookmark(props: {hotelId: number, isFavorite: boolean, type: PlaceCardT
   }
 
   const buttonClassName = getButtonClassName(isTypeRoom, isFavorite);
-  const svgClassName = getSvgClassName(isTypeRoom);
-  const {width, height} = getButtonSize(isTypeRoom);
+  const viewProps = getViewProps(isTypeRoom, isFavorite);
 
-  function getButtonContent() {
-    return (
-      <>
-        <svg className={svgClassName} width={width} height={height}>
-          <use xlinkHref="#icon-bookmark"></use>
-        </svg>
-        <span className="visually-hidden">In bookmarks</span>
-      </>
-    );
-  }
-
-  function renderButton() {
-    return (
-      <button className={buttonClassName} type="button" onClick={handleButtonClick}>
-        {getButtonContent()}
-      </button>
-    );
-  }
-
-  function renderLink() {
-    return (
-      <Link to={AppRoute.Login}>
-        <div className={buttonClassName}>
-          {getButtonContent()}
-        </div>
-      </Link>
-    );
-  }
-
-  return authStatus === 'authorized' ? renderButton() : renderLink();
+  const content = <BookmarkContent {...viewProps} />;
+  return authStatus === 'authorized'
+    ? <button className={buttonClassName} type="button" onClick={handleButtonClick}>{content}</button>
+    : <Link className={buttonClassName} to={AppRoute.Login}>{content}</Link>;
 }
 
 export default Bookmark;
