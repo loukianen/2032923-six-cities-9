@@ -11,6 +11,10 @@ export function getAccommodationTitle(type: AccommodationType) {
   return accomodationTitleMapping[type];
 }
 
+export function getRandomArrayIndex(arr: Array<unknown>) {
+  return getRandomValue(Array(arr.length).fill(0).map((item, i) => item + i)) as number;
+}
+
 export function getRandomValue(arr: Array<unknown>) {
   const maxIndex = arr.length - 1;
   const index = Math.round(Math.random() * maxIndex);

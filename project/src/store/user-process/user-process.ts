@@ -21,6 +21,6 @@ const userProcess = createSlice({
   },
 });
 
-export const { successfulAuth, unSuccessfulAuth } = userProcess.actions;
+export const {successfulAuth, unSuccessfulAuth} = userProcess.actions;
 
 export default userProcess;

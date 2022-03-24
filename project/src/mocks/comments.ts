@@ -1,19 +1,22 @@
+import {datatype, date, internet, lorem} from 'faker';
 import {Comment} from '../types/offers';
-import {IMG_URL} from '../const';
 
-const comments: Comment[] = [
-  {
-    comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-    date: '2019-04-24',
-    id: 1,
-    rating: 4,
+const COMMENT_AMOUNT = 2;
+
+const makeFakeComments = (amount = COMMENT_AMOUNT): Comment[] => Array.from(
+  Array(amount),
+  () => ({
+    comment: lorem.paragraph(COMMENT_AMOUNT),
+    date: date.past(1).toString(),
+    id: datatype.number(),
+    rating: datatype.float(),
     user: {
-      avatarUrl: `${IMG_URL}avatar-max.jpg`,
-      id: 1,
-      isPro: false,
-      name: 'Max',
+      avatarUrl: internet.avatar(),
+      id: datatype.number(),
+      isPro: datatype.boolean(),
+      name: internet.userName(),
     },
-  },
-];
+  }),
+);
 
-export default comments;
+export default makeFakeComments;

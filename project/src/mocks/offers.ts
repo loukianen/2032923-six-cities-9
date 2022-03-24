@@ -1,151 +1,45 @@
-import { Offer } from '../types/offers';
-import { IMG_URL } from '../const';
+import {datatype, internet, lorem} from 'faker';
+import {getRandomValue} from '../services/utils';
+import {AccommodationType, Offer } from '../types/offers';
+import {accommodationTypes,cityNames} from '../const';
 
-const offers: Offer[] = [
-  {
-    bedrooms: 3,
-    city: {
-      location: {
-        latitude: 52.37,
-        longitude: 4.857,
-        zoom: 10,
-      },
-      name: 'Amsterdam',
-    },
-    description: '',
-    goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
-      'Kitchen', 'Dishwasher', 'Cabel TV', 'Tools1'],
-    host:{
-      avatarUrl: `${IMG_URL}avatar-angelina.jpg`,
-      id: 1,
-      isPro: true,
-      name: 'Angelina',
-    },
-    id: 1,
-    images: [ `${IMG_URL}room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
-      `${IMG_URL}apartment-03.jpg`, `${IMG_URL}studio-01.jpg`, `${IMG_URL}apartment-01.jpg`],
-    isFavorite: false,
-    isPremium: true,
-    location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
-      zoom: 10,
-    },
-    maxAdults: 4,
-    previewImage: `${IMG_URL}apartment-01.jpg`,
-    price: 120,
-    rating: 4.0,
-    title: 'Beautiful &amp; luxurious apartment at great location',
-    type: 'apartment',
-  },
-  {
-    bedrooms: 2,
-    city: {
-      location: {
-        latitude: 52.37,
-        longitude: 4.857,
-        zoom: 10,
-      },
-      name: 'Hamburg',
-    },
-    description: '',
-    goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
-      'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge', 'Tools2'],
-    host:{
-      avatarUrl: `${IMG_URL}avatar-angelina.jpg`,
-      id: 1,
-      isPro: true,
-      name: 'Angelina',
-    },
-    id: 2,
-    images: [ `${IMG_URL}room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
-      `${IMG_URL}apartment-03.jpg`, `${IMG_URL}studio-01.jpg`, `${IMG_URL}apartment-01.jpg`],
-    isFavorite: false,
-    isPremium: false,
-    location: {
-      latitude: 52.369553943508,
-      longitude: 4.85309666406198,
-      zoom: 10,
-    },
-    maxAdults: 4,
-    previewImage: `${IMG_URL}room.jpg`,
-    price: 80,
-    rating: 4.8,
-    title: 'Wood and stone place',
-    type: 'room',
-  },
-  {
-    bedrooms: 4,
-    city: {
-      location: {
-        latitude: 52.37,
-        longitude: 4.857,
-        zoom: 10,
-      },
-      name: 'Amsterdam',
-    },
-    description: '',
-    goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
-      'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge', 'Tools3'],
-    host:{
-      avatarUrl: `${IMG_URL}avatar-angelina.jpg`,
-      id: 1,
-      isPro: true,
-      name: 'Angelina',
-    },
-    id: 3,
-    images: [ `${IMG_URL}room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
-      `${IMG_URL}apartment-03.jpg`, `${IMG_URL}studio-01.jpg`, `${IMG_URL}apartment-01.jpg`],
-    isFavorite: false,
-    isPremium: false,
-    location: {
-      latitude: 52.3909553943508,
-      longitude: 4.929309666406198,
-      zoom: 10,
-    },
-    maxAdults: 4,
-    previewImage: `${IMG_URL}apartment-02.jpg`,
-    price: 112,
-    rating: 3.4,
-    title: 'Canal View Prinsengracht',
-    type: 'apartment',
-  },
-  {
-    bedrooms: 4,
-    city: {
-      location: {
-        latitude: 52.37,
-        longitude: 4.857,
-        zoom: 10,
-      },
-      name: 'Amsterdam',
-    },
-    description: '',
-    goods: [ 'Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat',
-      'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge', 'Tools4'],
-    host:{
-      avatarUrl: `${IMG_URL}avatar-angelina.jpg`,
-      id: 1,
-      isPro: true,
-      name: 'Angelina',
-    },
-    id: 4,
-    images: [ `${IMG_URL}room.jpg`, `${IMG_URL}apartment-01.jpg`, `${IMG_URL}apartment-02.jpg`,
-      `${IMG_URL}apartment-03.jpg`, `${IMG_URL}studio-01.jpg`, `${IMG_URL}apartment-01.jpg`],
-    isFavorite: false,
-    isPremium: true,
-    location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
-      zoom: 10,
-    },
-    maxAdults: 4,
-    previewImage: `${IMG_URL}apartment-03.jpg`,
-    price: 180,
-    rating: 2,
-    title: 'Canal View Prinsengracht',
-    type: 'apartment',
-  },
-];
+const OFFER_AMOUNT = 3;
 
-export default offers;
+const makeFakeOffers = (amount = OFFER_AMOUNT): Offer[] => Array.from(
+  Array(amount),
+  () => ({
+    bedrooms: datatype.number(),
+    city: {
+      location: {
+        latitude: datatype.float(),
+        longitude: datatype.float(),
+        zoom: datatype.number(),
+      },
+      name: getRandomValue(cityNames) as string,
+    },
+    description: lorem.sentence(),
+    goods: Array.from(Array(OFFER_AMOUNT), () => lorem.word()),
+    host:{
+      avatarUrl: internet.avatar(),
+      id: datatype.number(),
+      isPro: datatype.boolean(),
+      name: internet.userName(),
+    },
+    id: datatype.number(),
+    images: Array.from(Array(6), () => internet.avatar()),
+    isFavorite: datatype.boolean(),
+    isPremium: datatype.boolean(),
+    location: {
+      latitude: datatype.float(),
+      longitude: datatype.float(),
+      zoom: datatype.number(),
+    },
+    maxAdults: datatype.number(),
+    previewImage: internet.avatar(),
+    price: datatype.number(),
+    rating: datatype.float(),
+    title: lorem.sentence(),
+    type: getRandomValue(accommodationTypes) as AccommodationType,
+  }));
+
+export default makeFakeOffers;

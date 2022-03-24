@@ -1,16 +1,14 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {setFavorites, removeFavoriteOffer} from '../favorites-process/favorites-process';
-import {Offer} from '../../types/offers';
+import {removeFavoriteOffer} from '../favorites-process/favorites-process';
+import {replaceOfferNearby} from '../offers-nearby-process/offers-nearby-process';
+import {setRoom} from '../room-process/room-process';
+import {Offer, RoomStateType} from '../../types/offers';
 import {NameSpace} from '../../const';
 
-const setIsFavoriteProperty = (offer: Offer, favorites: Offer[]) => {
-  const newOffer = {...offer};
-  favorites.forEach((item) => {
-    if (item.id === newOffer.id) {
-      newOffer.isFavorite = item.isFavorite;
-    }
-  });
-  return newOffer;
+const changeOffer = (state: Offer[], action:PayloadAction<Offer>) => {
+  const newOffer = action.payload;
+  const newState = state.map((offer) => offer.id === newOffer.id ? newOffer : offer);
+  return newState;
 };
 
 const offersProcess = createSlice({
@@ -21,27 +19,19 @@ const offersProcess = createSlice({
       state = action.payload;
       return state;
     },
-    replaceOffer: (state, action:PayloadAction<Offer>) => {
-      const newOffer = action.payload;
-      const newState = state.map((offer) => offer.id === newOffer.id ? newOffer : offer);
-      return newState;
-    },
+    replaceOffer: changeOffer,
   },
   extraReducers: (builder) => {
     builder
-      .addCase(setFavorites, (state, action:PayloadAction<Offer[]>) => {
-        const favorites = action.payload;
-        const newState = state.map((offer) => setIsFavoriteProperty(offer, favorites));
-        return newState;
-      })
-      .addCase(removeFavoriteOffer, (state, action:PayloadAction<Offer>) => state
-        .map((offer) => {
-          const newOffer = {...offer};
-          if (offer.id === action.payload.id) {
-            newOffer.isFavorite = false;
-          }
-          return newOffer;
-        }));
+      .addCase(replaceOfferNearby, changeOffer)
+      .addCase(removeFavoriteOffer, changeOffer)
+      .addCase(setRoom, (state, action:PayloadAction<RoomStateType>) => {
+        const newOffer = action.payload;
+        if (newOffer) {
+          return state.map((offer) => offer.id === newOffer.id ? newOffer : offer);
+        }
+        return state;
+      });
   },
 });
 

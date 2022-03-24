@@ -1,5 +1,7 @@
 import { OffersSortingType } from './types/other-types';
 
+export const accommodationTypes = ['apartment', 'room', 'house', 'hotel'];
+
 export enum APIRoute {
   Comments = '/comments',
   Favorites = '/favorite',
