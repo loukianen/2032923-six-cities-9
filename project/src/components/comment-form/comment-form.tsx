@@ -29,7 +29,7 @@ function CommentForm(): JSX.Element {
     if (hotelId) {
       setCheckboxes(getCheckboxesInitState());
       setFormData(FORM_DATA_INIT_STATE);
-      dispatch(sendCommentAction(formData, hotelId.toString(), setFormData));
+      dispatch(sendCommentAction({comment: formData, hotelId, onRestoreFormData: setFormData}));
     } else {
       errorHandle({error: new Error()});
     }

@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RoomStateType, RoomDataType} from '../../types/offers';
 import {NameSpace} from '../../const';
 
-const roomReducer = createSlice({
+const roomProcess = createSlice({
   name: NameSpace.Room,
   initialState: null as RoomStateType,
   reducers: {
@@ -17,6 +17,6 @@ const roomReducer = createSlice({
   },
 });
 
-export const {setRoom, setRoomData} = roomReducer.actions;
+export const {setRoom, setRoomData} = roomProcess.actions;
 
-export default roomReducer;
+export default roomProcess;

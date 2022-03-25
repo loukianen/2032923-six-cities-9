@@ -1,4 +1,5 @@
-import {Dispatch} from '@reduxjs/toolkit';
+import request from 'axios';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 import {setOffers, replaceOffer} from './offers-process/offers-process';
 import {replaceOfferNearby} from './offers-nearby-process/offers-nearby-process';
 import {successfulAuth, unSuccessfulAuth} from './user-process/user-process';
@@ -7,12 +8,19 @@ import {setComments} from './comments-process/comments-process';
 import {setFavorites, removeFavoriteOffer} from './favorites-process/favorites-process';
 import {redirectToRoute} from './actions';
 import {APIRoute, AppRoute} from '../const';
-import {AxiosInstance, AxiosResponse} from 'axios';
+import {AxiosInstance} from 'axios';
 import {toast} from 'react-toastify';
 import {errorHandle} from '../services/error-handle';
 import {saveToken, dropToken} from '../services/token';
-import {DEFAULT_ROOM_DATA} from '../const';
-import {StateType, AuthDataType, CommentFormDataType, PlaceCardType} from '../types/other-types';
+import {DEFAULT_ROOM_DATA, HTTP_CODE} from '../const';
+import {AppDispatch, State} from '../types/state.js';
+import {AuthDataType, CommentFormDataType, PlaceCardType} from '../types/other-types';
+import {ErrorType} from '../types/error';
+
+const toastLoadingOptions = {pending: 'Loading...'};
+
+const isAuthError = (error: ErrorType) => request
+  .isAxiosError(error) && error.response?.status === HTTP_CODE.UNAUTHORIZED;
 
 const storeActionMapping = {
   'placeCard': replaceOffer,
@@ -25,135 +33,190 @@ function getStoreAction(type: PlaceCardType) {
   return storeActionMapping[type];
 }
 
-export const authAction = (authData: AuthDataType) => (
-  nextDispatch: Dispatch,
-  getState: () => StateType,
-  api: AxiosInstance,
-) => {
-  toast.promise(api.post(APIRoute.Login, authData)
-    .then((response: AxiosResponse) => {
-      saveToken(response.data.token);
-      nextDispatch(successfulAuth(response.data));
-      nextDispatch(redirectToRoute(AppRoute.Root));
-    })
-    .catch((error) => {
+export const authAction = createAsyncThunk<void, AuthDataType, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'user/logIn',
+  async (authData, {dispatch, extra: api}) => {
+    try {
+      const {data} = await toast.promise(
+        api.post(APIRoute.Login, authData),
+        toastLoadingOptions,
+      );
+      saveToken(data.token);
+      dispatch(successfulAuth(data));
+    } catch (error) {
       errorHandle(error);
-      nextDispatch(unSuccessfulAuth());
-    }),
-  {
-    pending: 'Loading...',
-  });
-};
+      dispatch(unSuccessfulAuth());
+    }
+  },
+);
 
-export const checkAuthAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
-  toast.promise(api.get(APIRoute.Login)
-    .then((response: AxiosResponse) => {
-      nextDispatch(successfulAuth(response.data));
-    })
-    .catch((error) => {
+export const checkAuthAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'user/checkAuthStatus',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      const {data} = await toast.promise(
+        api.get(APIRoute.Login),
+        toastLoadingOptions,
+      );
+      dispatch(successfulAuth(data));
+    } catch (error) {
+      errorHandle(error);
       dropToken();
-      errorHandle(error);
-      nextDispatch(unSuccessfulAuth());
-    }),
+      dispatch(unSuccessfulAuth());
+    }
+  },
+);
+
+export const changeOfferStatusAction = createAsyncThunk<void,
   {
-    pending: 'Loading...',
-  });
-};
-
-export const changeOfferStatusAction = (hotelId: number, isFavorite: boolean, actionType: PlaceCardType) =>
-  (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
-    const status = isFavorite ? 1 : 0;
-    const path = `${APIRoute.Favorites}/${hotelId}/${status}`;
-    toast.promise(api.post(path)
-      .then((response: AxiosResponse) => {
-        const storeAction = getStoreAction(actionType);
-        nextDispatch(storeAction(response.data));
-      })
-      .catch((error) => {
-        errorHandle(error);
-      }),
-    {
-      pending: 'Loading...',
-    });
-  };
-
-export const fetchFavoritesAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
-  toast.promise(api.get(APIRoute.Favorites)
-    .then((response: AxiosResponse) => {
-      nextDispatch(setFavorites(response.data));
-    })
-    .catch((error) => {
-      errorHandle(error);
-    }),
+    hotelId: number,
+    isFavorite: boolean,
+    actionType: PlaceCardType,
+  },
   {
-    pending: 'Loading...',
-  });
-};
-
-export const fetchOffersAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
-  toast.promise(api.get(APIRoute.Offers)
-    .then((response: AxiosResponse) => {
-      nextDispatch(setOffers(response.data));
-    })
-    .catch((error) => {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'favorites/changeOfferFavoriteStatus',
+  async (offerData, {dispatch, extra: api}) => {
+    try {
+      const {hotelId, isFavorite, actionType} = offerData;
+      const status = isFavorite ? 0 : 1;
+      const {data} = await toast.promise(
+        api.post(`${APIRoute.Favorites}/${hotelId}/${status}`),
+        toastLoadingOptions,
+      );
+      const storeAction = getStoreAction(actionType);
+      dispatch(storeAction(data));
+    } catch (error) {
       errorHandle(error);
-    }),
-  {
-    pending: 'Loading...',
-  });
-};
+      if (isAuthError(error)) {
+        dropToken();
+        dispatch(unSuccessfulAuth());
+      }
+    }
+  },
+);
 
-export const fetchRoomDataAction = (hotelId: string) =>
-  (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
-    const roomData = DEFAULT_ROOM_DATA;
-    toast.promise(api.get(`${APIRoute.Offers}/${hotelId}`)
-      .then((resRoom: AxiosResponse) => {
-        roomData.room = resRoom.data;
-        api.get(`${APIRoute.Offers}/${hotelId}/nearby`)
-          .then((resNearby: AxiosResponse) => {
-            roomData.offersNearby = resNearby.data;
-            api.get(`${APIRoute.Comments}/${hotelId}`)
-              .then((resComment: AxiosResponse) => {
-                roomData.comments = resComment.data;
-                nextDispatch(setRoomData(roomData));
-              });
-          });
-      })
-      .catch((error) => {
-        errorHandle(error);
-        nextDispatch(setRoomData(DEFAULT_ROOM_DATA));
-        nextDispatch(redirectToRoute(AppRoute.NotFound));
-      }),
-    {
-      pending: 'Loading...',
-    });
-  };
+export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'favorites/fetchFavorites',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      const {data} = await toast.promise(
+        api.get(APIRoute.Favorites),
+        toastLoadingOptions,
+      );
+      dispatch(setFavorites(data));
+    } catch (error) {
+      errorHandle(error);
+      if (isAuthError(error)) {
+        dropToken();
+        dispatch(unSuccessfulAuth());
+      }
+    }
+  },
+);
 
-export const finishAuthAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
-  toast.promise(api.delete(APIRoute.Logout)
-    .then(() => {
+export const fetchOffersAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'offers/fetchOffers',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      const {data} = await toast.promise(
+        api.get(APIRoute.Offers),
+        toastLoadingOptions,
+      );
+      dispatch(setOffers(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchRoomDataAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'room/fetchRoomData',
+  async (hotelId, {dispatch, extra: api}) => {
+    try {
+      const [{data: room}, {data: offersNearby}, {data: comments}] = await toast.promise(Promise.all([
+        api.get(`${APIRoute.Offers}/${hotelId}`),
+        api.get(`${APIRoute.Offers}/${hotelId}/nearby`),
+        api.get(`${APIRoute.Comments}/${hotelId}`),
+      ]), toastLoadingOptions);
+      dispatch(setRoomData({room, offersNearby, comments}));
+    } catch (error) {
+      errorHandle(error);
+      dispatch(setRoomData(DEFAULT_ROOM_DATA));
+      dispatch(redirectToRoute(AppRoute.NotFound));
+    }
+  },
+);
+
+export const finishAuthAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'offers/fetchOffers',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      await toast.promise(api.delete(APIRoute.Logout), toastLoadingOptions);
       dropToken();
-      nextDispatch(unSuccessfulAuth());
-    })
-    .catch((error) => {
+      dispatch(unSuccessfulAuth());
+      dispatch(redirectToRoute(AppRoute.Root));
+    } catch (error) {
       errorHandle(error);
-    }),
-  {
-    pending: 'Loading...',
-  });
-};
+    }
+  },
+);
 
-export const sendCommentAction = (comment: CommentFormDataType, hotelId: string, restoreFormData: (formData: CommentFormDataType) => void) =>
-  (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
-    toast.promise(api.post(`${APIRoute.Comments}/${hotelId}`, comment)
-      .then((response: AxiosResponse) => {
-        nextDispatch(setComments(response.data));
-      })
-      .catch((error) => {
-        errorHandle(error);
-        restoreFormData(comment);
-      }),
-    {
-      pending: 'Loading...',
-    });
-  };
+export const sendCommentAction = createAsyncThunk<void,
+  {
+    onRestoreFormData: (formData: CommentFormDataType) => void,
+    hotelId: number,
+    comment: CommentFormDataType,
+      },
+  {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+      'favorites/changeOfferFavoriteStatus',
+      async (commentData, {dispatch, extra: api}) => {
+        const {hotelId, comment, onRestoreFormData} = commentData;
+        try {
+          const {data} = await toast.promise(
+            api.post(`${APIRoute.Comments}/${hotelId}`, comment),
+            toastLoadingOptions,
+          );
+          dispatch(setComments(data));
+        } catch (error) {
+          errorHandle(error);
+          if (isAuthError(error)) {
+            dropToken();
+            dispatch(unSuccessfulAuth());
+          } else {
+            onRestoreFormData(comment);
+          }
+        }
+      },
+      );

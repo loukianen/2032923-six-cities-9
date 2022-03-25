@@ -1,7 +1,7 @@
-import { SyntheticEvent } from 'react';
+import {SyntheticEvent} from 'react';
 import {Link} from 'react-router-dom';
 import {finishAuthAction} from '../../store/api-actions';
-import { AppDispatch } from '../../types/other-types';
+import {AppDispatch} from '../../types/other-types';
 import {AppRoute} from '../../const';
 
 function HeaderNavLogged(props: {dispatch: AppDispatch, email: string}): JSX.Element {
@@ -9,7 +9,7 @@ function HeaderNavLogged(props: {dispatch: AppDispatch, email: string}): JSX.Ele
 
   function handleClick(e: SyntheticEvent) {
     e.preventDefault();
-    dispatch(finishAuthAction);
+    dispatch(finishAuthAction());
   }
 
   return (

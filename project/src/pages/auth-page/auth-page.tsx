@@ -23,9 +23,11 @@ function AuthPage(): JSX.Element {
     evt.preventDefault();
     if (evt.target instanceof HTMLFormElement) {
       const formData = new FormData(evt.target);
-      const email = formData.get('email');
-      const password = formData.get('password');
-      dispatch(authAction({email, password}));
+      const authData = {
+        email: formData.get('email'),
+        password: formData.get('password'),
+      };
+      dispatch(authAction(authData));
     }
   }
 

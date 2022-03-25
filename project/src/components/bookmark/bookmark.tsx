@@ -27,7 +27,7 @@ function Bookmark(props: {hotelId: number, isFavorite: boolean, type: PlaceCardT
   const isTypeRoom = type === 'room';
 
   function handleButtonClick() {
-    dispatch(changeOfferStatusAction(hotelId, !isFavorite, type));
+    dispatch(changeOfferStatusAction({ hotelId, isFavorite, actionType: type }));
   }
 
   const buttonClassName = getButtonClassName(isTypeRoom, isFavorite);

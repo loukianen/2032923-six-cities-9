@@ -14,7 +14,7 @@ function FavoritesPage(): JSX.Element {
   const isFaviritesEmpty = offers.length === 0;
 
   useLayoutEffect(() => {
-    dispatch(fetchFavoritesAction);
+    dispatch(fetchFavoritesAction());
   }, [dispatch]);
 
   const mainClassName = cn('page__main', 'page__main--favorites', {
