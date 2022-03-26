@@ -6,7 +6,7 @@ function FavoriteLocation(props: { locationData: LocationsDataType }) {
   const {cityName, offers} = props.locationData;
 
   return (
-    <li className="favorites__locations-items">
+    <li className="favorites__locations-items" data-testid="favorite-location">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           <LocationLink cityName={cityName} />
