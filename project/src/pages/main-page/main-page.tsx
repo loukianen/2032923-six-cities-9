@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import {useParams, Navigate} from 'react-router-dom';
 import cn from 'classnames';
 import Header from '../../components/header/header';
 import CityList from '../../components/cities-list/cities-list';
@@ -6,7 +6,7 @@ import MainPageContent from '../../components/main-page-content/main-page-conten
 import MainPageEmpty from '../../components/main-page-empty/main-page-empty';
 import {useAppSelector} from '../../hooks/hooks';
 import {getOffersByCity} from '../../store/offers-process/selectors';
-import {DEFAULT_CITY} from '../../const';
+import {AppRoute, cityNames, DEFAULT_CITY} from '../../const';
 
 function MainPage(): JSX.Element {
   const pathParams = useParams();
@@ -22,7 +22,7 @@ function MainPage(): JSX.Element {
     'cities__places-container--empty': isOffersListEmpty,
   });
 
-  return (
+  return cityNames.includes(city) ? (
     <div className="page page--gray page--main">
       <Header />
       <main className={pageClassName}>
@@ -37,7 +37,7 @@ function MainPage(): JSX.Element {
         </div>
       </main>
     </div>
-  );
+  ) : <Navigate to={AppRoute.NotFound} />;
 }
 
 export default MainPage;

@@ -1,4 +1,4 @@
-import {useLayoutEffect} from 'react';
+import {useEffect} from 'react';
 import cn from 'classnames';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {fetchFavoritesAction} from '../../store/api-actions';
@@ -13,7 +13,7 @@ function FavoritesPage(): JSX.Element {
   const offers = useAppSelector(getFavorites);
   const isFaviritesEmpty = offers.length === 0;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(fetchFavoritesAction());
   }, [dispatch]);
 

@@ -6,7 +6,7 @@ import {redirectToRoute} from '../../store/actions';
 import {getAuthStatus} from '../../store/user-process/selectors';
 import LocationLink from '../../components/location-link/location-link';
 import {getRandomValue} from '../../services/utils';
-import {AppRoute, cityNames} from '../../const';
+import {AppRoute, AuthorizationStatus, cityNames} from '../../const';
 
 function AuthPage(): JSX.Element {
   const cityName = getRandomValue(cityNames);
@@ -14,7 +14,7 @@ function AuthPage(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
 
   useEffect(() => {
-    if (authStatus === 'authorized') {
+    if (authStatus === AuthorizationStatus.Auth) {
       dispatch(redirectToRoute(AppRoute.Root));
     }
   }, [dispatch, authStatus]);
@@ -50,7 +50,7 @@ function AuthPage(): JSX.Element {
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
-            <h1 className="login__title">Sign in</h1>
+            <h1 className="login__title" data-testid="login__title">Sign in</h1>
             <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>

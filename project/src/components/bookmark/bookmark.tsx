@@ -4,7 +4,7 @@ import {useAppSelector, useAppDispatch} from '../../hooks/hooks';
 import {changeOfferStatusAction} from '../../store/api-actions';
 import {getAuthStatus} from '../../store/user-process/selectors';
 import {PlaceCardType} from '../../types/other-types';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 const getWidth = (isRoom: boolean) => isRoom ? '31' : '18';
 const getHeight = (isRoom: boolean) => isRoom ? '33' : '19';
@@ -34,7 +34,7 @@ function Bookmark(props: {hotelId: number, isFavorite: boolean, type: PlaceCardT
   const viewProps = getViewProps(isTypeRoom, isFavorite);
 
   const content = <BookmarkContent {...viewProps} />;
-  return authStatus === 'authorized'
+  return authStatus === AuthorizationStatus.Auth
     ? <button className={buttonClassName} type="button" onClick={handleButtonClick}>{content}</button>
     : <Link className={buttonClassName} to={AppRoute.Login}>{content}</Link>;
 }

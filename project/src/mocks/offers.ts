@@ -5,7 +5,7 @@ import {accommodationTypes,cityNames} from '../const';
 
 const OFFER_AMOUNT = 3;
 
-const makeFakeOffers = (amount = OFFER_AMOUNT): Offer[] => Array.from(
+const makeFakeOffers = (amount = OFFER_AMOUNT, cityName?: string): Offer[] => Array.from(
   Array(amount),
   () => ({
     bedrooms: datatype.number(),
@@ -15,7 +15,7 @@ const makeFakeOffers = (amount = OFFER_AMOUNT): Offer[] => Array.from(
         longitude: datatype.float(),
         zoom: datatype.number(),
       },
-      name: getRandomValue(cityNames) as string,
+      name: cityName || getRandomValue(cityNames) as string,
     },
     description: lorem.sentence(),
     goods: Array.from(Array(OFFER_AMOUNT), () => lorem.word()),
