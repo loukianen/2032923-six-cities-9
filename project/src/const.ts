@@ -1,5 +1,7 @@
 import { OffersSortingType } from './types/other-types';
 
+export const accommodationTypes = ['apartment', 'room', 'house', 'hotel'];
+
 export enum APIRoute {
   Comments = '/comments',
   Favorites = '/favorite',
@@ -15,9 +17,18 @@ export enum AppRoute {
   Room = '/offer/',
   RoomId = '/offer/:id',
   Root = '/',
+  City = '/:city',
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
 }
 
 export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const DEFAULT_CITY = 'Paris';
 
 export const DEFAULT_ROOM_DATA = {
   comments: [],
@@ -45,14 +56,14 @@ export enum HTTP_CODE {
 export const MAX_STARS_RATING = 5;
 
 export enum NameSpace {
-  auth = 'AUTH',
-  city = 'CITY',
-  comments = 'COMMENTS',
-  favorites = 'FAVORITES',
-  offersNearby = 'OFFERS_NEARBY',
-  offers = 'OFFERS',
-  room = 'ROOM',
-  user = 'USER',
+  Auth = 'AUTH',
+  City = 'CITY',
+  Comments = 'COMMENTS',
+  Favorites = 'FAVORITES',
+  OffersNearby = 'OFFERS_NEARBY',
+  Offers = 'OFFERS',
+  Room = 'ROOM',
+  User = 'USER',
 }
 
 export const offersSortingVariants: OffersSortingType[] = ['none', 'byPriceUp', 'byPriceDown', 'byRatingDown'];

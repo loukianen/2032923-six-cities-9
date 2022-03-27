@@ -1,10 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {setRoomData} from './room-reducer';
+import {setRoomData} from '../room-process/room-process';
 import {Offer, RoomDataType} from '../../types/offers';
 import {NameSpace} from '../../const';
 
 const offersNearbyReducer = createSlice({
-  name: NameSpace.offersNearby,
+  name: NameSpace.OffersNearby,
   initialState: [] as Offer[],
   reducers: {
     setOffersNearby: (state, action: PayloadAction<Offer[]>) => {

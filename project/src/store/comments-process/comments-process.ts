@@ -1,10 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {setRoomData} from './room-reducer';
+import {setRoomData} from '../room-process/room-process';
 import {Comment, RoomDataType} from '../../types/offers';
 import {NameSpace} from '../../const';
 
-const commentsReducer = createSlice({
-  name: NameSpace.offers,
+const commentsProcess = createSlice({
+  name: NameSpace.Comments,
   initialState: [] as Comment[],
   reducers: {
     setComments: (state, action:PayloadAction<Comment[]>) => {
@@ -21,6 +21,6 @@ const commentsReducer = createSlice({
   },
 });
 
-export const { setComments } = commentsReducer.actions;
+export const { setComments } = commentsProcess.actions;
 
-export default commentsReducer;
+export default commentsProcess;

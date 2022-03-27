@@ -12,13 +12,13 @@ import useHover from '../../hooks/useHover';
 type PlaceCardProps = {
   offer: Pick<Offer, 'isPremium' | 'isFavorite' | 'price' | 'rating' | 'title' | 'type' | 'previewImage' | 'id'>,
   placeCardType: PlaceCardType,
-  setActiveOffer?: (x: number | null) => void,
+  onActiveOffer?: (x: number | null) => void,
 }
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
   const {
     placeCardType,
-    setActiveOffer,
+    onActiveOffer,
     offer: { isPremium, isFavorite, price, rating, title, type, id, previewImage },
   } = props;
   const isTypePlaceCard = placeCardType === 'placeCard';
@@ -28,10 +28,10 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
   const [hoverRef, isHover] = useHover<HTMLElement>();
 
   useEffect(() => {
-    if (setActiveOffer !== undefined) {
-      isHover ? setActiveOffer(id) : setActiveOffer(null);
+    if (onActiveOffer !== undefined) {
+      isHover ? onActiveOffer(id) : onActiveOffer(null);
     }
-  }, [id, setActiveOffer, isHover]);
+  }, [id, onActiveOffer, isHover]);
 
   const articleClass = cn('place-card', {
     'cities__place-card': isTypePlaceCard,
