@@ -10,7 +10,7 @@ const getWidth = (isRoom: boolean) => isRoom ? '31' : '18';
 const getHeight = (isRoom: boolean) => isRoom ? '33' : '19';
 const getSvgClassName = (isRoom: boolean) => isRoom ? 'property__bookmark-icon' : 'place-card__bookmark-icon';
 
-const getViewProps = (isTypeRoom: boolean) => ({
+export const getViewProps = (isTypeRoom: boolean) => ({
   svgClassName: getSvgClassName(isTypeRoom),
   width: getWidth(isTypeRoom),
   height: getHeight(isTypeRoom),

@@ -50,20 +50,22 @@ describe('Component: Bookmark', () => {
       expect(screen.getByRole('link')).toBeInTheDocument();
     });
 
-    it('not active button if offer is not Favorite', () => {
+    it('not active button if offer is not Favorite and with "room" type', () => {
       const store = mockStore({USER: {
         authorizationStatus: AuthorizationStatus.Auth,
       }});
 
-      renderBookmark(store, history, { ...bookmarkProps, isFavorite: false});
+      renderBookmark(store, history, { ...bookmarkProps, isFavorite: false, type: 'room'});
 
       const buttonClassName = screen.getByRole('button').getAttribute('class');
       const isActive = buttonClassName?.includes('--active');
+      const isRoom = buttonClassName?.includes('property__bookmark-button');
 
       expect(isActive).toBeFalsy();
+      expect(isRoom).toBeTruthy();
     });
 
-    it('active button if offer is Favorite', () => {
+    it('active button if offer is Favorite and with not "room" type', () => {
       const store = mockStore({USER: {
         authorizationStatus: AuthorizationStatus.Auth,
       }});
@@ -72,8 +74,10 @@ describe('Component: Bookmark', () => {
 
       const buttonClassName = screen.getByRole('button').getAttribute('class');
       const isActive = buttonClassName?.includes('--active');
+      const isRoom = !buttonClassName?.includes('place-card__bookmark-button');
 
       expect(isActive).toBeTruthy();
+      expect(isRoom).toBeFalsy();
     });
   });
 
