@@ -2,10 +2,10 @@ import {RefObject, useRef, useState, useEffect} from 'react';
 
 type UseHoverType<T extends HTMLElement> = [RefObject<T>, boolean];
 
-function useHover<T extends HTMLElement>(): UseHoverType<T> {
+function useHover<T extends HTMLElement>(initElement: T | null = null): UseHoverType<T> {
   const [value, setValue] = useState<boolean>(false);
 
-  const ref = useRef<T>(null);
+  const ref = useRef<T>(initElement);
 
   const handleMouseEnter = () => setValue(true);
   const handleMouseLeave = () => setValue(false);

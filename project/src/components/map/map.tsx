@@ -1,8 +1,7 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
-import useMap from '../../hooks/useMap';
-import {Location, Point} from '../../types/offers';
-import {MapType} from '../../types/other-types';
+import useMap from '../../hooks/use-map';
+import {MapProps, MapType} from '../../types/other-types';
 import {Pins, IMG_URL} from '../../const';
 
 function getClassName(type: MapType ): string {
@@ -24,13 +23,6 @@ const currentCustomIcon = new Icon({
   iconSize: [28, 40],
   iconAnchor: [20, 40],
 });
-
-type MapProps = {
-  city: Location;
-  points: Point[];
-  selectedPoint: number | null;
-  type: MapType,
-};
 
 const useMapAdapter = (props: Omit<MapProps, 'type'>)=>{
   const { city, points, selectedPoint } = props;

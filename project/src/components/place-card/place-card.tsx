@@ -7,7 +7,7 @@ import {Offer} from '../../types/offers';
 import {PlaceCardType} from '../../types/other-types';
 import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
 import {AppRoute} from '../../const';
-import useHover from '../../hooks/useHover';
+import useHover from '../../hooks/use-hover';
 
 type PlaceCardProps = {
   offer: Pick<Offer, 'isPremium' | 'isFavorite' | 'price' | 'rating' | 'title' | 'type' | 'previewImage' | 'id'>,
