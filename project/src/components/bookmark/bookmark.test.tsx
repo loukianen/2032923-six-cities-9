@@ -74,10 +74,10 @@ describe('Component: Bookmark', () => {
 
       const buttonClassName = screen.getByRole('button').getAttribute('class');
       const isActive = buttonClassName?.includes('--active');
-      const isRoom = !buttonClassName?.includes('place-card__bookmark-button');
+      const isNotRoom = buttonClassName?.includes('place-card__bookmark-button');
 
       expect(isActive).toBeTruthy();
-      expect(isRoom).toBeFalsy();
+      expect(isNotRoom).toBeTruthy();
     });
   });
 

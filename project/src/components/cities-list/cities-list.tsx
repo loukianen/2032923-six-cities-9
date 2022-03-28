@@ -15,7 +15,7 @@ function CityList(props: {city: string}) {
           return (
             <Link key={cityName} to={`${AppRoute.Root}${cityName}`}>
               <li className="locations__item">
-                <div className={locationClassName}>
+                <div className={locationClassName} data-testid="city-name">
                   <span>{cityName}</span>
                 </div>
               </li>
