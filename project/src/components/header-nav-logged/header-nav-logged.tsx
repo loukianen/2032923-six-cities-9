@@ -13,7 +13,7 @@ function HeaderNavLogged(props: {dispatch: AppDispatch, email: string}): JSX.Ele
   }
 
   return (
-    <nav className="header__nav">
+    <nav className="header__nav" data-testid="header-nav-logged">
       <ul className="header__nav-list">
         <li className="header__nav-item user">
           <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
