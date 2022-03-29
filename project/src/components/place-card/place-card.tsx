@@ -53,7 +53,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
   const height = cn({'200': !isTypeFavorite, '110': isTypeFavorite });
 
   return (
-    <article className={articleClass} ref={hoverRef}>
+    <article className={articleClass} ref={hoverRef} data-testid="place-card">
       {isPremium && <PlaceCardMark type="placeCard" />}
       <div className={imgWrapperClass}>
         <a href="#place-card">
