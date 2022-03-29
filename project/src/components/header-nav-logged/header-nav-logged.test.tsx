@@ -11,7 +11,7 @@ import makeFakeUser from '../../mocks/user';
 import {AppDispatch} from '../../types/other-types';
 
 const user = makeFakeUser();
-const renderHeader = (store: MockStore, history: History, props: {dispatch: AppDispatch, email: string}) => {
+const renderHeaderNavLogged = (store: MockStore, history: History, props: {dispatch: AppDispatch, email: string}) => {
   render (
     <Provider store={store}>
       <HistoryRouter history={history}>
@@ -42,7 +42,7 @@ describe('Component: HeaderNavLogged', () => {
     const store = mockStore();
     const props = {dispatch: store.dispatch, email: user.email};
 
-    renderHeader(store, history, props);
+    renderHeaderNavLogged(store, history, props);
 
     expect(screen.getByText(user.email)).toBeInTheDocument();
   });
@@ -51,7 +51,7 @@ describe('Component: HeaderNavLogged', () => {
     const store = mockStore();
     const props = {dispatch: store.dispatch, email: user.email};
 
-    renderHeader(store, history, props);
+    renderHeaderNavLogged(store, history, props);
 
     userEvent.click(screen.getByTestId('header-nav-link-profile'));
 
@@ -64,7 +64,7 @@ describe('Component: HeaderNavLogged', () => {
     store.dispatch = jest.fn();
     const props = {dispatch: store.dispatch, email: user.email};
 
-    renderHeader(store, history, props);
+    renderHeaderNavLogged(store, history, props);
 
     userEvent.click(screen.getByTestId('header-signout-link'));
 

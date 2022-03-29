@@ -7,7 +7,7 @@ function HeaderNavNotLogged(): JSX.Element {
     <nav className="header__nav" data-testid="header-nav-not-logged">
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <Link to={AppRoute.Login} className="header__nav-link header__nav-link--profile">
+          <Link to={AppRoute.Login} className="header__nav-link header__nav-link--profile" data-testid="header-nav-link-profile">
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__login">Sign in</span>
           </Link>
