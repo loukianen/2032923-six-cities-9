@@ -26,7 +26,6 @@ function CommentForm(): JSX.Element {
 
   function clearComment() {
     setFormData({...FORM_DATA_INIT_STATE});
-    setCheckboxes(getCheckboxesInitState());
     const textareaElement = document.getElementById('room-comment-text') as HTMLTextAreaElement | null;
     if (textareaElement) {
       textareaElement.value = '';
@@ -71,12 +70,12 @@ function CommentForm(): JSX.Element {
           );
         })}
       </div>
-      <textarea id="room-comment-text" className="reviews__textarea form__textarea" name="comment" maxLength={REVIEW.MaxLength} placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={formData.comment} ></textarea>
+      <textarea id="room-comment-text" data-testid="room-comment-text" className="reviews__textarea form__textarea" name="comment" maxLength={REVIEW.MaxLength} placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={formData.comment} ></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!isFormValid}>Submit</button>
+        <button className="reviews__submit form__submit button" data-testid="submit" type="submit" disabled={!isFormValid}>Submit</button>
       </div>
     </form>
   );
