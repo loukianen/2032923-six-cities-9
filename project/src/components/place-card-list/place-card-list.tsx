@@ -22,7 +22,7 @@ function PlaceCardList(props: PlaceCardListProps) {
   });
 
   return (
-    <div className={cardClassName}>
+    <div className={cardClassName} data-testid="place-card-list">
       {offers.map((offer) => (
         <PlaceCard
           key={offer.id}

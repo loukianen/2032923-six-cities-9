@@ -30,7 +30,7 @@ function SortingMenu(props: SortingMenuProps): JSX.Element {
   };
 
   return (
-    <form className="places__sorting" action="#-some-valid-path" method="get">
+    <form className="places__sorting" action="#-some-valid-path" method="get" data-testid="sorting-menu">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0} onClick={openSortingMenu}>
         {getTextBySortingType(sortingType)}
