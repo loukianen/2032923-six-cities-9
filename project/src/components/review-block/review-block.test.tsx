@@ -26,7 +26,7 @@ const renderReviewBlock = (store: MockStore, history: History) => {
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
-describe('Component: Bookmark', () => {
+describe('Component: ReviewBlock', () => {
   describe('should render correctly', () => {
     beforeEach(() => {
       history.push('/review');
@@ -44,6 +44,7 @@ describe('Component: Bookmark', () => {
       renderReviewBlock(store, history);
 
       expect(screen.getByTestId('reviews-amount').textContent).toBe(fakeState[NameSpace.Comments].length.toString());
+      expect(screen.getByTestId('reviews-list')).toBeInTheDocument();
       expect(screen.queryByTestId('reviews-form')).not.toBeInTheDocument();
     });
 
@@ -58,6 +59,7 @@ describe('Component: Bookmark', () => {
 
       renderReviewBlock(store, history);
 
+      expect(screen.getByTestId('reviews-list')).toBeInTheDocument();
       expect(screen.getByTestId('reviews-form')).toBeInTheDocument();
     });
   });

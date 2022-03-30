@@ -7,7 +7,7 @@ function Review(props: { comment: Comment }): JSX.Element {
   } } = props;
   const displayedDate = new Date(date).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
   return (
-    <li className="reviews__item">
+    <li className="reviews__item" data-testid="review-item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img className="reviews__avatar user__avatar" src={avatarUrl} width="54" height="54" alt="Reviews avatar" />
