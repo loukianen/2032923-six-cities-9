@@ -42,7 +42,7 @@ function MainPageContent(props: {offers: Offer[], city: string}): JSX.Element {
 
   return (
     <>
-      <section className="cities__places places">
+      <section className="cities__places places"  data-testid="main-page-content">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{sortedOffers.length} places to stay in {city}</b>
         <SortingMenu onSortiedType={setSortingType} sortingType={sortingType} />

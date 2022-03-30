@@ -44,7 +44,7 @@ describe('Component: FavoritesPage', () => {
 
     renderFavoritesPage(store, history);
 
-    expect(screen.getByTestId('main').getAttribute('class')).not.toContain('page__main--favorites-empty');
+    expect(screen.getByTestId('favorites-main').getAttribute('class')).not.toContain('page__main--favorites-empty');
     expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByTestId('favorites-location-list')).toBeInTheDocument();
     expect(screen.queryByTestId('favorites-empty')).not.toBeInTheDocument();
@@ -62,7 +62,7 @@ describe('Component: FavoritesPage', () => {
 
     renderFavoritesPage(store, history);
 
-    expect(screen.getByTestId('main').getAttribute('class')).toContain('page__main--favorites-empty');
+    expect(screen.getByTestId('favorites-main').getAttribute('class')).toContain('page__main--favorites-empty');
     expect(screen.queryByTestId('favorites-location-list')).not.toBeInTheDocument();
     expect(screen.getByTestId('favorites-empty')).toBeInTheDocument();
   });

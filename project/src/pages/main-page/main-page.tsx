@@ -25,13 +25,13 @@ function MainPage(): JSX.Element {
   return cityNames.includes(city) ? (
     <div className="page page--gray page--main">
       <Header />
-      <main className={pageClassName}>
+      <main className={pageClassName} data-testid="main-main">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <CityList city={city} />
         </div>
         <div className="cities">
-          <div className={contentWrapperClassName}>
+          <div className={contentWrapperClassName} data-testid="main-page-content-wrapper">
             {isOffersListEmpty ? <MainPageEmpty /> : <MainPageContent city={city} offers={offers} />}
           </div>
         </div>

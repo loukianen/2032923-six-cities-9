@@ -6,7 +6,7 @@ function CityList(props: {city: string}) {
   const {city} = props;
 
   return (
-    <section className="locations container">
+    <section className="locations container" data-testid="cities-list">
       <ul className="locations__list tabs__list">
         {cityNames.map((cityName) => {
           const locationClassName = cn('locations__item-link tabs__item', {
