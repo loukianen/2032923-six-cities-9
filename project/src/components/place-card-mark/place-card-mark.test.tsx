@@ -1,11 +1,18 @@
 import {render, screen} from '@testing-library/react';
 import PlaceCardMark from './place-card-mark';
+import {PlaceCardType} from '../../types/other-types';
 
 describe('Component: PlaceCardMark', () => {
-  it('should render correctly', () => {
-    render(<PlaceCardMark type={'room'} />);
+  const dataForCheckingLayout = [
+    ['placeCard', 'place-card__mark'],
+    ['favorite', 'place-card__mark'],
+    ['placeNearby', 'place-card__mark'],
+    ['room', 'property__mark'],
+  ] as Array<[PlaceCardType, string]>;
 
-    expect(screen.getByText(/Premium/i)).toBeInTheDocument();
-    expect(screen.getByTestId('place-card-mark')).toBeInTheDocument();
+  it.each(dataForCheckingLayout)('should render correctly layout of %s', (type, markClass) => {
+    render(<PlaceCardMark type={type} />);
+
+    expect(screen.getByTestId('place-card-mark').getAttribute('class')).toContain(markClass);
   });
 });
