@@ -53,7 +53,7 @@ function CommentForm(): JSX.Element {
   }, [formData]);
 
   return (
-    <form className="reviews__form form" action="#-some-valid-path" method="post" onChange={handleChange} onSubmit={handleSubmit}>
+    <form className="reviews__form form" data-testid="reviews-form" action="#-some-valid-path" method="post" onChange={handleChange} onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {checkboxes.map((item, i) => {
