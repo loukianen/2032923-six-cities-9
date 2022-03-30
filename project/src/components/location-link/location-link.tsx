@@ -7,7 +7,7 @@ function LocationLink(props: {cityName: string}) {
   return (
     <Link to={`${AppRoute.Root}${cityName}`}>
       <div className="locations__item-link">
-        <span>{cityName}</span>
+        <span data-testid="location-link-city-name">{cityName}</span>
       </div>
     </Link>
   );

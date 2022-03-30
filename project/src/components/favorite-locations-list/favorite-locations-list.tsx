@@ -14,7 +14,7 @@ function FavoriteLocationsList(props: OffersProps) {
   const locationsData = Object.keys(sortedOffers).sort()
     .map((cityName: string) => ({ cityName, offers: sortedOffers[cityName] }));
   return (
-    <section className="favorites">
+    <section className="favorites" data-testid="favorites-location-list">
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
         {locationsData.map((location) => (

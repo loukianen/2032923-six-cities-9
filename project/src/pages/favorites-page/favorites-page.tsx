@@ -24,7 +24,7 @@ function FavoritesPage(): JSX.Element {
   return (
     <div className="page">
       <Header />
-      <main className={mainClassName}>
+      <main className={mainClassName} data-testid="main">
         <div className="page__favorites-container container">
           {isFaviritesEmpty
             ? <FavoritesEmpty />

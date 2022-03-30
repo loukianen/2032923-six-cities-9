@@ -11,7 +11,7 @@ function Header(): JSX.Element {
   const isAuthorisedUser = authStatus === AuthorizationStatus.Auth;
 
   return (
-    <header className="header">
+    <header className="header" data-testid="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
