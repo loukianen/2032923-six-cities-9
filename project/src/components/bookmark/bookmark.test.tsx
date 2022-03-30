@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import {configureMockStore, MockStore} from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
 import {PlaceCardType} from '../../types/other-types';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, NameSpace} from '../../const';
 import Bookmark, {BookmarkProps} from './bookmark';
 
 const renderBookmark = (store: MockStore, history: History, props: BookmarkProps) => {
@@ -41,7 +41,7 @@ describe('Component: Bookmark', () => {
     });
 
     it('link if user is unauthorized', () => {
-      const store = mockStore({USER: {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.Unknown,
       }});
 
@@ -66,7 +66,7 @@ describe('Component: Bookmark', () => {
     });
 
     it('active button if offer is Favorite and with not "room" type', () => {
-      const store = mockStore({USER: {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.Auth,
       }});
 
@@ -83,7 +83,7 @@ describe('Component: Bookmark', () => {
 
   describe('after user click button', () => {
     it('should call store.dispatch if user is authrized', () => {
-      const store = mockStore({USER: {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.Auth,
       }});
       store.dispatch = jest.fn();
@@ -95,7 +95,7 @@ describe('Component: Bookmark', () => {
     });
 
     it('should navigate to /login if user is authrized', () => {
-      const store = mockStore({USER: {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.NoAuth,
       }});
       store.dispatch = jest.fn();

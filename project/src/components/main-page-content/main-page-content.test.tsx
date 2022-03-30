@@ -4,7 +4,7 @@ import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, NameSpace} from '../../const';
 import MainPageContent from './main-page-content';
 import makeFakeOffers from '../../mocks/offers';
 
@@ -17,7 +17,7 @@ describe('Component: MainPageContent', () => {
   });
 
   it('should render correctly', () => {
-    const store = mockStore({USER: {
+    const store = mockStore({[NameSpace.User]: {
       authorizationStatus: AuthorizationStatus.Unknown,
     }});
     const city = 'Amsterdam';

@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import {Provider} from 'react-redux';
 import {configureMockStore, MockStore} from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, NameSpace} from '../../const';
 import Header from './header';
 import makeFakeUser from '../../mocks/user';
 
@@ -39,7 +39,7 @@ describe('Component: Header', () => {
     });
 
     it('HeaderNavLogged if user is authorized', () => {
-      const store = mockStore({USER: {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.Auth,
         user,
       }});
@@ -51,7 +51,7 @@ describe('Component: Header', () => {
     });
 
     it('HeaderNavNotLogged if user is unauthorized', () => {
-      const store = mockStore({USER: {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.NoAuth,
         user,
       }});
@@ -69,7 +69,7 @@ describe('Component: Header', () => {
     });
 
     it('to main page if user click logo', () => {
-      const store = mockStore({USER: {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.Auth,
         user,
       }});

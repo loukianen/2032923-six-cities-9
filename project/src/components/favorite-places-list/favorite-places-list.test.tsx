@@ -4,12 +4,12 @@ import {render, screen} from '@testing-library/react';
 import HistoryRouter from '../history-router/history-router';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import FavoritePlacesList from './favorite-places-list';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, NameSpace} from '../../const';
 import makeFakeOffers from '../../mocks/offers';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
-const store = mockStore({USER: {
+const store = mockStore({[NameSpace.User]: {
   authorizationStatus: AuthorizationStatus.Auth,
 }});
 

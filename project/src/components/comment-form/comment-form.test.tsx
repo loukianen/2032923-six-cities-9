@@ -8,7 +8,7 @@ import {configureMockStore, MockStore} from '@jedmao/redux-mock-store';
 import {createAPI} from '../../services/api';
 import CommentForm from './comment-form';
 import {State} from '../../types/state';
-import {APIRoute, REVIEW} from '../../const';
+import {APIRoute, NameSpace, REVIEW} from '../../const';
 
 const placeholderText = 'Tell how was your stay, what you like and what can be improved';
 
@@ -17,7 +17,7 @@ const mockAPI = new MockAdapter(api);
 const middlewares = [thunk.withExtraArgument(api)];
 
 const mockStore = configureMockStore<
-  {'ROOM': {id: number}},
+  {[NameSpace.Room]: {id: number}},
   Action,
   ThunkDispatch<State, typeof api, Action>
 >(middlewares);
