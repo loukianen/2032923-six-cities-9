@@ -37,9 +37,8 @@ function RoomPage(): JSX.Element | null {
   const {
     id, images, title, rating, isPremium, isFavorite, type, bedrooms, maxAdults, price, goods, description, host,
   } = room;
-
   return (
-    <div className="page">
+    <div className="page" data-testid="room-page">
       <Header />
 
       <main className="page__main page__main--property">

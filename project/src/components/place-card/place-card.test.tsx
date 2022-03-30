@@ -8,9 +8,13 @@ import {Provider} from 'react-redux';
 import {configureMockStore, MockStore} from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
 import {PlaceCardProps, PlaceCardType} from '../../types/other-types';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, NameSpace} from '../../const';
 import PlaceCard from './place-card';
 import makeFakeOffers from '../../mocks/offers';
+
+function clickAtObject(testId: string) {
+  userEvent.click(screen.getByTestId(testId));
+}
 
 const makeFakePlaceCardProps = (type: PlaceCardType, shouldAddOnActiveOffer: boolean) => {
   const offer = makeFakeOffers(1)[0];
@@ -52,7 +56,7 @@ describe('Component: PlaceCard', () => {
     });
 
     it('props data', () => {
-      const store = mockStore({USER: {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.Unknown,
       }});
       const props = makeFakePlaceCardProps('placeCard', false);
@@ -71,7 +75,7 @@ describe('Component: PlaceCard', () => {
     ] as Array<[PlaceCardType, string, string, string]>;
 
     it.each(dataForCheckingLayout)('layout of %s', (type, articleClass, wrapperClass, infoClass) => {
-      const store = mockStore({USER: {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.Unknown,
       }});
       const props = makeFakePlaceCardProps(type, false);
@@ -89,13 +93,15 @@ describe('Component: PlaceCard', () => {
       history.push('/placecard');
     });
 
-    it('enter and leave mouse events', async () => {
-      const store = mockStore({USER: {
+    it('enter and leave mouse events', () => {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.Auth,
       }});
       const props = makeFakePlaceCardProps('placeCard', true);
 
       renderPlaceCard(store, history, props);
+
+      expect(props.onActiveOffer).toBeCalledWith(null);
 
       act(() => {
         screen.getByTestId('place-card').dispatchEvent(new Event('mouseenter'));
@@ -103,20 +109,24 @@ describe('Component: PlaceCard', () => {
       expect(props.onActiveOffer).toBeCalledWith(props.offer.id);
 
       act(() => {
-        screen.getByTestId('place-card').dispatchEvent(new Event('mouseenter'));
+        screen.getByTestId('place-card').dispatchEvent(new Event('mouseleave'));
       });
       expect(props.onActiveOffer).toBeCalledWith(null);
-      expect(props.onActiveOffer).toBeCalledTimes(2);
+
+      expect(props.onActiveOffer).toBeCalledTimes(3);
     });
 
     it('should navigate to Room page after click on title', () => {
-      const store = mockStore({USER: {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.NoAuth,
       }});
       const props = makeFakePlaceCardProps('placeCard', false);
 
       renderPlaceCard(store, history, props);
-      userEvent.click(screen.getByTestId('place-card-property-link'));
+
+      act(() => {
+        clickAtObject('place-card-property-link');
+      });
 
       expect(history.location.pathname).toBe(`${AppRoute.Room}${props.offer.id}`);
       expect(screen.getByText(`Page room with id - ${props.offer.id}`)).toBeInTheDocument();

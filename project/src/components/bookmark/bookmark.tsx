@@ -37,8 +37,8 @@ function Bookmark(props: BookmarkProps): JSX.Element {
 
   const content = <BookmarkContent {...viewProps} />;
   return authStatus === AuthorizationStatus.Auth
-    ? <button className={buttonClassName} type="button" onClick={handleButtonClick}>{content}</button>
-    : <Link className={buttonClassName} to={AppRoute.Login}>{content}</Link>;
+    ? <button className={buttonClassName} type="button" onClick={handleButtonClick} data-type={type} data-testid="bookmark-button">{content}</button>
+    : <Link className={buttonClassName} to={AppRoute.Login} data-type={type} data-testid="bookmark-link">{content}</Link>;
 }
 
 export default Bookmark;

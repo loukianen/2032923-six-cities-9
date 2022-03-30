@@ -9,7 +9,7 @@ function ReviewBlock(): JSX.Element {
   const isAuthorisedUser = authorizationStatus === AuthorizationStatus.Auth;
 
   return (
-    <section className="property__reviews reviews">
+    <section className="property__reviews reviews" data-testid="property-reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount" data-testid="reviews-amount">{comments.length}</span></h2>
       <ReviewsList comments={comments} />
       {isAuthorisedUser && <CommentForm />}
