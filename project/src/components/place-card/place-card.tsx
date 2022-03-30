@@ -3,17 +3,14 @@ import {Link} from 'react-router-dom';
 import cn from 'classnames';
 import PlaceCardMark from '../place-card-mark/place-card-mark';
 import Bookmark from '../bookmark/bookmark';
-import {Offer} from '../../types/offers';
-import {PlaceCardType} from '../../types/other-types';
+import {PlaceCardProps} from '../../types/other-types';
 import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
 import {AppRoute} from '../../const';
 import useHover from '../../hooks/use-hover';
 
-type PlaceCardProps = {
-  offer: Pick<Offer, 'isPremium' | 'isFavorite' | 'price' | 'rating' | 'title' | 'type' | 'previewImage' | 'id'>,
-  placeCardType: PlaceCardType,
-  onActiveOffer?: (x: number | null) => void,
-}
+const getImageSize = (isFavorite: boolean) => isFavorite
+  ? { width: '150', height: '110' }
+  : { width: '260', height: '200' };
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
   const {
@@ -49,18 +46,15 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
     'favorites__card-info': isTypeFavorite,
   });
 
-  const width = cn({'260': !isTypeFavorite, '150': isTypeFavorite });
-  const height = cn({'200': !isTypeFavorite, '110': isTypeFavorite });
+  const {width, height} = getImageSize(isTypeFavorite);
 
   return (
     <article className={articleClass} ref={hoverRef} data-testid="place-card">
       {isPremium && <PlaceCardMark type="placeCard" />}
-      <div className={imgWrapperClass}>
-        <a href="#place-card">
-          <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place" />
-        </a>
+      <div className={imgWrapperClass} data-testid="place-card-img-wrapper">
+        <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place" />
       </div>
-      <div className={infoClass}>
+      <div className={infoClass} data-testid="place-card-info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -75,7 +69,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Room}${id}`}>{title}</Link>
+          <Link to={`${AppRoute.Room}${id}`} data-testid="place-card-property-link">{title}</Link>
         </h2>
         <p className="place-card__type">{getAccommodationTitle(type)}</p>
       </div>

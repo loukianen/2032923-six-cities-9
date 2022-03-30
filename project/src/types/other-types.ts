@@ -1,5 +1,5 @@
 import store from '../store/store';
-import {Location, Point} from './offers';
+import {Location, Offer, Point} from './offers';
 
 export type AppDispatch = typeof store.dispatch;
 
@@ -22,6 +22,14 @@ export type MapProps = {
 export type MapType = 'main' | 'room';
 
 export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
+
+export type PlaceCadrOffer = Pick<Offer, 'isPremium' | 'isFavorite' | 'price' | 'rating' | 'title' | 'type' | 'previewImage' | 'id'>
+
+export type PlaceCardProps = {
+  offer: PlaceCadrOffer,
+  placeCardType: PlaceCardType,
+  onActiveOffer?: (x: number | null) => void,
+}
 
 export type PlaceCardType = 'favorite' | 'placeCard' | 'placeNearby'| 'room';
 
