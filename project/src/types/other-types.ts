@@ -31,6 +31,12 @@ export type PlaceCardProps = {
   onActiveOffer?: (x: number | null) => void,
 }
 
+export type PlaceCardListProps = {
+  offers: Offer[],
+  onActiveOffer?: (x: number | null) => void,
+  placeCardType: PlaceCardType,
+}
+
 export type PlaceCardType = 'favorite' | 'placeCard' | 'placeNearby'| 'room';
 
 export type StateType = ReturnType<typeof store.getState>;

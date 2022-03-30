@@ -12,7 +12,7 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import PlaceCard from './place-card';
 import makeFakeOffers from '../../mocks/offers';
 
-const makePlaceCardProps = (type: PlaceCardType, shouldAddOnActiveOffer: boolean) => {
+const makeFakePlaceCardProps = (type: PlaceCardType, shouldAddOnActiveOffer: boolean) => {
   const offer = makeFakeOffers(1)[0];
   const onActiveOffer = jest.fn();
   let props: PlaceCardProps = {offer, placeCardType: type};
@@ -55,7 +55,7 @@ describe('Component: PlaceCard', () => {
       const store = mockStore({USER: {
         authorizationStatus: AuthorizationStatus.Unknown,
       }});
-      const props = makePlaceCardProps('placeCard', false);
+      const props = makeFakePlaceCardProps('placeCard', false);
 
       renderPlaceCard(store, history, props);
 
@@ -74,7 +74,7 @@ describe('Component: PlaceCard', () => {
       const store = mockStore({USER: {
         authorizationStatus: AuthorizationStatus.Unknown,
       }});
-      const props = makePlaceCardProps(type, false);
+      const props = makeFakePlaceCardProps(type, false);
 
       renderPlaceCard(store, history, props);
 
@@ -93,7 +93,7 @@ describe('Component: PlaceCard', () => {
       const store = mockStore({USER: {
         authorizationStatus: AuthorizationStatus.Auth,
       }});
-      const props = makePlaceCardProps('placeCard', true);
+      const props = makeFakePlaceCardProps('placeCard', true);
 
       renderPlaceCard(store, history, props);
 
@@ -113,7 +113,7 @@ describe('Component: PlaceCard', () => {
       const store = mockStore({USER: {
         authorizationStatus: AuthorizationStatus.NoAuth,
       }});
-      const props = makePlaceCardProps('placeCard', false);
+      const props = makeFakePlaceCardProps('placeCard', false);
 
       renderPlaceCard(store, history, props);
       userEvent.click(screen.getByTestId('place-card-property-link'));

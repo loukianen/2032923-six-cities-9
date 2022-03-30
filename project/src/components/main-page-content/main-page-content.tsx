@@ -46,7 +46,7 @@ function MainPageContent(props: {offers: Offer[], city: string}): JSX.Element {
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{sortedOffers.length} places to stay in {city}</b>
         <SortingMenu onSortiedType={setSortingType} sortingType={sortingType} />
-        <PlaceCardList onActiveOffer={setActiveOffer} offers={sortedOffers} placeCardListType="placeCard" />
+        <PlaceCardList onActiveOffer={setActiveOffer} offers={sortedOffers} placeCardType="placeCard" />
       </section>
       <div className="cities__right-section">
         <Map city={cityLocation} points={points} selectedPoint={activeOffer} type="main" />
