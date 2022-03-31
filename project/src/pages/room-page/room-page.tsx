@@ -37,9 +37,8 @@ function RoomPage(): JSX.Element | null {
   const {
     id, images, title, rating, isPremium, isFavorite, type, bedrooms, maxAdults, price, goods, description, host,
   } = room;
-
   return (
-    <div className="page">
+    <div className="page" data-testid="room-page">
       <Header />
 
       <main className="page__main page__main--property">
@@ -98,7 +97,7 @@ function RoomPage(): JSX.Element | null {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <PlaceCardList offers={offersNearby} placeCardListType="placeNearby" />
+              <PlaceCardList offers={offersNearby} placeCardType="placeNearby" />
             </div>
           </section>
         </div>

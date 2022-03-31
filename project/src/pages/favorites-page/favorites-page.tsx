@@ -3,7 +3,7 @@ import cn from 'classnames';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {fetchFavoritesAction} from '../../store/api-actions';
 import Header from '../../components/header/header';
-import FavoriteLocationsList from '../../components/favorite-locations-list/favotie-locations-list';
+import FavoriteLocationsList from '../../components/favorite-locations-list/favorite-locations-list';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import FavoritesFooter from '../../components/favorites-footer/favorites-footer';
 import {getFavorites} from '../../store/favorites-process/selectors';
@@ -24,7 +24,7 @@ function FavoritesPage(): JSX.Element {
   return (
     <div className="page">
       <Header />
-      <main className={mainClassName}>
+      <main className={mainClassName} data-testid="favorites-main">
         <div className="page__favorites-container container">
           {isFaviritesEmpty
             ? <FavoritesEmpty />

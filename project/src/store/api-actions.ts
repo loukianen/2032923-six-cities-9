@@ -210,13 +210,13 @@ export const sendCommentAction = createAsyncThunk<void,
           );
           dispatch(setComments(data));
         } catch (error) {
-          errorHandle(error);
           if (isAuthError(error)) {
             dropToken();
             dispatch(unSuccessfulAuth());
           } else {
             onRestoreFormData(comment);
           }
+          errorHandle(error);
         }
       },
       );

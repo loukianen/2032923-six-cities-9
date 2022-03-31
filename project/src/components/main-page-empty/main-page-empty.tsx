@@ -6,7 +6,7 @@ function MainPageEmpty(): JSX.Element {
   const city = pathParams.city ?? DEFAULT_CITY;
   return (
     <>
-      <section className="cities__no-places">
+      <section className="cities__no-places" data-testid="main-page-empty">
         <div className="cities__status-wrapper tabs__content">
           <b className="cities__status">No places to stay available</b>
           <p className="cities__status-description">We could not find any property available at the moment in {city}</p>

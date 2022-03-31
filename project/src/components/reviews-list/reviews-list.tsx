@@ -18,7 +18,7 @@ function ReviewsList(props: { comments: Comment[] }): JSX.Element {
   const commentsForRendering = getCommentsForRendering(comments);
 
   return (
-    <ul className="reviews__list">
+    <ul className="reviews__list" data-testid="reviews-list">
       {commentsForRendering.map((comment) => (
         <Review key={comment.id} comment={comment} />
       ))}

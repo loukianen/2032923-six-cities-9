@@ -1,4 +1,4 @@
-import {SyntheticEvent, useEffect} from 'react';
+import {SyntheticEvent, useLayoutEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {authAction} from '../../store/api-actions';
@@ -13,7 +13,7 @@ function AuthPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector(getAuthStatus);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (authStatus === AuthorizationStatus.Auth) {
       dispatch(redirectToRoute(AppRoute.Root));
     }
@@ -37,10 +37,8 @@ function AuthPage(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link to={AppRoute.Root}>
-                <div className="header__logo-link">
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                </div>
+              <Link to={AppRoute.Root} className="header__logo-link" data-testid="header-logo-link">
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>
           </div>

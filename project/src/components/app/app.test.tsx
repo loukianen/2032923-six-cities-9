@@ -6,19 +6,19 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
 import makeFakeOffers from '../../mocks/offers';
 import makeFakeUser from '../../mocks/user';
-import {AppRoute, AuthorizationStatus, cityNames} from '../../const';
+import {AppRoute, AuthorizationStatus, cityNames, NameSpace} from '../../const';
 import App from './app';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 const store = mockStore({
-  COMMENTS: [],
-  FAVORITES: [],
-  OFFERS: makeFakeOffers(3, 'Moscow'),
-  OFFERS_NEARBY: makeFakeOffers(),
-  ROOM: {...makeFakeOffers(1)[0], description: 'A routing test was passed successfully'},
-  USER: {
+  [NameSpace.Comments]: [],
+  [NameSpace.Favorites]: [],
+  [NameSpace.Offers]: makeFakeOffers(3, 'Moscow'),
+  [NameSpace.OffersNearby]: makeFakeOffers(),
+  [NameSpace.Room]: {...makeFakeOffers(1)[0], description: 'A routing test was passed successfully'},
+  [NameSpace.User]: {
     user: makeFakeUser(),
     authorizationStatus: AuthorizationStatus.Auth,
   },
@@ -85,6 +85,6 @@ describe('Application Routing', () => {
     render(fakeApp);
 
     expect(screen.getByText('404. Page not found')).toBeInTheDocument();
-    expect(screen.getByText('Вернуться на главную')).toBeInTheDocument();
+    expect(screen.getByText('Come back to main page')).toBeInTheDocument();
   });
 });

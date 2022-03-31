@@ -11,7 +11,7 @@ function PlaceCardMark(props: { type: PlaceCardType }) {
   });
 
   return (
-    <div className={markClassName} data-testid="place-card-mark">
+    <div className={markClassName} data-type={type} data-testid="place-card-mark">
       <span>Premium</span>
     </div>
   );
