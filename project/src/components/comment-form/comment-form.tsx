@@ -29,7 +29,7 @@ function CommentForm(): JSX.Element {
     setIsFormLocked(false);
   }
 
-  function handleChange(e: SyntheticEvent) {
+  function handleFormChange(e: SyntheticEvent) {
     if (!isFormLocked) {
       const { name, value } = e.target as HTMLFormElement;
       const newState = { ...formData, [name]: value, checkboxesValue: getCheckboxesInitState()};
@@ -40,7 +40,7 @@ function CommentForm(): JSX.Element {
     }
   }
 
-  function handleSubmit(e: SyntheticEvent) {
+  function handleFormSubmit(e: SyntheticEvent) {
     e.preventDefault();
     if (hotelId) {
       setIsFormLocked(true);
@@ -68,7 +68,7 @@ function CommentForm(): JSX.Element {
   }, [formData]);
 
   return (
-    <form className="reviews__form form" data-testid="reviews-form" action="#-some-valid-path" method="post" onChange={handleChange} onSubmit={handleSubmit}>
+    <form className="reviews__form form" data-testid="reviews-form" action="#-some-valid-path" method="post" onChange={handleFormChange} onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {formData.checkboxesValue.map((item, i) => {
