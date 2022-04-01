@@ -191,31 +191,32 @@ export const finishAuthAction = createAsyncThunk<void, undefined, {
 
 export const sendCommentAction = createAsyncThunk<void,
   {
-    onRestoreFormData: (formData: CommentFormDataType) => void,
     hotelId: number,
     comment: CommentFormDataType,
+    onClearCommentForm: () => void,
+    onLockCommentForm: (value: boolean) => void,
       },
   {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-      'favorites/changeOfferFavoriteStatus',
+      'comments/sendComment',
       async (commentData, {dispatch, extra: api}) => {
-        const {hotelId, comment, onRestoreFormData} = commentData;
+        const {hotelId, comment, onClearCommentForm, onLockCommentForm} = commentData;
         try {
           const {data} = await toast.promise(
-            api.post(`${APIRoute.Comments}/${hotelId}`, comment),
+            api.post(`${APIRoute.Comments}/${hotelId}`, {rating: comment.rating, comment: comment.comment}),
             toastLoadingOptions,
           );
           dispatch(setComments(data));
+          onClearCommentForm();
         } catch (error) {
           if (isAuthError(error)) {
             dropToken();
             dispatch(unSuccessfulAuth());
-          } else {
-            onRestoreFormData(comment);
           }
+          onLockCommentForm(false);
           errorHandle(error);
         }
       },

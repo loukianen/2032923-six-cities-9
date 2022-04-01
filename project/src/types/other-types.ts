@@ -10,7 +10,7 @@ export type AuthDataType = {
 
 export type AuthorizationStatusType = 'authorized' | 'unauthorized' | 'unknown';
 
-export type CommentFormDataType = { rating: number | null, comment: string };
+export type CommentFormDataType = { rating: number | null, comment: string, checkboxesValue: Array<boolean> };
 
 export type MapProps = {
   city: Location;
