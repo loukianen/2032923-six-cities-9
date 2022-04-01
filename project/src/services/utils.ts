@@ -1,4 +1,5 @@
 import { AccommodationType } from '../types/offers';
+import {MAX_STARS_RATING} from '../const';
 
 const accomodationTitleMapping = {
   apartment: 'Apartment',
@@ -22,7 +23,7 @@ export function getRandomValue(arr: Array<unknown>) {
 }
 
 export function getRatingStyleData(rating: number) {
-  return Math.round(rating) * 20;
+  return Math.round(rating) * (100 / MAX_STARS_RATING);
 }
 
 export function shufleArray(arr: Array<unknown>) {

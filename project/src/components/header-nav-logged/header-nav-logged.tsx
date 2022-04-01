@@ -1,13 +1,13 @@
 import {SyntheticEvent} from 'react';
 import {Link} from 'react-router-dom';
 import {finishAuthAction} from '../../store/api-actions';
-import {AppDispatch} from '../../types/other-types';
+import {AppDispatch} from '../../types/state';
 import {AppRoute} from '../../const';
 
 function HeaderNavLogged(props: {dispatch: AppDispatch, email: string}): JSX.Element {
   const {dispatch, email} = props;
 
-  function handleClick(e: SyntheticEvent) {
+  function handleLinkClick(e: SyntheticEvent) {
     e.preventDefault();
     dispatch(finishAuthAction());
   }
@@ -22,7 +22,7 @@ function HeaderNavLogged(props: {dispatch: AppDispatch, email: string}): JSX.Ele
           </Link>
         </li>
         <li className="header__nav-item">
-          <a className="header__nav-link" data-testid="header-signout-link" href="#nav-link" onClick={handleClick}>
+          <a className="header__nav-link" data-testid="header-signout-link" href="#nav-link" onClick={handleLinkClick}>
             <span className="header__signout">Sign out</span>
           </a>
         </li>

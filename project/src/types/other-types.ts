@@ -1,7 +1,4 @@
-import store from '../store/store';
 import {Location, Offer, Point} from './offers';
-
-export type AppDispatch = typeof store.dispatch;
 
 export type AuthDataType = {
   email: FormDataEntryValue | null,
@@ -38,5 +35,3 @@ export type PlaceCardListProps = {
 }
 
 export type PlaceCardType = 'favorite' | 'placeCard' | 'placeNearby'| 'room';
-
-export type StateType = ReturnType<typeof store.getState>;
