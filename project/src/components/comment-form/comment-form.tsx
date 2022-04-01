@@ -30,12 +30,14 @@ function CommentForm(): JSX.Element {
   }
 
   function handleChange(e: SyntheticEvent) {
-    const { name, value } = e.target as HTMLFormElement;
-    const newState = { ...formData, [name]: value, checkboxesValue: getCheckboxesInitState()};
-    if (newState.rating) {
-      newState.checkboxesValue[MAX_STARS_RATING - newState.rating] = true;
+    if (!isFormLocked) {
+      const { name, value } = e.target as HTMLFormElement;
+      const newState = { ...formData, [name]: value, checkboxesValue: getCheckboxesInitState()};
+      if (newState.rating) {
+        newState.checkboxesValue[MAX_STARS_RATING - newState.rating] = true;
+      }
+      setFormData(newState);
     }
-    setFormData(newState);
   }
 
   function handleSubmit(e: SyntheticEvent) {
@@ -59,11 +61,6 @@ function CommentForm(): JSX.Element {
       textareaElement.value = text;
     }
   }
-
-  // function restoreFormData(data: CommentFormDataType) {
-  //   setFormData(data);
-  //   setCommentText(data.comment);
-  // }
 
   useEffect(() => {
     const {rating, comment} = formData;
