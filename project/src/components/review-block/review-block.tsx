@@ -6,9 +6,7 @@ import {AuthorizationStatus, REVIEW} from '../../const';
 import {Comment} from '../../types/offers';
 
 function compare(a: Comment, b: Comment) {
-  const first = Date.parse(a.date);
-  const second = Date.parse(b.date);
-  return second - first;
+  return b.date.localeCompare(a.date);
 }
 
 export function getCommentsForRendering(data: Comment[]) {
