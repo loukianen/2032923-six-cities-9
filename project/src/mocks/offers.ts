@@ -1,7 +1,7 @@
 import {datatype, internet, lorem} from 'faker';
 import {getRandomValue} from '../services/utils';
 import {AccommodationType, Offer } from '../types/offers';
-import {accommodationTypes,cityNames} from '../const';
+import {accommodationsList, cityNames} from '../const';
 
 const OFFER_AMOUNT = 3;
 
@@ -39,7 +39,7 @@ const makeFakeOffers = (amount = OFFER_AMOUNT, cityName?: string): Offer[] => Ar
     price: datatype.number(),
     rating: datatype.float(),
     title: lorem.sentence(),
-    type: getRandomValue(accommodationTypes) as AccommodationType,
+    type: getRandomValue(accommodationsList) as AccommodationType,
   }));
 
 export default makeFakeOffers;

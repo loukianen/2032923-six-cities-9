@@ -1,6 +1,6 @@
 import { OffersSortingType } from './types/other-types';
 
-export const accommodationTypes = ['apartment', 'room', 'house', 'hotel'];
+export const accommodationsList = ['apartment', 'room', 'house', 'hotel'];
 
 export enum APIRoute {
   Comments = '/comments',
@@ -28,7 +28,7 @@ export enum AuthorizationStatus {
 
 export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export const DEFAULT_CITY = 'Paris';
+export const DEFAULT_CITY = cityNames[0];
 
 export const DEFAULT_ROOM_DATA = {
   comments: [],

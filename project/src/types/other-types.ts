@@ -1,7 +1,4 @@
-import store from '../store/store';
 import {Location, Offer, Point} from './offers';
-
-export type AppDispatch = typeof store.dispatch;
 
 export type AuthDataType = {
   email: FormDataEntryValue | null,
@@ -10,7 +7,7 @@ export type AuthDataType = {
 
 export type AuthorizationStatusType = 'authorized' | 'unauthorized' | 'unknown';
 
-export type CommentFormDataType = { rating: number | null, comment: string };
+export type CommentFormDataType = { rating: number | null, comment: string, checkboxesValue: Array<boolean> };
 
 export type MapProps = {
   city: Location;
@@ -38,5 +35,3 @@ export type PlaceCardListProps = {
 }
 
 export type PlaceCardType = 'favorite' | 'placeCard' | 'placeNearby'| 'room';
-
-export type StateType = ReturnType<typeof store.getState>;

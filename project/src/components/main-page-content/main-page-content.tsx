@@ -1,9 +1,7 @@
 import {useState, useMemo} from 'react';
-
 import SortingMenu from '../sorting-menu/sorting-menu';
 import PlaceCardList from '../../components/place-card-list/place-card-list';
 import Map from '../../components/map/map';
-
 import {Offer} from '../../types/offers';
 import {OffersSortingType} from '../../types/other-types';
 

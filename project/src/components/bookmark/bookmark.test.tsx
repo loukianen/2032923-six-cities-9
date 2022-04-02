@@ -51,7 +51,7 @@ describe('Component: Bookmark', () => {
     });
 
     it('not active button if offer is not Favorite and with "room" type', () => {
-      const store = mockStore({USER: {
+      const store = mockStore({[NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.Auth,
       }});
 

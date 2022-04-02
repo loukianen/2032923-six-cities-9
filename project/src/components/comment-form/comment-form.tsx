@@ -6,57 +6,72 @@ import {REVIEW, MAX_STARS_RATING} from '../../const';
 import {CommentFormDataType} from '../../types/other-types';
 import {getHotelId} from '../../store/room-process/selectors';
 
-export const FORM_DATA_INIT_STATE = { rating: null, comment: '' };
+const FORM_DATA_INIT_STATE = {
+  rating: null,
+  comment: '',
+  checkboxesValue: getCheckboxesInitState(),
+};
 
 function getCheckboxesInitState() {
   return Array(MAX_STARS_RATING).fill(false);
 }
 
 function CommentForm(): JSX.Element {
-  const [formData, setFormData] = useState(FORM_DATA_INIT_STATE as CommentFormDataType);
-  const [checkboxes, setCheckboxes] = useState(getCheckboxesInitState());
+  const [formData, setFormData] = useState<CommentFormDataType>(FORM_DATA_INIT_STATE);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormLocked, setIsFormLocked] = useState(false);
   const dispatch = useAppDispatch();
   const hotelId = useAppSelector(getHotelId);
 
-  function handleChange(e: SyntheticEvent) {
-    const { name, value } = e.target as HTMLFormElement;
-    setFormData({ ...formData, [name]: value });
-  }
-
   function clearComment() {
     setFormData({...FORM_DATA_INIT_STATE});
-    const textareaElement = document.getElementById('room-comment-text') as HTMLTextAreaElement | null;
-    if (textareaElement) {
-      textareaElement.value = '';
+    setCommentText('');
+    setIsFormLocked(false);
+  }
+
+  function handleFormChange(e: SyntheticEvent) {
+    if (!isFormLocked) {
+      const { name, value } = e.target as HTMLFormElement;
+      const newState = { ...formData, [name]: value, checkboxesValue: getCheckboxesInitState()};
+      if (newState.rating) {
+        newState.checkboxesValue[MAX_STARS_RATING - newState.rating] = true;
+      }
+      setFormData(newState);
     }
   }
 
-  function handleSubmit(e: SyntheticEvent) {
+  function handleFormSubmit(e: SyntheticEvent) {
     e.preventDefault();
     if (hotelId) {
-      clearComment();
-      dispatch(sendCommentAction({comment: formData, hotelId, onRestoreFormData: setFormData}));
+      setIsFormLocked(true);
+      dispatch(sendCommentAction({
+        comment: formData,
+        hotelId,
+        onClearCommentForm: clearComment,
+        onLockCommentForm: setIsFormLocked,
+      }));
     } else {
       errorHandle({error: new Error()});
     }
   }
 
-  useEffect(() => {
-    const { rating, comment } = formData;
-    const newCheckboxes = getCheckboxesInitState();
-    if (rating !== null) {
-      newCheckboxes[MAX_STARS_RATING - rating] = true;
+  function setCommentText(text: string) {
+    const textareaElement = document.getElementById('room-comment-text') as HTMLTextAreaElement | null;
+    if (textareaElement) {
+      textareaElement.value = text;
     }
+  }
+
+  useEffect(() => {
+    const {rating, comment} = formData;
     setIsFormValid(rating !== null && comment.length >= REVIEW.MinLength);
-    setCheckboxes(newCheckboxes);
   }, [formData]);
 
   return (
-    <form className="reviews__form form" data-testid="reviews-form" action="#-some-valid-path" method="post" onChange={handleChange} onSubmit={handleSubmit}>
+    <form className="reviews__form form" data-testid="reviews-form" action="#-some-valid-path" method="post" onChange={handleFormChange} onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {checkboxes.map((item, i) => {
+        {formData.checkboxesValue.map((item, i) => {
           const value = MAX_STARS_RATING - i;
           return (
             <Fragment key={value}>
@@ -75,7 +90,7 @@ function CommentForm(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" data-testid="submit" type="submit" disabled={!isFormValid}>Submit</button>
+        <button className="reviews__submit form__submit button" data-testid="submit" type="submit" disabled={!isFormValid || isFormLocked}>Submit</button>
       </div>
     </form>
   );

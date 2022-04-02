@@ -8,7 +8,7 @@ import HistoryRouter from '../history-router/history-router';
 import {AppRoute} from '../../const';
 import HeaderNavLogged from './header-nav-logged';
 import makeFakeUser from '../../mocks/user';
-import {AppDispatch} from '../../types/other-types';
+import {AppDispatch} from '../../types/state';
 
 const user = makeFakeUser();
 const renderHeaderNavLogged = (store: MockStore, history: History, props: {dispatch: AppDispatch, email: string}) => {

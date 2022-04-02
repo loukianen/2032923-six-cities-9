@@ -275,20 +275,23 @@ describe('Async actions', () => {
 
   describe('sendCommentAction', () => {
     const fakeDataForSend = {
-      onRestoreFormData: jest.fn(),
       hotelId: 1,
       comment: {
         rating: 3,
         comment: 'Some text',
+        checkboxesValue: [false, false, true, false, false],
       },
+      onClearCommentForm: jest.fn(),
+      onLockCommentForm: jest.fn(),
     };
     const requestPath = `${APIRoute.Comments}/${fakeDataForSend.hotelId}`;
 
     it('should set comment when server return 200 from %s', async () => {
       const store = mockStore();
+      const {rating, comment} = fakeDataForSend.comment;
 
       mockAPI
-        .onPost(requestPath, fakeDataForSend.comment)
+        .onPost(requestPath, {rating, comment})
         .reply(200, {});
 
       expect(store.getActions()).toEqual([]);
@@ -298,13 +301,15 @@ describe('Async actions', () => {
       const actions = store.getActions().map(({type}) => type);
 
       expect(actions).toContain(setComments.toString());
+      expect(fakeDataForSend.onClearCommentForm).toBeCalled();
     });
 
     it('should set authStatus "unauth" when server return 401 from %s', async () => {
       const store = mockStore();
+      const {rating, comment} = fakeDataForSend.comment;
 
       mockAPI
-        .onPost(requestPath, fakeDataForSend.comment)
+        .onPost(requestPath, {rating, comment})
         .reply(401, {});
       Storage.prototype.removeItem = jest.fn();
 
@@ -316,26 +321,7 @@ describe('Async actions', () => {
 
       expect(actions).toContain(unSuccessfulAuth.toString());
       expect(Storage.prototype.removeItem).toBeCalledTimes(1);
-      expect(fakeDataForSend.onRestoreFormData).not.toBeCalled();
-    });
-
-    it('should be called onRestoreFormData when server return 400 from %s', async () => {
-      const store = mockStore();
-
-      mockAPI
-        .onPost(requestPath, fakeDataForSend.comment)
-        .reply(400, {});
-      Storage.prototype.removeItem = jest.fn();
-
-      expect(store.getActions()).toEqual([]);
-
-      await store.dispatch(sendCommentAction(fakeDataForSend));
-
-      const actions = store.getActions().map(({type}) => type);
-
-      expect(fakeDataForSend.onRestoreFormData).toBeCalledTimes(1);
-      expect(actions).not.toContain(unSuccessfulAuth.toString());
-      expect(Storage.prototype.removeItem).not.toBeCalled();
+      expect(fakeDataForSend.onLockCommentForm).toBeCalledWith(false);
     });
   });
 });

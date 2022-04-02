@@ -5,7 +5,7 @@ import {HTTP_CODE} from '../const';
 
 export const errorHandle = (error: ErrorType): void => {
   if (!request.isAxiosError(error)) {
-    toast.error('Somthing has gone wrong');
+    toast.info('Somthing has gone wrong');
     throw error;
   }
 
@@ -23,7 +23,7 @@ export const errorHandle = (error: ErrorType): void => {
         toast.info(response.data.error);
         break;
       default:
-        toast.error('Somthing has gone wrong');
+        toast.info('Somthing has gone wrong');
         break;
     }
   }
