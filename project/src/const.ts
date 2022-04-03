@@ -57,7 +57,6 @@ export const MAX_STARS_RATING = 5;
 
 export enum NameSpace {
   Auth = 'AUTH',
-  City = 'CITY',
   Comments = 'COMMENTS',
   Favorites = 'FAVORITES',
   OffersNearby = 'OFFERS_NEARBY',

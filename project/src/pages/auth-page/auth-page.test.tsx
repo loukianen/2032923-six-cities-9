@@ -91,7 +91,26 @@ describe('Component: AuthPage', () => {
     expect(screen.getByText('City page')).toBeInTheDocument();
   });
 
-  it('should dipatch action and clear form if user click submit', () => {
+  it('should dipatch action and clear form if user click submit and password is valide', () => {
+    const store = mockStore({[NameSpace.User]: {
+      authorizationStatus: AuthorizationStatus.NoAuth,
+    }});
+    store.dispatch = jest.fn();
+
+    renderAuthPage(store, history);
+
+    userEvent.type(screen.getByPlaceholderText('Email'), 'test@test.com');
+    expect(screen.getByDisplayValue('test@test.com')).toBeInTheDocument();
+    userEvent.type(screen.getByPlaceholderText('Password'), 'a1');
+
+    userEvent.click(screen.getByRole('button'));
+
+    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
+    expect(store.dispatch).toBeCalled();
+  });
+
+  it('should not dipatch action if user click submit and password is not valide', () => {
     const store = mockStore({[NameSpace.User]: {
       authorizationStatus: AuthorizationStatus.NoAuth,
     }});
@@ -105,8 +124,6 @@ describe('Component: AuthPage', () => {
 
     userEvent.click(screen.getByRole('button'));
 
-    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
-    expect(store.dispatch).toBeCalled();
+    expect(store.dispatch).not.toBeCalled();
   });
 });

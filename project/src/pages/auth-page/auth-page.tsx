@@ -7,6 +7,11 @@ import {getAuthStatus} from '../../store/user-process/selectors';
 import LocationLink from '../../components/location-link/location-link';
 import {getRandomValue} from '../../services/utils';
 import {AppRoute, AuthorizationStatus, cityNames} from '../../const';
+import {toast} from 'react-toastify';
+
+const passwordWarningText = 'Password should contain minimum one letter and one number';
+
+export const validatePassword = (password: string) => password.match(/[A-Za-z]/) !== null && password.match(/[0-9]/) !== null;
 
 function AuthPage(): JSX.Element {
   const cityName = getRandomValue(cityNames);
@@ -24,10 +29,10 @@ function AuthPage(): JSX.Element {
     if (evt.target instanceof HTMLFormElement) {
       const formData = new FormData(evt.target);
       const authData = {
-        email: formData.get('email'),
-        password: formData.get('password'),
+        email: formData.get('email') as string,
+        password: formData.get('password') as string,
       };
-      dispatch(authAction(authData));
+      validatePassword(authData.password) ? dispatch(authAction(authData)) : toast.warn(passwordWarningText);
     }
   }
 
@@ -56,7 +61,7 @@ function AuthPage(): JSX.Element {
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" required />
+                <input className="login__input form__input" type="password" name="password" placeholder="Password" title={passwordWarningText} required />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
